@@ -33,6 +33,7 @@
       padding: 4px 10px; border-radius: 20px; transition: all 0.2s;
     }
     nav a:hover { background: rgba(255,255,255,0.1); color: white; }
+    nav a.active { background: rgba(255,255,255,0.15); color: white; }
     nav .nav-logo { color: white; font-weight: 700; font-size: 14px; margin-right: 16px; }
 
     /* ── BADGE ── */
@@ -1098,6 +1099,42 @@
     ↑ 각 섹션의 💡 개선 포인트 박스를 참고해 원본 포트폴리오에 반영해보세요.
   </div>
 </section>
+
+<script>
+  // 스크롤 스파이: 현재 화면 중앙에 보이는 섹션에 따라 GNB 활성화 상태 변경
+  document.addEventListener('DOMContentLoaded', function () {
+    var sections = document.querySelectorAll('section[id]');
+    var navLinks = document.querySelectorAll('nav a[href^="#"]');
+
+    function setActive(id) {
+      navLinks.forEach(function (a) {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+      });
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+      // 교차된 섹션 중 가장 위에 있는 것을 active로
+      var visible = entries
+        .filter(function (e) { return e.isIntersecting; })
+        .sort(function (a, b) { return a.boundingClientRect.top - b.boundingClientRect.top; });
+      if (visible.length > 0) setActive(visible[0].target.id);
+    }, {
+      // viewport 중앙 부분만 감지 영역으로 사용
+      rootMargin: '-40% 0px -55% 0px',
+      threshold: 0
+    });
+
+    sections.forEach(function (s) { observer.observe(s); });
+
+    // GNB 클릭 시 즉시 활성화 상태 반영 (스크롤 도중에도 자연스럽게)
+    navLinks.forEach(function (a) {
+      a.addEventListener('click', function () {
+        var href = a.getAttribute('href');
+        if (href && href.length > 1) setActive(href.slice(1));
+      });
+    });
+  });
+</script>
 
 </body>
 </html>
