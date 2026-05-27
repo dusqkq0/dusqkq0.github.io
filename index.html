@@ -296,19 +296,20 @@
 
     /* ── CAREER ── */
     .career-block { margin-bottom: 56px; }
-    .career-title { font-size: 15px; font-weight: 700; color: #222; margin-bottom: 12px; }
-    .career-divider { border: 0; border-top: 1px solid #ddd; margin: 0 0 28px; }
+    .career-title { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 12px; letter-spacing: 0.3px; }
+    .career-divider { border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 0 0 28px; }
     .career-item { display: grid; grid-template-columns: 240px 1fr; gap: 32px; margin-bottom: 28px; align-items: start; }
-    .career-company { font-size: 15px; color: #333; line-height: 1.5; }
-    .career-company strong { font-weight: 700; }
+    .career-company { font-size: 15px; color: #ddd; line-height: 1.5; }
+    .career-company strong { font-weight: 700; color: #fff; }
     .career-period { font-size: 13px; color: #999; margin-bottom: 6px; }
-    .career-desc { font-size: 14px; color: #444; line-height: 1.7; }
+    .career-desc { font-size: 14px; color: #bbb; line-height: 1.7; }
     .career-detail ul { margin: 0; padding-left: 18px; }
-    .career-detail li { font-size: 14px; color: #444; line-height: 1.7; }
+    .career-detail li { font-size: 14px; color: #bbb; line-height: 1.7; }
     .tool-grid { display: flex; flex-wrap: wrap; gap: 10px; }
     .tool-chip {
       display: inline-flex; align-items: center;
-      background: #f5f5f5; color: #555;
+      background: rgba(255,255,255,0.06); color: #ccc;
+      border: 1px solid rgba(255,255,255,0.08);
       padding: 8px 14px; border-radius: 10px;
       font-size: 13px; letter-spacing: 0.2px;
     }
@@ -320,8 +321,8 @@
 <nav>
   <span class="nav-logo">윤혜련 포트폴리오</span>
   <a href="#cover">표지</a>
-  <a href="#about">소개</a>
   <a href="#career">경력</a>
+  <a href="#about">소개</a>
   <a href="#angels">FG Angels</a>
   <a href="#gift">선물하기</a>
   <a href="#vip">VIP 프로그램</a>
@@ -389,65 +390,9 @@
 
 
 <!-- ═══════════════════════════════════════ -->
-<!-- 2. ABOUT                               -->
-<!-- ═══════════════════════════════════════ -->
-<section id="about" class="section-dark" style="padding-top:120px;">
-  <div class="about-grid">
-    <div>
-      <p class="section-subtitle">ABOUT ME</p>
-      <h2 class="about-headline">
-        데이터로 문제를 정의하고,<br>
-        <strong>구조로 행동을 설계합니다.</strong>
-      </h2>
-      <p class="about-body">
-        약 9년간 캐시워크, 야놀자, NHN FashionGo, NHN Commerce에서
-        B2C/B2B 서비스를 기획해왔습니다.<br><br>
-        제가 기획을 시작할 때 가장 먼저 하는 일은 데이터로 현재 상태를
-        정확히 파악하는 것입니다. Heap, GA, Superset 등을 직접 분석하며
-        "왜 사용자가 이 지점에서 이탈하는가"를 수치로 확인하고,
-        그 원인에 맞는 구조를 설계합니다.<br><br>
-        NHN 글로벌(LA) 본사와의 협업을 통해 영어 기획서 작성과
-        글로벌 팀 커뮤니케이션 경험도 쌓았습니다.
-      </p>
-      <div class="tag-row" style="margin-top:24px;">
-        <span class="tag">참여 구조 설계</span>
-        <span class="tag">리워드 시스템</span>
-        <span class="tag">데이터 기반 기획</span>
-        <span class="tag">B2B/B2C</span>
-        <span class="tag">글로벌 협업 (LA)</span>
-      </div>
-    </div>
-
-    <div>
-      <p class="section-subtitle" style="margin-bottom:20px;">KEY NUMBERS</p>
-      <div class="stat-grid">
-        <div class="stat-card">
-          <div class="stat-num">500만</div>
-          <div class="stat-label">캐시워크 서비스 출시 이후<br>달성한 MAU</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">16.5%</div>
-          <div class="stat-label">리뷰 리워드 시스템 적용 후<br>실질 참여율 (Heap 측정)</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">+10%</div>
-          <div class="stat-label">VIP 프로그램 출시 후<br>전체 주문액 YoY 증가</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">9년+</div>
-          <div class="stat-label">B2C/B2B 서비스 기획<br>전 과정 수행 경험</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-
-<!-- ═══════════════════════════════════════ -->
 <!-- CAREER (경력사항)                       -->
 <!-- ═══════════════════════════════════════ -->
-<section id="career" class="section-light" style="padding-top:120px;">
+<section id="career" class="section-dark" style="padding-top:120px;">
 
   <!-- 경력사항 -->
   <div class="career-block">
@@ -527,6 +472,62 @@
       <span class="tool-chip">Beusable</span>
       <span class="tool-chip">Slack</span>
       <span class="tool-chip">Google Workspace</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 2. ABOUT                               -->
+<!-- ═══════════════════════════════════════ -->
+<section id="about" class="section-dark" style="padding-top:120px;">
+  <div class="about-grid">
+    <div>
+      <p class="section-subtitle">ABOUT ME</p>
+      <h2 class="about-headline">
+        데이터로 문제를 정의하고,<br>
+        <strong>구조로 행동을 설계합니다.</strong>
+      </h2>
+      <p class="about-body">
+        약 9년간 캐시워크, 야놀자, NHN FashionGo, NHN Commerce에서
+        B2C/B2B 서비스를 기획해왔습니다.<br><br>
+        제가 기획을 시작할 때 가장 먼저 하는 일은 데이터로 현재 상태를
+        정확히 파악하는 것입니다. Heap, GA, Superset 등을 직접 분석하며
+        "왜 사용자가 이 지점에서 이탈하는가"를 수치로 확인하고,
+        그 원인에 맞는 구조를 설계합니다.<br><br>
+        NHN 글로벌(LA) 본사와의 협업을 통해 영어 기획서 작성과
+        글로벌 팀 커뮤니케이션 경험도 쌓았습니다.
+      </p>
+      <div class="tag-row" style="margin-top:24px;">
+        <span class="tag">참여 구조 설계</span>
+        <span class="tag">리워드 시스템</span>
+        <span class="tag">데이터 기반 기획</span>
+        <span class="tag">B2B/B2C</span>
+        <span class="tag">글로벌 협업 (LA)</span>
+      </div>
+    </div>
+
+    <div>
+      <p class="section-subtitle" style="margin-bottom:20px;">KEY NUMBERS</p>
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-num">500만</div>
+          <div class="stat-label">캐시워크 서비스 출시 이후<br>달성한 MAU</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">16.5%</div>
+          <div class="stat-label">리뷰 리워드 시스템 적용 후<br>실질 참여율 (Heap 측정)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">+10%</div>
+          <div class="stat-label">VIP 프로그램 출시 후<br>전체 주문액 YoY 증가</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">9년+</div>
+          <div class="stat-label">B2C/B2B 서비스 기획<br>전 과정 수행 경험</div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
