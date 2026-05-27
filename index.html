@@ -475,7 +475,7 @@
         </div>
         <div style="text-align:right;">
           <p style="font-size:14px;font-weight:600;color:#555;">2025.04 – 현재</p>
-          <p style="font-size:12px;color:#aaa;margin-top:2px;">약 1년+</p>
+          <p style="font-size:12px;color:#aaa;margin-top:2px;" data-career-start="2025-04">약 1년+</p>
         </div>
       </div>
 
@@ -1697,6 +1697,25 @@
 
 
 <script>
+  // 경력 기간 자동 카운트 (data-career-start="YYYY-MM" 가진 요소를 오늘 기준으로 계산)
+  (function () {
+    function formatDuration(startYear, startMonth) {
+      var today = new Date();
+      var months = (today.getFullYear() - startYear) * 12 + (today.getMonth() + 1 - startMonth);
+      if (months < 0) return '';
+      var years = Math.floor(months / 12);
+      var rem = months % 12;
+      if (years === 0) return '약 ' + months + '개월';
+      if (rem === 0) return '약 ' + years + '년';
+      return '약 ' + years + '년 ' + rem + '개월';
+    }
+    document.querySelectorAll('[data-career-start]').forEach(function (el) {
+      var parts = el.dataset.careerStart.split('-').map(Number);
+      var label = formatDuration(parts[0], parts[1]);
+      if (label) el.textContent = label;
+    });
+  })();
+
   // 스크롤 스파이: 현재 화면 중앙에 보이는 섹션에 따라 GNB 활성화 상태 변경
   document.addEventListener('DOMContentLoaded', function () {
     var sections = document.querySelectorAll('section[id]');
