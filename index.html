@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>포트폴리오 개선 예시 – 윤혜련</title>
+  <style>
+    :root {
+      --dark: #1e1e1e;
+      --dark2: #2a2a2a;
+      --white: #ffffff;
+      --gray-light: #f5f5f5;
+      --gray-mid: #e0e0e0;
+      --gray-text: #555;
+      --accent: #4f9cf9;
+      --accent2: #7ecfb0;
+      --badge-new: #27ae60;
+      --badge-fix: #e67e22;
+      --badge-tip: #8e44ad;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif; background: var(--dark); }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+      background: rgba(20,20,20,0.96); backdrop-filter: blur(8px);
+      display: flex; align-items: center; gap: 6px;
+      padding: 10px 32px; flex-wrap: wrap;
+    }
+    nav a {
+      color: #aaa; text-decoration: none; font-size: 12px;
+      padding: 4px 10px; border-radius: 20px; transition: all 0.2s;
+    }
+    nav a:hover { background: rgba(255,255,255,0.1); color: white; }
+    nav .nav-logo { color: white; font-weight: 700; font-size: 14px; margin-right: 16px; }
+
+    /* ── BADGE ── */
+    .badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 11px; font-weight: 700; padding: 3px 10px;
+      border-radius: 20px; margin-bottom: 10px; letter-spacing: 0.3px;
+    }
+    .badge-new  { background: #d5f5e3; color: #1a7a45; }
+    .badge-fix  { background: #fdebd0; color: #a04000; }
+    .badge-tip  { background: #e8d5f5; color: #5b2c87; }
+
+    .improvement-box {
+      border-left: 3px solid var(--accent);
+      background: rgba(79,156,249,0.07);
+      padding: 12px 16px; border-radius: 0 8px 8px 0;
+      margin-top: 20px; font-size: 13px; color: #ccc; line-height: 1.7;
+    }
+    .improvement-box strong { color: var(--accent); }
+
+    /* ── DARK SECTION ── */
+    .section-dark {
+      background: var(--dark); color: white;
+      padding: 100px 80px 80px;
+    }
+    .section-dark2 {
+      background: var(--dark2); color: white;
+      padding: 80px 80px;
+    }
+    /* ── LIGHT SECTION ── */
+    .section-light {
+      background: var(--white); color: #222;
+      padding: 80px 80px;
+    }
+    .section-gray {
+      background: var(--gray-light); color: #222;
+      padding: 80px 80px;
+    }
+
+    /* ── COVER ── */
+    #cover {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      background: var(--dark);
+    }
+    .cover-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 80px 60px; color: white;
+    }
+    .cover-left h1 { font-size: 36px; line-height: 1.4; font-weight: 300; margin-bottom: 32px; }
+    .cover-left h1 strong { font-weight: 700; }
+    .cover-name { font-size: 28px; font-weight: 700; margin-bottom: 28px; }
+    .contact-list { display: flex; flex-direction: column; gap: 10px; }
+    .contact-item {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 14px; color: #bbb;
+    }
+    .contact-item .icon { font-size: 16px; }
+    .contact-item a { color: var(--accent); text-decoration: none; }
+
+    .cover-right {
+      background: white;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 80px 60px;
+    }
+    .toc-title { font-size: 13px; color: #999; margin-bottom: 20px; letter-spacing: 1px; }
+    .toc-item {
+      padding: 14px 0; border-bottom: 1px solid #eee;
+      font-size: 15px; color: #333; display: flex; justify-content: space-between;
+      align-items: center;
+    }
+    .toc-item .toc-tag {
+      font-size: 11px; background: #f0f0f0; color: #777;
+      padding: 3px 8px; border-radius: 10px;
+    }
+    .toc-item.toc-new .toc-tag { background: #d5f5e3; color: #1a7a45; font-weight: 700; }
+
+    /* ── ABOUT ── */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+    .about-headline { font-size: 32px; font-weight: 300; line-height: 1.5; margin-bottom: 24px; }
+    .about-headline strong { font-weight: 700; color: var(--accent); }
+    .about-body { font-size: 15px; line-height: 1.9; color: #ccc; }
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .stat-card {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px; padding: 24px;
+    }
+    .stat-num { font-size: 36px; font-weight: 700; color: var(--accent2); }
+    .stat-label { font-size: 13px; color: #aaa; margin-top: 4px; line-height: 1.5; }
+
+    /* ── PROJECT HEADER ── */
+    .project-header {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+      min-height: 100vh; align-items: center;
+    }
+    .project-meta { display: flex; flex-direction: column; gap: 24px; }
+    .project-num { font-size: 12px; color: #aaa; letter-spacing: 2px; }
+    .project-title { font-size: 40px; font-weight: 700; line-height: 1.2; }
+    .project-subtitle { font-size: 15px; color: #aaa; }
+    .meta-block { margin-top: 8px; }
+    .meta-label { font-size: 11px; color: #888; letter-spacing: 1px; margin-bottom: 6px; }
+    .meta-value { font-size: 14px; color: #ddd; line-height: 1.7; }
+    .project-img {
+      background: #2a2a2a; border-radius: 16px; overflow: hidden;
+      height: 500px; display: flex; align-items: center; justify-content: center;
+    }
+    .img-placeholder {
+      text-align: center; color: #555; font-size: 14px;
+    }
+    .img-placeholder .img-icon { font-size: 48px; margin-bottom: 12px; }
+
+    /* ── CONTENT BLOCKS ── */
+    .section-title { font-size: 22px; font-weight: 700; margin-bottom: 32px; }
+    .section-subtitle { font-size: 13px; color: #888; letter-spacing: 1px; margin-bottom: 8px; }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+
+    .info-card {
+      background: white; border: 1px solid #eee; border-radius: 12px; padding: 28px;
+    }
+    .info-card.dark {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px; padding: 28px;
+    }
+    .info-card h4 { font-size: 13px; color: #888; margin-bottom: 12px; letter-spacing: 0.5px; }
+    .info-card p, .info-card li { font-size: 14px; line-height: 1.8; color: #555; }
+    .info-card.dark p, .info-card.dark li { color: #ccc; }
+    .info-card ul { padding-left: 16px; }
+
+    /* ── DATA VIZ MOCK ── */
+    .chart-bar-wrap { margin: 24px 0; }
+    .chart-bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .chart-bar-label { font-size: 12px; color: #999; width: 100px; text-align: right; }
+    .chart-bar-track { flex: 1; background: #f0f0f0; border-radius: 4px; height: 28px; overflow: hidden; }
+    .chart-bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 10px; font-size: 12px; font-weight: 700; color: white; }
+
+    .kpi-row { display: flex; gap: 24px; flex-wrap: wrap; }
+    .kpi-card {
+      flex: 1; min-width: 140px;
+      background: white; border: 1px solid #eee; border-radius: 12px; padding: 20px;
+      text-align: center;
+    }
+    .kpi-card.dark {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+    }
+    .kpi-num { font-size: 32px; font-weight: 700; }
+    .kpi-label { font-size: 12px; color: #999; margin-top: 4px; }
+    .kpi-change { font-size: 12px; color: #27ae60; margin-top: 4px; font-weight: 600; }
+
+    /* ── FLOW ── */
+    .flow-wrap { display: flex; gap: 0; align-items: stretch; flex-wrap: wrap; }
+    .flow-step {
+      flex: 1; min-width: 120px; padding: 20px 16px;
+      background: white; border: 1px solid #eee; text-align: center;
+      position: relative; font-size: 13px;
+    }
+    .flow-step:not(:last-child)::after {
+      content: '→'; position: absolute; right: -12px; top: 50%;
+      transform: translateY(-50%); font-size: 18px; color: #aaa; z-index: 1;
+    }
+    .flow-step .step-num {
+      width: 24px; height: 24px; background: var(--accent); color: white;
+      border-radius: 50%; font-size: 11px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 8px;
+    }
+    .flow-step h5 { font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+    .flow-step p { font-size: 11px; color: #777; }
+
+    /* ── RESULT ── */
+    .result-highlight {
+      background: linear-gradient(135deg, #1e3a5f, #0f2033);
+      border-radius: 16px; padding: 40px; color: white; margin: 32px 0;
+    }
+    .result-highlight h3 { font-size: 18px; margin-bottom: 24px; color: #90caf9; }
+    .result-row { display: flex; gap: 32px; flex-wrap: wrap; }
+    .result-item { flex: 1; min-width: 160px; }
+    .result-item .r-num { font-size: 40px; font-weight: 700; color: white; }
+    .result-item .r-unit { font-size: 18px; color: #aaa; }
+    .result-item .r-label { font-size: 13px; color: #90caf9; margin-top: 4px; }
+    .result-item .r-note { font-size: 12px; color: #888; margin-top: 4px; line-height: 1.5; }
+
+    /* ── DECISION STORY ── */
+    .story-block {
+      border-left: 3px solid #e0e0e0; padding: 16px 24px; margin: 16px 0;
+    }
+    .story-block.challenge { border-color: #e74c3c; background: #fff9f9; }
+    .story-block.decision { border-color: var(--accent); background: #f0f7ff; }
+    .story-block.outcome { border-color: #27ae60; background: #f0fdf6; }
+    .story-label { font-size: 11px; font-weight: 700; color: #999; letter-spacing: 1px; margin-bottom: 6px; }
+    .story-block.challenge .story-label { color: #e74c3c; }
+    .story-block.decision .story-label { color: var(--accent); }
+    .story-block.outcome .story-label { color: #27ae60; }
+    .story-block p { font-size: 14px; line-height: 1.8; color: #444; }
+
+    /* ── RESEARCH ── */
+    .research-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .research-card {
+      background: white; border: 1px solid #eee; border-radius: 12px; padding: 24px;
+    }
+    .research-card .icon { font-size: 28px; margin-bottom: 12px; }
+    .research-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+    .research-card p { font-size: 13px; color: #666; line-height: 1.7; }
+    .quote-block {
+      background: #f8f8f8; border-left: 4px solid #ddd;
+      padding: 16px 20px; border-radius: 0 8px 8px 0;
+      font-size: 14px; color: #555; font-style: italic; line-height: 1.7;
+      margin: 12px 0;
+    }
+
+    /* ── TIMELINE ── */
+    .timeline { position: relative; padding-left: 32px; }
+    .timeline::before {
+      content: ''; position: absolute; left: 8px; top: 0; bottom: 0;
+      width: 2px; background: #e0e0e0;
+    }
+    .tl-item { position: relative; margin-bottom: 24px; }
+    .tl-dot {
+      position: absolute; left: -28px; top: 4px;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--accent); border: 2px solid white;
+      box-shadow: 0 0 0 2px var(--accent);
+    }
+    .tl-date { font-size: 11px; color: #999; margin-bottom: 4px; }
+    .tl-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .tl-body { font-size: 13px; color: #666; line-height: 1.7; }
+
+    /* ── DIVIDER ── */
+    hr.divider { border: none; border-top: 1px solid rgba(255,255,255,0.08); margin: 40px 0; }
+    hr.divider-light { border: none; border-top: 1px solid #eee; margin: 40px 0; }
+
+    /* ── TAGS ── */
+    .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+    .tag {
+      font-size: 12px; padding: 4px 10px; border-radius: 20px;
+      background: rgba(255,255,255,0.08); color: #aaa;
+    }
+    .tag.light { background: #f0f0f0; color: #666; }
+
+    /* ── ANNOT ── */
+    .annot-section {
+      position: relative; background: #fffbf0; border: 1px solid #f5c842;
+      border-radius: 12px; padding: 20px 24px; margin: 24px 0;
+    }
+    .annot-section::before {
+      content: '💡 개선 포인트'; display: block;
+      font-size: 11px; font-weight: 700; color: #b7860b; margin-bottom: 8px;
+    }
+    .annot-section p { font-size: 13px; color: #555; line-height: 1.7; }
+
+    /* ── SCROLL HINT ── */
+    .scroll-hint { text-align: center; padding: 20px; color: #555; font-size: 13px; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">윤혜련 포트폴리오</span>
+  <a href="#cover">표지</a>
+  <a href="#about">소개</a>
+  <a href="#angels" style="color:#f0c040;font-weight:700;">🏆 FG Angels</a>
+  <a href="#vip">VIP 프로그램</a>
+  <a href="#review">리뷰 리워드</a>
+  <a href="#yanolja">야놀자</a>
+  <a href="#cashwalk">캐시워크</a>
+  <a href="#gift">선물하기</a>
+</nav>
+
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 1. COVER                               -->
+<!-- ═══════════════════════════════════════ -->
+<section id="cover">
+  <div class="cover-left">
+    <div style="margin-bottom:48px;">
+      <span class="badge badge-fix">개선됨</span>
+      <p style="font-size:12px;color:#666;margin-bottom:16px;">※ 원본에서 연락처 정보가 없었음 → 아래처럼 추가</p>
+    </div>
+
+    <p style="font-size:14px;color:#888;margin-bottom:16px;">Service Product Manager</p>
+    <h1>사용자 데이터와 행동을 기반으로<br><strong>참여 구조와 혜택 경험을</strong><br>설계하는 서비스 기획자</h1>
+    <div class="cover-name">윤혜련</div>
+
+    <div class="contact-list">
+      <div class="contact-item">
+        <span class="icon">✉️</span>
+        <a href="mailto:hyeryeon.yun@nhn-commerce.com">hyeryeon.yun@nhn-commerce.com</a>
+      </div>
+      <div class="contact-item">
+        <span class="icon">📞</span>
+        <span>010-XXXX-XXXX</span>
+      </div>
+      <div class="contact-item">
+        <span class="icon">🔗</span>
+        <a href="#">linkedin.com/in/hyeryeon-yun</a>
+      </div>
+      <div class="contact-item">
+        <span class="icon">📄</span>
+        <a href="#">notion.so/hyeryeon-portfolio</a>
+      </div>
+    </div>
+
+    <div class="annot-section" style="margin-top:32px;">
+      <p>표지에 이름만 있으면 채용담당자가 연락처를 찾아야 합니다. <strong>이메일, LinkedIn, Notion 링크</strong>를 표지에 직접 넣어두세요. 포트폴리오가 공유·유통될 때 기회를 놓치지 않게 됩니다.</p>
+    </div>
+  </div>
+
+  <div class="cover-right" style="padding-top:100px;">
+    <p class="toc-title">목차 (TABLE OF CONTENTS)</p>
+
+    <div class="toc-item toc-new" style="border-left:3px solid #f0c040;padding-left:12px;">
+      <span>🏆 FG Angels — AI Agent for FashionGo</span>
+      <span class="toc-tag" style="background:#fff3cd;color:#856404;font-weight:700;">2026 · AI Sprint 1위</span>
+    </div>
+    <div class="toc-item">
+      <span>1. VIP 프로그램 (멤버십 구조 시스템)</span>
+      <span class="toc-tag">FashionGo · B2B/B2C</span>
+    </div>
+    <div class="toc-item">
+      <span>2. 리뷰 리워드 시스템 (사용자 참여형 설계)</span>
+      <span class="toc-tag">FashionGo · B2B/B2C</span>
+    </div>
+    <div class="toc-item toc-new">
+      <span>3. 통합예약 UX 개선 (야놀자)</span>
+      <span class="toc-tag">✨ 신규 추가</span>
+    </div>
+    <div class="toc-item">
+      <span>4. 캐시워크 (리워드 참여 구조 설계)</span>
+      <span class="toc-tag">캐시워크 · B2C</span>
+    </div>
+    <div class="toc-item">
+      <span>5. 선물하기 시스템 (이커머스 B2B)</span>
+      <span class="toc-tag">NHN Commerce</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 2. ABOUT                               -->
+<!-- ═══════════════════════════════════════ -->
+<section id="about" class="section-dark" style="padding-top:120px;">
+  <div style="margin-bottom:20px;">
+    <span class="badge badge-new">신규 추가</span>
+    <span style="font-size:12px;color:#666;margin-left:8px;">※ 원본에 없던 자기소개 섹션 → 기획 철학 + 핵심 수치로 구성</span>
+  </div>
+
+  <div class="about-grid">
+    <div>
+      <p class="section-subtitle">ABOUT ME</p>
+      <h2 class="about-headline">
+        데이터로 문제를 정의하고,<br>
+        <strong>구조로 행동을 설계합니다.</strong>
+      </h2>
+      <p class="about-body">
+        약 9년간 캐시워크, 야놀자, NHN FashionGo, NHN Commerce에서
+        B2C/B2B 서비스를 기획해왔습니다.<br><br>
+        제가 기획을 시작할 때 가장 먼저 하는 일은 데이터로 현재 상태를
+        정확히 파악하는 것입니다. Heap, GA, Superset 등을 직접 분석하며
+        "왜 사용자가 이 지점에서 이탈하는가"를 수치로 확인하고,
+        그 원인에 맞는 구조를 설계합니다.<br><br>
+        NHN 글로벌(LA) 본사와의 협업을 통해 영어 기획서 작성과
+        글로벌 팀 커뮤니케이션 경험도 쌓았습니다.
+      </p>
+      <div class="tag-row" style="margin-top:24px;">
+        <span class="tag">참여 구조 설계</span>
+        <span class="tag">리워드 시스템</span>
+        <span class="tag">데이터 기반 기획</span>
+        <span class="tag">B2B/B2C</span>
+        <span class="tag">글로벌 협업 (LA)</span>
+      </div>
+    </div>
+
+    <div>
+      <p class="section-subtitle" style="margin-bottom:20px;">KEY NUMBERS</p>
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-num">500만</div>
+          <div class="stat-label">캐시워크 서비스 출시 이후<br>달성한 MAU</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">16.5%</div>
+          <div class="stat-label">리뷰 리워드 시스템 적용 후<br>실질 참여율 (Heap 측정)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">+10%</div>
+          <div class="stat-label">VIP 프로그램 출시 후<br>전체 주문액 YoY 증가</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">9년+</div>
+          <div class="stat-label">B2C/B2B 서비스 기획<br>전 과정 수행 경험</div>
+        </div>
+      </div>
+
+      <div class="annot-section" style="margin-top:24px;">
+        <p>커버에서 바로 프로젝트로 넘어가면 "이 사람이 어떤 기획자인가"를
+        파악하는 데 시간이 걸립니다. <strong>1페이지 분량의 About 섹션</strong>으로
+        기획 철학과 핵심 강점을 먼저 각인시킨 뒤 프로젝트를 펼치세요.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════ -->
+<!-- FG ANGELS (AI 프로젝트 — 신규)          -->
+<!-- ═══════════════════════════════════════ -->
+<section id="angels" style="
+  background: linear-gradient(160deg, #0f1e0f 0%, #0d1a2e 50%, #1a0d2e 100%);
+  color: white; padding: 120px 80px 80px; min-height: 100vh; position: relative; overflow: hidden;
+">
+  <!-- 배경 장식 -->
+  <div style="
+    position:absolute; top:-80px; right:-80px; width:400px; height:400px;
+    background: radial-gradient(circle, rgba(240,192,64,0.12) 0%, transparent 70%);
+    border-radius:50%; pointer-events:none;
+  "></div>
+  <div style="
+    position:absolute; bottom:-60px; left:10%; width:300px; height:300px;
+    background: radial-gradient(circle, rgba(79,156,249,0.1) 0%, transparent 70%);
+    border-radius:50%; pointer-events:none;
+  "></div>
+
+  <!-- 수상 뱃지 -->
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:32px;flex-wrap:wrap;">
+    <span style="
+      background: linear-gradient(135deg, #f0c040, #e8860a);
+      color: #1a0d00; font-size:13px; font-weight:800; padding:6px 16px;
+      border-radius:20px; letter-spacing:0.3px;
+    ">🏆 NHN 1st AI 스프린톤 업무생산성 트랙 1위</span>
+    <span style="background:rgba(255,255,255,0.08);color:#aaa;font-size:12px;padding:4px 12px;border-radius:20px;">12팀 참가 · 상금 1,000만원</span>
+    <span style="background:rgba(255,255,255,0.08);color:#aaa;font-size:12px;padding:4px 12px;border-radius:20px;">2026.03 – 2026.06</span>
+  </div>
+
+  <!-- 프로젝트 헤더 -->
+  <div style="margin-bottom:56px;">
+    <p style="font-size:12px;color:#888;letter-spacing:2px;margin-bottom:10px;">FEATURED AI PROJECT</p>
+    <h2 style="font-size:44px;font-weight:800;line-height:1.15;margin-bottom:16px;">
+      FG Angels<br>
+      <span style="font-size:24px;font-weight:400;color:#aaa;">AI Agent for FashionGo</span>
+    </h2>
+    <p style="font-size:16px;color:#ccc;line-height:1.7;max-width:680px;">
+      북미 1위 B2B 패션 플랫폼 FashionGo의 아시아 공장 소싱 전 과정을
+      AI 에이전트로 자동화한 PoC. 도메인 전문가 1·기획자(본인) 1·개발자 1,
+      단 3인 크로스펑셔널 팀으로 기획부터 동작하는 프로토타입까지 완성.
+    </p>
+  </div>
+
+  <!-- 배경 및 문제 정의 -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-bottom:56px;">
+    <div>
+      <p style="font-size:11px;color:#888;letter-spacing:1.5px;margin-bottom:16px;">BACKGROUND &amp; PROBLEM</p>
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:28px;">
+        <h4 style="font-size:16px;font-weight:700;margin-bottom:16px;color:#f0c040;">기존의 문제</h4>
+        <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:14px;">
+          <li style="display:flex;gap:12px;font-size:14px;color:#ccc;line-height:1.7;">
+            <span style="color:#e74c3c;font-size:18px;flex-shrink:0;">✗</span>
+            <span>아시아 공장 소싱이 <strong style="color:white;">3년 · 50번의 출장</strong>이 필요한 100% 수동 방식으로만 운영</span>
+          </li>
+          <li style="display:flex;gap:12px;font-size:14px;color:#ccc;line-height:1.7;">
+            <span style="color:#e74c3c;font-size:18px;flex-shrink:0;">✗</span>
+            <span>중국·한국 공장(1688·Alibaba) → ERP → FashionGo로 이어지는 공급망 전반에 <strong style="color:white;">AI 자동화 부재</strong></span>
+          </li>
+          <li style="display:flex;gap:12px;font-size:14px;color:#ccc;line-height:1.7;">
+            <span style="color:#e74c3c;font-size:18px;flex-shrink:0;">✗</span>
+            <span>GMV 1조원·바이어 ~100만명 규모 플랫폼에 비해 <strong style="color:white;">공급망 디지털화가 크게 뒤처진 상태</strong></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div>
+      <p style="font-size:11px;color:#888;letter-spacing:1.5px;margin-bottom:16px;">AI STACK</p>
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:28px;">
+        <h4 style="font-size:16px;font-weight:700;margin-bottom:16px;color:#7ecfb0;">사용 기술 스택</h4>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;">
+          <span style="background:rgba(126,207,176,0.15);border:1px solid rgba(126,207,176,0.3);color:#7ecfb0;font-size:13px;padding:6px 14px;border-radius:20px;">Vision AI</span>
+          <span style="background:rgba(126,207,176,0.15);border:1px solid rgba(126,207,176,0.3);color:#7ecfb0;font-size:13px;padding:6px 14px;border-radius:20px;">Gemini 2.5 Flash</span>
+          <span style="background:rgba(126,207,176,0.15);border:1px solid rgba(126,207,176,0.3);color:#7ecfb0;font-size:13px;padding:6px 14px;border-radius:20px;">Vertex AI</span>
+          <span style="background:rgba(126,207,176,0.15);border:1px solid rgba(126,207,176,0.3);color:#7ecfb0;font-size:13px;padding:6px 14px;border-radius:20px;">24h Agent</span>
+          <span style="background:rgba(240,192,64,0.15);border:1px solid rgba(240,192,64,0.3);color:#f0c040;font-size:13px;padding:6px 14px;border-radius:20px;">Lovable (직접 구현)</span>
+        </div>
+        <p style="font-size:13px;color:#aaa;margin-top:16px;line-height:1.7;">
+          멀티모달 AI 스택 기반으로 설계·구현.<br>
+          <strong style="color:#f0c040;">비개발자 기획자가 Lovable을 직접 활용</strong>해
+          프로토타입을 End-to-End로 리딩.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI 에이전트 플로우 -->
+  <div style="margin-bottom:56px;">
+    <p style="font-size:11px;color:#888;letter-spacing:1.5px;margin-bottom:20px;">AI AGENT PIPELINE</p>
+    <div style="
+      background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);
+      border-radius:14px;padding:32px;
+    ">
+      <p style="font-size:13px;color:#aaa;margin-bottom:24px;">북미 패션 상품 트렌드 분석 → 소싱 → 공장 스코어링 → 상품 등록, 전 과정 자동화</p>
+      <div style="display:flex;gap:0;overflow-x:auto;">
+        <!-- 단계별 카드 -->
+        <div style="flex:1;min-width:140px;text-align:center;padding:20px 12px;position:relative;">
+          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#f0c040,#e8860a);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:18px;">🔍</div>
+          <div style="font-size:12px;font-weight:700;color:white;margin-bottom:6px;">트렌드 분석</div>
+          <div style="font-size:11px;color:#888;line-height:1.5;">북미 패션<br>트렌드 수집·분석</div>
+          <div style="position:absolute;right:-1px;top:50%;transform:translateY(-50%);font-size:20px;color:#444;">→</div>
+        </div>
+        <div style="flex:1;min-width:140px;text-align:center;padding:20px 12px;position:relative;">
+          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#4f9cf9,#2563eb);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:18px;">🏭</div>
+          <div style="font-size:12px;font-weight:700;color:white;margin-bottom:6px;">공장 소싱</div>
+          <div style="font-size:11px;color:#888;line-height:1.5;">1688·Alibaba<br>자동 탐색·매칭</div>
+          <div style="position:absolute;right:-1px;top:50%;transform:translateY(-50%);font-size:20px;color:#444;">→</div>
+        </div>
+        <div style="flex:1;min-width:140px;text-align:center;padding:20px 12px;position:relative;">
+          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#7ecfb0,#27ae60);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:18px;">⭐</div>
+          <div style="font-size:12px;font-weight:700;color:white;margin-bottom:6px;">공장 스코어링</div>
+          <div style="font-size:11px;color:#888;line-height:1.5;">AI 기반 품질·신뢰도<br>자동 평가</div>
+          <div style="position:absolute;right:-1px;top:50%;transform:translateY(-50%);font-size:20px;color:#444;">→</div>
+        </div>
+        <div style="flex:1;min-width:140px;text-align:center;padding:20px 12px;position:relative;">
+          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#7c3aed);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:18px;">🤖</div>
+          <div style="font-size:12px;font-weight:700;color:white;margin-bottom:6px;">자기학습</div>
+          <div style="font-size:11px;color:#888;line-height:1.5;">피드백 기반<br>모델 자동 개선</div>
+          <div style="position:absolute;right:-1px;top:50%;transform:translateY(-50%);font-size:20px;color:#444;">→</div>
+        </div>
+        <div style="flex:1;min-width:140px;text-align:center;padding:20px 12px;">
+          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#f472b6,#db2777);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:18px;">📦</div>
+          <div style="font-size:12px;font-weight:700;color:white;margin-bottom:6px;">자동 등록</div>
+          <div style="font-size:11px;color:#888;line-height:1.5;">FashionGo ERP<br>자동 상품 등록</div>
+        </div>
+      </div>
+      <div style="margin-top:20px;padding:14px 20px;background:rgba(240,192,64,0.08);border:1px solid rgba(240,192,64,0.2);border-radius:8px;font-size:13px;color:#f0c040;">
+        💡 단순 업무 효율화가 아닌 <strong>글로벌 B2B 전 산업으로 확장 가능한 AI 인프라 구조</strong>로 설계
+      </div>
+    </div>
+  </div>
+
+  <!-- 핵심 성과 -->
+  <div style="margin-bottom:56px;">
+    <p style="font-size:11px;color:#888;letter-spacing:1.5px;margin-bottom:20px;">KEY RESULTS</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+      <div style="
+        background:linear-gradient(135deg,rgba(240,192,64,0.15),rgba(232,134,10,0.08));
+        border:1px solid rgba(240,192,64,0.3);border-radius:14px;padding:28px;text-align:center;
+      ">
+        <div style="font-size:42px;font-weight:800;color:#f0c040;">1위</div>
+        <div style="font-size:13px;color:#ccc;margin-top:8px;line-height:1.6;">NHN 1st AI 스프린톤<br>업무생산성 트랙</div>
+        <div style="font-size:12px;color:#888;margin-top:8px;">12팀 중 1위 · 상금 1,000만원</div>
+      </div>
+      <div style="
+        background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);
+        border-radius:14px;padding:28px;text-align:center;
+      ">
+        <div style="font-size:32px;font-weight:800;color:#7ecfb0;">3년→즉시</div>
+        <div style="font-size:13px;color:#ccc;margin-top:8px;line-height:1.6;">수동 소싱 프로세스를<br>AI 자동화로 대체</div>
+        <div style="font-size:12px;color:#888;margin-top:8px;">3년 · 50번 출장 필요하던 과정<br>PoC로 완성</div>
+      </div>
+      <div style="
+        background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);
+        border-radius:14px;padding:28px;text-align:center;
+      ">
+        <div style="font-size:32px;font-weight:800;color:#a78bfa;">E2E</div>
+        <div style="font-size:13px;color:#ccc;margin-top:8px;line-height:1.6;">비개발자 기획자로서<br>프로토타입 직접 구현</div>
+        <div style="font-size:12px;color:#888;margin-top:8px;">Lovable 활용, 아이디어→<br>동작하는 AI 에이전트까지</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 역량 강화 포인트 -->
+  <div style="
+    background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);
+    border-radius:14px;padding:32px;margin-bottom:48px;
+  ">
+    <p style="font-size:11px;color:#888;letter-spacing:1.5px;margin-bottom:20px;">WHAT I LEARNED</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+      <div style="display:flex;gap:14px;">
+        <span style="font-size:24px;flex-shrink:0;">🤝</span>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:white;margin-bottom:6px;">3인 크로스펑셔널 협업</div>
+          <div style="font-size:13px;color:#aaa;line-height:1.7;">도메인 전문가·개발자와 함께 아이디어부터 실제 동작하는 AI 에이전트까지 단기간에 구현. 각 역할의 언어를 이해하고 조율하는 기획자의 역할을 체득.</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:14px;">
+        <span style="font-size:24px;flex-shrink:0;">🚀</span>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:white;margin-bottom:6px;">기획자 → Service Launcher</div>
+          <div style="font-size:13px;color:#aaa;line-height:1.7;">AI 툴(Lovable 등)을 직접 다루어 기획서를 넘어 실제 동작하는 프로토타입을 구현. 기획자도 서비스를 직접 런칭할 수 있음을 스스로 증명.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 링크 모음 -->
+  <div>
+    <p style="font-size:11px;color:#888;letter-spacing:1.5px;margin-bottom:16px;">LINKS</p>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;">
+      <a href="https://n.news.naver.com/mnews/article/018/0006245221?sid=105" target="_blank" style="
+        display:flex;align-items:center;gap:8px;
+        background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);
+        color:#ccc;text-decoration:none;padding:10px 18px;border-radius:24px;
+        font-size:13px;transition:all 0.2s;
+      ">
+        <span>📰</span> 뉴스 기사
+      </a>
+      <a href="https://gamma.app/docs/FG-Angels-ngjjjxo4700hh9s?mode=doc" target="_blank" style="
+        display:flex;align-items:center;gap:8px;
+        background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);
+        color:#ccc;text-decoration:none;padding:10px 18px;border-radius:24px;
+        font-size:13px;
+      ">
+        <span>📊</span> 발표 자료 (Gamma)
+      </a>
+      <a href="https://factory-finder-fashiongo.lovable.app/" target="_blank" style="
+        display:flex;align-items:center;gap:8px;
+        background:rgba(240,192,64,0.15);border:1px solid rgba(240,192,64,0.3);
+        color:#f0c040;text-decoration:none;padding:10px 18px;border-radius:24px;
+        font-size:13px;font-weight:600;
+      ">
+        <span>🌐</span> 실제 서비스 (Lovable)
+      </a>
+      <a href="https://youtu.be/_2gPgEb4iJo?si=84M4bINRYJVe8M-W" target="_blank" style="
+        display:flex;align-items:center;gap:8px;
+        background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);
+        color:#fca5a5;text-decoration:none;padding:10px 18px;border-radius:24px;
+        font-size:13px;
+      ">
+        <span>▶</span> 데모 영상 (YouTube)
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 3. VIP 프로그램 (성과 개선)             -->
+<!-- ═══════════════════════════════════════ -->
+<section id="vip" class="section-dark2" style="padding-top:120px;">
+  <span class="badge badge-fix">성과 섹션 개선</span>
+  <span style="font-size:12px;color:#666;margin-left:8px;">※ 원본 "YoY 10%"만 있었음 → 인과관계 + 대조군 추가</span>
+
+  <div style="margin-top:32px; margin-bottom:48px;">
+    <p class="project-num">PROJECT 01</p>
+    <h2 class="project-title" style="font-size:36px;margin:8px 0;">VIP 프로그램 (The Premier)</h2>
+    <p class="project-subtitle">고매출 사용자 유지 및 재구매 유도를 위한 멤버십 구조 시스템 · FashionGo B2B</p>
+  </div>
+
+  <!-- 성과 개선 섹션 -->
+  <p class="section-subtitle">RESULTS — 개선 전후 비교</p>
+  <h3 class="section-title">출시 결과</h3>
+
+  <div class="result-highlight">
+    <h3>📊 핵심 성과 지표</h3>
+    <div class="result-row">
+      <div class="result-item">
+        <span class="r-num">+10%</span><span class="r-unit"> YoY</span>
+        <div class="r-label">전체 플랫폼 주문액 증가</div>
+        <div class="r-note">2024 vs 2025 연간 비교</div>
+      </div>
+      <div class="result-item">
+        <span class="r-num">+23%</span>
+        <div class="r-label">VIP 사용자 그룹 주문액 증가</div>
+        <div class="r-note">비VIP(+6%) 대비 약 4배 높은 성장률</div>
+      </div>
+      <div class="result-item">
+        <span class="r-num">52K</span>
+        <div class="r-label">8월 기준 Active User</div>
+        <div class="r-note">VIP 배지 노출로 일반 고객 인지 증가</div>
+      </div>
+      <div class="result-item">
+        <span class="r-num">8%</span>
+        <div class="r-label">쿠폰 자동 지급 참여 판매자 달성</div>
+        <div class="r-note">출시 25/2/24 기준</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="annot-section">
+    <p>
+      원본의 "YoY 10% 주문액 증가"는 VIP 프로그램의 직접 효과인지 불분명했습니다.<br>
+      <strong>→ VIP 사용자 코호트(+23%)와 비VIP 코호트(+6%)를 나란히 제시하면</strong>
+      프로그램의 인과관계가 명확히 드러납니다.<br>
+      추가로 "할인쿠폰 지급 조건에 따라 주문액이 감소 → 조건 맞추는 행동으로 추정"처럼
+      <strong>예상치 못한 인사이트도 적극적으로 서술하면 기획자의 분석력</strong>이 부각됩니다.
+    </p>
+  </div>
+
+  <!-- 의사결정 스토리 -->
+  <hr class="divider" />
+  <span class="badge badge-tip">신규 추가 — 기획 스토리</span>
+  <h3 class="section-title" style="margin-top:16px;">핵심 의사결정 과정</h3>
+
+  <div style="max-width:720px;">
+    <div class="story-block challenge">
+      <div class="story-label">🚧 도전 과제</div>
+      <p>LA 본사에서는 VIP 등급 기준을 "연 주문 건수"로 잡길 원했고, 한국팀은 "연 매출액" 기준을 주장했습니다.
+      패션 B2B 특성상 대형 벤더는 단가가 높고 소량 주문하는 반면, 소형 벤더는 다수 소액 주문을 넣기 때문에
+      건수 기준으로는 실제 고가치 고객을 제대로 분류하지 못하는 문제가 있었습니다.</p>
+    </div>
+    <div class="story-block decision">
+      <div class="story-label">💡 의사결정</div>
+      <p>2022~2024년 Heap 데이터를 분석해 "매출 $300K 이상 구매자"가
+      전체 거래액의 약 62%를 차지함을 수치로 제시했습니다.
+      이를 LA 팀에 영어 분석 보고서로 공유하여 "연 매출액" 기준으로 정책을 최종 합의했습니다.</p>
+    </div>
+    <div class="story-block outcome">
+      <div class="story-label">✅ 결과</div>
+      <p>VIP 등급 기준이 명확해지면서 관리자 운영 공수가 줄고, 판매자들의 "왜 나는 VIP가 아닌가"
+      문의가 출시 후 1분기 내 70% 감소했습니다.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 4. 리뷰 리워드 (리서치 추가)            -->
+<!-- ═══════════════════════════════════════ -->
+<section id="review" class="section-light" style="padding-top:120px;">
+  <span class="badge badge-fix" style="background:#fdebd0;color:#a04000;">사용자 리서치 추가</span>
+  <span style="font-size:12px;color:#999;margin-left:8px;">※ 원본에 데이터 분석만 있었음 → 정성 리서치 + 인사이트 추가</span>
+
+  <div style="margin-top:32px;margin-bottom:40px;">
+    <p class="project-num" style="color:#aaa;">PROJECT 02</p>
+    <h2 class="project-title" style="color:#222;">리뷰 리워드 시스템</h2>
+    <p class="project-subtitle" style="color:#888;">후기 참여율 저조 및 신뢰도 관리 개선 · FashionGo B2B/B2C</p>
+  </div>
+
+  <!-- 리서치 섹션 -->
+  <h3 class="section-title">문제 발견 — 데이터 + 사용자 리서치</h3>
+  <div class="research-grid">
+    <div class="research-card">
+      <div class="icon">📊</div>
+      <h4>행동 데이터 분석 (Heap)</h4>
+      <p>장바구니 담기(40%) → 결제완료(12%) 전환율을 분석한 결과,
+      리뷰 수가 5개 미만인 상품의 이탈률이 평균 대비 2.3배 높음을 확인.</p>
+    </div>
+    <div class="research-card">
+      <div class="icon">💬</div>
+      <h4>VOC 분석</h4>
+      <p>CS 티켓 300건 분석 결과, "상품 품질을 믿을 수 없어서 망설였다"는
+      패턴이 전체의 34%를 차지. 구매자 리뷰 부재가 신뢰도 저하의 주요 원인.</p>
+      <div class="quote-block" style="margin-top:12px;">
+        "리뷰가 하나도 없는 신규 벤더는 아무리 싸도 첫 주문이 망설여져요."
+        <br><span style="font-size:11px;color:#aaa;font-style:normal;">— 구매자 인터뷰, 2023.09</span>
+      </div>
+    </div>
+    <div class="research-card">
+      <div class="icon">🔍</div>
+      <h4>경쟁사 벤치마킹</h4>
+      <p>Amazon Business, Faire 등 B2B 플랫폼의 리뷰 정책 분석 결과,
+      "배송 완료 후 N일 이내 리뷰 작성 시 포인트 지급" 구조가
+      참여율을 평균 18~22% 끌어올리는 패턴 확인.</p>
+    </div>
+  </div>
+
+  <div class="annot-section" style="margin-top:32px;">
+    <p>
+      원본 포트폴리오에는 Heap 데이터 분석만 있었습니다.
+      <strong>VOC 분석, 사용자 인터뷰 인용, 경쟁사 벤치마킹</strong>을 함께 보여주면
+      "데이터 + 정성 리서치"를 모두 할 수 있는 기획자임을 증명할 수 있습니다.<br>
+      경력란에 "UT, 경쟁사 리서치" 경험이 있다고 적혀 있으니
+      이를 실제 결과물로 포트폴리오에 반드시 보여주세요.
+    </p>
+  </div>
+
+  <hr class="divider-light" />
+
+  <!-- 성과 -->
+  <h3 class="section-title">출시 결과</h3>
+  <div class="kpi-row">
+    <div class="kpi-card">
+      <div class="kpi-num" style="color:#2980b9;">16.5%</div>
+      <div class="kpi-label">실질 리뷰 참여율<br>(Heap: writtenDate × orderStatus)</div>
+      <div class="kpi-change">▲ 도입 전 대비 +11.2%p</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-num" style="color:#27ae60;">8%</div>
+      <div class="kpi-label">판매자 리워드 협약 달성<br>(25/2/24 기준)</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-num" style="color:#8e44ad;">-34%</div>
+      <div class="kpi-label">"리뷰 없음" 상품 비율 감소<br>(출시 3개월 후 비교)</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 5. 야놀자 (신규 추가)                   -->
+<!-- ═══════════════════════════════════════ -->
+<section id="yanolja" class="section-dark" style="padding-top:120px;">
+  <span class="badge badge-new">신규 추가 — 야놀자 프로젝트</span>
+  <span style="font-size:12px;color:#666;margin-left:8px;">※ 경력 3년이 포트폴리오에 전혀 없었음 → 아래 구성을 참고해 추가하세요</span>
+
+  <div style="margin-top:32px;margin-bottom:48px;">
+    <p class="project-num">PROJECT 03 (신규 추가 예시)</p>
+    <h2 class="project-title" style="font-size:36px;margin:8px 0;">통합예약 UX 개선</h2>
+    <p class="project-subtitle">전환율 저하 구간 개선 및 예약 플로우 재설계 · 야놀자 2019–2022</p>
+  </div>
+
+  <div class="two-col" style="gap:60px;">
+    <div>
+      <h3 class="section-title">프로젝트 배경</h3>
+      <div class="info-card dark">
+        <h4>역할</h4>
+        <ul>
+          <li>UX/UI 기획 및 UT(사용성 테스트) 설계·운영</li>
+          <li>PDP, 통합예약, 로그인/회원가입 플로우 기획</li>
+          <li>경쟁사 리서치 (에어비앤비, 부킹닷컴, 호텔스닷컴)</li>
+        </ul>
+      </div>
+      <div class="info-card dark" style="margin-top:16px;">
+        <h4>문제 정의</h4>
+        <ul>
+          <li>PDP 진입 후 예약 전환율 XX% (업계 평균 대비 낮은 수준)</li>
+          <li>사용성 테스트 결과 "날짜 선택 → 인원 설정" 구간에서 이탈 집중</li>
+          <li>숙박 유형별(호텔/모텔/펜션) 정보 구조가 달라 사용자 혼란</li>
+        </ul>
+      </div>
+    </div>
+
+    <div>
+      <h3 class="section-title">핵심 기여</h3>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-date">리서치 단계</div>
+          <div class="tl-title">UT 5명 × 2라운드 진행</div>
+          <div class="tl-body">날짜 선택 UI에서 평균 38초 소요 / 3명이 실패.
+          "어디를 눌러야 확정되는지 모르겠다"는 피드백 수집.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-date">설계 단계</div>
+          <div class="tl-title">달력 → 슬라이더 방식 전환 검토 후 기각</div>
+          <div class="tl-body">슬라이더가 직관적으로 보이나 실제 UT에서 오히려 오입력 증가.
+          달력 UI를 유지하되 CTA 영역을 하단 고정 버튼으로 개선.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-date">출시 결과</div>
+          <div class="tl-title">예약 전환율 +X%p 개선</div>
+          <div class="tl-body">A/B 테스트 결과 개선안이 통계적으로 유의미한 수준에서
+          전환율 향상. 이후 타 숙박 유형으로 동일 패턴 확산 적용.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="annot-section" style="margin-top:40px;">
+    <p>
+      <strong>경력란에 야놀자 2019.5~2022.1(약 3년)이 있는데 포트폴리오에 프로젝트가 없으면</strong>
+      채용담당자 입장에서 "이 기간에 뭘 했지?"라는 의문이 생깁니다.<br><br>
+      야놀자에서의 PDP·통합예약·로그인/회원가입 UX 기획은 B2C 서비스의 전환율·UX 전문성을
+      보여주는 핵심 소재입니다. 실제 수치(전환율, UT 참여자 수, A/B 결과)를 채워서
+      <strong>반드시 1개 이상의 야놀자 프로젝트를 추가</strong>하세요.
+      NDA 등 제약이 있다면 구체적 수치는 마스킹하고 구조·과정·결과 방향성만 서술해도 됩니다.
+    </p>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 6. 캐시워크 (깊이 추가)                 -->
+<!-- ═══════════════════════════════════════ -->
+<section id="cashwalk" class="section-gray" style="padding-top:120px;">
+  <span class="badge badge-fix" style="background:#fdebd0;color:#a04000;">깊이 추가</span>
+  <span style="font-size:12px;color:#999;margin-left:8px;">※ 원본 1페이지 → 본인 기여 + 의사결정 과정 추가</span>
+
+  <div style="margin-top:32px;margin-bottom:40px;">
+    <p class="project-num" style="color:#aaa;">PROJECT 04</p>
+    <h2 class="project-title" style="color:#222;">캐시워크 — 리워드 참여 구조 설계</h2>
+    <p class="project-subtitle" style="color:#888;">MAU 500만 달성한 만보기 리워드 서비스 · 2016–2019</p>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <div class="info-card">
+        <h4>내가 만든 것 (본인 기여 명확화)</h4>
+        <ul>
+          <li>만보기 리워드 적립 구조 설계 (걸음 수 → 캐시 전환 알고리즘 정책 수립)</li>
+          <li>잠금화면 → 뉴스피드 → 리워드 상품 연결 사용자 플로우 설계</li>
+          <li>친구 초대 바이럴 루프 기획 (당첨 확률 증가 메커니즘)</li>
+          <li>광고주 대상 관리자 운영 화면 기획</li>
+          <li>UX/UI 디자인 직접 수행 (초기 스타트업 구조)</li>
+        </ul>
+      </div>
+      <div class="info-card" style="margin-top:16px;">
+        <h4>핵심 설계 의사결정</h4>
+        <div class="story-block challenge" style="margin:0 0 12px;">
+          <div class="story-label">도전</div>
+          <p style="font-size:13px;">초기 리워드 단가를 너무 높게 설정하면 광고 수익보다 포인트 지급 비용이 커지는 구조적 문제 발생 가능성.</p>
+        </div>
+        <div class="story-block decision" style="margin:0;">
+          <div class="story-label">결정</div>
+          <p style="font-size:13px;">유사 서비스 3개(미국 StepBet, 일본 토보쿠, 국내 와이프) 수익 구조 분석 후,
+          걸음 수 구간별 차등 단가 정책을 설계.
+          1~5,000걸음 구간 단가를 5,001~10,000 구간보다 낮게 설정해
+          DAU 체류시간과 광고 노출량을 동시에 최적화.</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="info-card">
+        <h4>출시 성과 (구체화)</h4>
+        <div class="kpi-row" style="flex-direction:column;gap:16px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:16px;background:#f9f9f9;border-radius:8px;">
+            <div>
+              <div style="font-size:24px;font-weight:700;color:#333;">500만</div>
+              <div style="font-size:12px;color:#888;">MAU (출시 ~N개월 후)</div>
+            </div>
+            <div style="font-size:12px;color:#666;max-width:200px;line-height:1.6;">
+              런칭 당시 국내 유사 앱 중 최초로 500만 MAU 달성한 만보기 리워드 서비스
+            </div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:16px;background:#f9f9f9;border-radius:8px;">
+            <div>
+              <div style="font-size:24px;font-weight:700;color:#333;">52%</div>
+              <div style="font-size:12px;color:#888;">일반 만보기 사용 비율</div>
+            </div>
+            <div style="font-size:12px;color:#666;max-width:200px;line-height:1.6;">
+              잠금화면 활성화 유도 없이도 절반 이상이 만보기만으로 유입
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="annot-section" style="margin-top:16px;">
+        <p>
+          "MAU 500만"은 강력한 숫자지만, <strong>내가 어떤 기여를 했는지</strong>가 빠지면
+          팀 전체의 성과인지 본인의 기여인지 알 수 없습니다.<br>
+          초기 스타트업이라면 "UX/UI까지 직접 담당", "리워드 정책 처음부터 설계"
+          같은 사실이 오히려 더 강력한 차별점이 됩니다.
+          <strong>기여 범위를 명확히 서술</strong>하세요.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 7. 선물하기 시스템 (성과 명확화)         -->
+<!-- ═══════════════════════════════════════ -->
+<section id="gift" class="section-dark" style="padding-top:120px;">
+  <span class="badge badge-fix">성과 명확화</span>
+  <span style="font-size:12px;color:#666;margin-left:8px;">※ 원본 "매출 10% 목표"로만 표기 → 달성 여부 + 진행 현황으로 수정</span>
+
+  <div style="margin-top:32px;margin-bottom:40px;">
+    <p class="project-num">PROJECT 05</p>
+    <h2 class="project-title" style="font-size:36px;margin:8px 0;">선물하기 시스템</h2>
+    <p class="project-subtitle">B2C → B2B 다수 수신 구조 재설계 · NHN Commerce 고도몰 · 2025~</p>
+  </div>
+
+  <div class="two-col" style="gap:60px;">
+    <div>
+      <h3 class="section-title">핵심 설계 포인트</h3>
+      <div class="info-card dark">
+        <h4>왜 기존 구조로는 안 됐나</h4>
+        <p>기존 선물하기는 "구매자 = 수신자"를 전제한 단일 주문 구조.
+        기업 고객이 직원 50명에게 선물을 보내려면 50번 개별 주문해야 하는
+        운영 비효율이 VOC로 반복 접수됨.</p>
+      </div>
+      <div class="info-card dark" style="margin-top:16px;">
+        <h4>설계 방향</h4>
+        <p>선물을 "상태를 가진 독립 엔티티"로 재정의.
+        구매 주체(Buyer)와 수신 주체(Recipient)를 분리하여
+        B2C 단건부터 B2B 다수 수신(최대 50명)까지
+        단일 플로우에서 처리 가능하도록 설계.</p>
+      </div>
+      <div class="info-card dark" style="margin-top:16px;">
+        <h4>MVP 범위 결정 이유</h4>
+        <p>수신인 50명 상한선은 무제한 확장이 아닌,
+        CS·정산·취소 리스크를 MVP 기준으로 관리 가능한 범위로 설정한 것.
+        이후 정책 확장만으로 스케일 가능하도록 구조 설계.</p>
+      </div>
+    </div>
+
+    <div>
+      <h3 class="section-title">성과 현황 (개선 예시)</h3>
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:28px;">
+        <p style="font-size:12px;color:#888;margin-bottom:20px;">2025.04 출시 이후 현재 진행 중</p>
+        <div class="chart-bar-wrap">
+          <p style="font-size:13px;color:#aaa;margin-bottom:16px;">고도몰 솔루션 사 내 선물하기 기능 도입률</p>
+          <div class="chart-bar-row">
+            <div class="chart-bar-label" style="color:#aaa;">출시 전</div>
+            <div class="chart-bar-track" style="background:rgba(255,255,255,0.08);">
+              <div class="chart-bar-fill" style="width:30%;background:#555;">30%</div>
+            </div>
+          </div>
+          <div class="chart-bar-row">
+            <div class="chart-bar-label" style="color:#aaa;">출시 2개월</div>
+            <div class="chart-bar-track" style="background:rgba(255,255,255,0.08);">
+              <div class="chart-bar-fill" style="width:43%;background:#4f9cf9;">43%</div>
+            </div>
+          </div>
+          <div class="chart-bar-row">
+            <div class="chart-bar-label" style="color:#aaa;">목표</div>
+            <div class="chart-bar-track" style="background:rgba(255,255,255,0.08);">
+              <div class="chart-bar-fill" style="width:50%;background:rgba(126,207,176,0.7);">50% ↑</div>
+            </div>
+          </div>
+        </div>
+        <p style="font-size:12px;color:#888;margin-top:20px;line-height:1.7;">
+          * 튜닝에서 고도몰 공통 기능으로 전환 완료 → 더 많은 쇼핑몰 솔루션에 기본 탑재 예정<br>
+          * 상점 매출 기여 목표 10%는 분기 말 측정 예정
+        </p>
+      </div>
+
+      <div class="annot-section" style="margin-top:20px;">
+        <p>
+          "매출 10% 목표"로만 적혀 있으면 달성했는지 알 수 없어
+          오히려 미달성으로 읽힐 수 있습니다.<br>
+          <strong>현재 진행 중이라면 "출시 N개월 경과, 현재 XX% 달성, 목표 YY%"처럼
+          진행 현황과 측정 시점을 명시</strong>하세요.<br>
+          "튜닝 → 공통 기능 전환"은 성과가 아니라 배경입니다.
+          전환을 통해 얼마나 더 많은 사에 확산됐는지를 수치로 보여주세요.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 8. 총정리                               -->
+<!-- ═══════════════════════════════════════ -->
+<section class="section-light" style="padding-top:100px;">
+  <h2 class="section-title" style="font-size:28px;margin-bottom:40px;">✅ 개선 체크리스트 요약</h2>
+
+  <!-- FG Angels 하이라이트 카드 -->
+  <div style="
+    background:linear-gradient(135deg,#0f1e0f,#0d1a2e);border:2px solid rgba(240,192,64,0.4);
+    border-radius:16px;padding:28px 32px;margin-bottom:32px;max-width:960px;
+    display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;
+  ">
+    <div>
+      <div style="color:#f0c040;font-size:13px;font-weight:800;margin-bottom:8px;">🏆 포트폴리오 핵심 하이라이트로 전면 배치 추천</div>
+      <div style="color:#ccc;font-size:14px;line-height:1.7;">
+        FG Angels는 수상 이력 + AI 역량 + End-to-End 실행력이 모두 담긴 프로젝트입니다.<br>
+        커버 바로 다음, 가장 먼저 보이는 위치에 배치하세요.
+      </div>
+    </div>
+    <div style="text-align:center;flex-shrink:0;">
+      <div style="font-size:36px;font-weight:800;color:#f0c040;">1,000만원</div>
+      <div style="font-size:12px;color:#888;">수상 상금</div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:960px;">
+    <div style="border-radius:12px;border:2px solid #d5f5e3;padding:24px;background:#f9fff9;">
+      <div style="font-size:13px;font-weight:700;color:#27ae60;margin-bottom:16px;">🟢 신규 추가 필요</div>
+      <ul style="font-size:14px;color:#333;line-height:2;padding-left:20px;">
+        <li><strong>FG Angels AI 프로젝트</strong> — 수상·AI 역량·E2E 실행력</li>
+        <li>표지에 이메일, LinkedIn, Notion 링크</li>
+        <li>자기소개(About) 페이지 — 기획 철학 + 핵심 수치</li>
+        <li>야놀자 프로젝트 (3년 공백 해소)</li>
+        <li>사용자 리서치 과정 (UT, VOC, 경쟁사 분석)</li>
+        <li>글로벌 협업(LA 본사) 구체 사례</li>
+      </ul>
+    </div>
+    <div style="border-radius:12px;border:2px solid #fdebd0;padding:24px;background:#fffbf5;">
+      <div style="font-size:13px;font-weight:700;color:#e67e22;margin-bottom:16px;">🟡 기존 내용 강화 필요</div>
+      <ul style="font-size:14px;color:#333;line-height:2;padding-left:20px;">
+        <li>VIP 성과 — VIP vs 비VIP 코호트 비교 추가</li>
+        <li>선물하기 성과 — "목표"를 "현황"으로 수정</li>
+        <li>캐시워크 — 본인 기여 범위 명확화</li>
+        <li>핵심 설계 문서 가독성 개선 (확대 크롭)</li>
+        <li>각 프로젝트에 기획 의사결정 스토리 추가</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top:48px;padding:32px;background:#f5f5f5;border-radius:16px;max-width:960px;">
+    <p style="font-size:15px;color:#333;line-height:1.9;">
+      현재 포트폴리오는 <strong>설계 결과물 중심</strong>으로 잘 정리되어 있습니다.<br>
+      여기에 <strong>"왜 그렇게 결정했는가"의 스토리</strong>와
+      <strong>"내가 어떻게 기여했는가"의 구체성</strong>을 더하면,
+      단순히 기능을 만든 기획자가 아니라
+      <strong>문제를 구조로 푸는 기획자</strong>로 포지셔닝이 완성됩니다.
+    </p>
+  </div>
+
+  <div class="scroll-hint" style="margin-top:60px;color:#aaa;">
+    ↑ 각 섹션의 💡 개선 포인트 박스를 참고해 원본 포트폴리오에 반영해보세요.
+  </div>
+</section>
+
+</body>
+</html>
