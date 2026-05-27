@@ -1489,13 +1489,24 @@
     <h3 class="section-title">GALLERY</h3>
     <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px;align-items:start;">
 
-      <figure style="margin:0;">
-        <div style="background:#fafafa;border:1px solid #eee;border-radius:12px;padding:24px;display:flex;align-items:center;justify-content:center;min-height:320px;">
-          <img src="images/review-flow.png" alt="리뷰 리워드 시스템 사용자 플로우" style="max-width:100%;display:block;">
-        </div>
-        <figcaption style="font-size:12px;color:#888;margin-top:10px;text-align:center;line-height:1.5;">사용자 플로우 — Buyers · Vendors · FG 역할별 리뷰 작성·관리 프로세스</figcaption>
-      </figure>
+      <!-- 좌측: 플로우 + 주문 상태별 리뷰 조건 -->
+      <div style="display:flex;flex-direction:column;gap:24px;">
+        <figure style="margin:0;">
+          <div style="background:#fafafa;border:1px solid #eee;border-radius:12px;padding:24px;display:flex;align-items:center;justify-content:center;min-height:320px;">
+            <img src="images/review-flow.png" alt="리뷰 리워드 시스템 사용자 플로우" style="max-width:100%;display:block;">
+          </div>
+          <figcaption style="font-size:12px;color:#888;margin-top:10px;text-align:center;line-height:1.5;">사용자 플로우 — Buyers · Vendors · FG 역할별 리뷰 작성·관리 프로세스</figcaption>
+        </figure>
 
+        <figure style="margin:0;">
+          <div style="background:#fafafa;border:1px solid #eee;border-radius:12px;padding:24px;display:flex;align-items:center;justify-content:center;min-height:320px;">
+            <img src="images/review-policy.png" alt="주문 상태별 리뷰 조건 정책 매트릭스" style="max-width:100%;display:block;">
+          </div>
+          <figcaption style="font-size:12px;color:#888;margin-top:10px;text-align:center;line-height:1.5;">주문 상태별 리뷰 조건 — 오더 상태 × 상품 종류 × 리뷰 종류 정책 매트릭스</figcaption>
+        </figure>
+      </div>
+
+      <!-- 우측: UI 비교 -->
       <figure style="margin:0;">
         <div style="background:#fafafa;border:1px solid #eee;border-radius:12px;padding:24px;display:flex;align-items:center;justify-content:center;min-height:320px;">
           <img src="images/review-ui.png" alt="리뷰 UI 개선 전후 비교" style="max-width:100%;display:block;">
