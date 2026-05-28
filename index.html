@@ -3190,30 +3190,56 @@
     });
   })();
 
-  // 해시 기반 페이지 라우터: 한 번에 한 섹션만 노출, 메뉴/목차 클릭 시 해당 페이지로 랜딩
+  // 해시 기반 페이지 라우터: 한 번에 한 섹션만 노출 (cover/about/career는 하나의 페이지 그룹)
   (function () {
     var sections = document.querySelectorAll('body > section[id]');
     var navLinks = document.querySelectorAll('nav a[href^="#"]');
+    // 표지 그룹: 표지·소개·경력사항을 같은 페이지로 묶어서 함께 노출
+    var COVER_GROUP = ['cover', 'about', 'career'];
 
     function showPage(hash) {
       var target = (hash || '#cover').replace(/^#/, '');
       if (!document.getElementById(target)) target = 'cover';
+      var inCoverGroup = COVER_GROUP.indexOf(target) !== -1;
+
       sections.forEach(function (s) {
-        s.classList.toggle('page-active', s.id === target);
+        var shouldActivate = inCoverGroup
+          ? COVER_GROUP.indexOf(s.id) !== -1
+          : s.id === target;
+        s.classList.toggle('page-active', shouldActivate);
       });
       navLinks.forEach(function (a) {
         a.classList.toggle('active', a.getAttribute('href') === '#' + target);
       });
-      window.scrollTo(0, 0);
+
+      // 표지 그룹 안에서 about/career로 이동하면 해당 섹션 위치로 스크롤,
+      // 그 외에는 페이지 최상단으로 이동
+      if (inCoverGroup && target !== 'cover') {
+        var el = document.getElementById(target);
+        if (el) {
+          requestAnimationFrame(function () {
+            el.scrollIntoView({ behavior: 'auto', block: 'start' });
+          });
+        }
+      } else {
+        window.scrollTo(0, 0);
+      }
     }
 
     window.addEventListener('hashchange', function () { showPage(location.hash); });
-    // 같은 해시를 다시 클릭해도 페이지 상단으로 이동
+    // 같은 해시를 다시 클릭해도 해당 위치로 이동
     navLinks.forEach(function (a) {
       a.addEventListener('click', function () {
         var href = a.getAttribute('href');
-        if (href === '#' + (location.hash || '#cover').replace(/^#/, '')) {
-          window.scrollTo(0, 0);
+        var currentHash = '#' + (location.hash || '#cover').replace(/^#/, '');
+        if (href === currentHash) {
+          var targetId = href.replace(/^#/, '');
+          if (COVER_GROUP.indexOf(targetId) !== -1 && targetId !== 'cover') {
+            var el = document.getElementById(targetId);
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
         }
       });
     });
