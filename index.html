@@ -382,78 +382,6 @@
     .prd-page .prd-gallery .img-frame:not(.empty) img { transition: transform 360ms ease; }
     .prd-page .prd-gallery .img-frame:not(.empty):hover img { transform: scale(1.04); }
 
-    /* ── FLOATING PAGE NAV (prev / current / next) ── */
-    .fpn {
-      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
-      z-index: 100;
-      display: none;
-      background: rgba(255,255,255,0.97);
-      border: 1px solid rgba(0,0,0,0.08);
-      border-radius: 12px;
-      box-shadow: 0 12px 32px rgba(0,0,0,0.12), 0 2px 6px rgba(0,0,0,0.05);
-      padding: 10px 8px;
-      min-width: 560px;
-      max-width: calc(100vw - 48px);
-      font-family: "Pretendard", system-ui, -apple-system, sans-serif;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-    }
-    .fpn.visible { display: flex; align-items: stretch; gap: 0; }
-    .fpn-side {
-      flex: 1; min-width: 0;
-      display: flex; align-items: center; gap: 12px;
-      padding: 6px 14px;
-      text-decoration: none; color: #2e2e2e;
-      border-radius: 8px;
-      transition: background 240ms ease;
-    }
-    .fpn-side:hover { background: rgba(15,128,246,0.06); }
-    .fpn-side.disabled { pointer-events: none; opacity: 0.25; }
-    .fpn-arrow {
-      font-size: 18px; color: #a1a1a1;
-      flex-shrink: 0; transition: color 240ms;
-    }
-    .fpn-side:hover .fpn-arrow { color: #0F80F6; }
-    .fpn-info {
-      display: flex; flex-direction: column; gap: 2px;
-      min-width: 0; overflow: hidden;
-    }
-    .fpn-direction {
-      font-size: 10px; font-weight: 600; color: #a1a1a1;
-      text-transform: uppercase; letter-spacing: 0.08em;
-    }
-    .fpn-prev-side { justify-content: flex-start; }
-    .fpn-prev-side .fpn-info { text-align: left; }
-    .fpn-next-side { justify-content: flex-end; }
-    .fpn-next-side .fpn-info { text-align: right; }
-    .fpn-num {
-      font-size: 11px; font-weight: 600; color: #0F80F6;
-      letter-spacing: 0.04em;
-    }
-    .fpn-title {
-      font-size: 13px; font-weight: 600; color: #191919;
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-      max-width: 180px;
-    }
-    .fpn-current {
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      padding: 0 18px;
-      border-left: 1px solid rgba(0,0,0,0.08);
-      border-right: 1px solid rgba(0,0,0,0.08);
-      min-width: 150px;
-      text-align: center;
-    }
-    .fpn-current .fpn-direction { color: #767676; }
-    .fpn-current .fpn-num { color: #545454; }
-    .fpn-current .fpn-title { font-size: 13px; max-width: none; }
-
-    @media (max-width: 760px) {
-      .fpn { min-width: 0; width: calc(100vw - 24px); padding: 8px; bottom: 16px; }
-      .fpn-current { display: none; }
-      .fpn-side { padding: 6px 8px; gap: 8px; }
-      .fpn-title { font-size: 12px; max-width: 120px; }
-      .fpn-direction { display: none; }
-    }
 
     /* ════════════════════════════════════════ */
     /* PRD-STYLE PROJECT PAGE (scope: .prd-page) */
@@ -545,6 +473,10 @@
       left: max(24px, calc(50% - 400px - 40px - 200px));
       width: 200px; max-height: calc(100vh - 160px);
       overflow-y: auto; z-index: 90;
+      opacity: 1; transition: opacity 240ms ease;
+    }
+    .prd-page .prd-side-nav.hidden-by-cover {
+      opacity: 0; pointer-events: none;
     }
     .prd-page .prd-side-nav-list {
       list-style: none; border-left: 2px solid var(--prd-line-soft);
@@ -799,7 +731,7 @@
     .prd-page .prd-footer {
       background: var(--prd-surface);
       border-top: 1px solid var(--prd-line-soft);
-      padding: 32px 56px 120px;
+      padding: 32px 56px;
       margin-top: 120px;
     }
     .prd-page .prd-footer-inner { max-width: 800px; margin: 0 auto; }
@@ -2377,31 +2309,6 @@
   <div class="lightbox-caption"></div>
 </div>
 
-<!-- Floating prev / current / next nav (projects only) -->
-<nav class="fpn" id="fpn" aria-label="프로젝트 페이지 이동">
-  <a class="fpn-side fpn-prev-side" href="#" data-fpn-prev>
-    <span class="fpn-arrow">←</span>
-    <span class="fpn-info">
-      <span class="fpn-direction">Previous</span>
-      <span class="fpn-num"></span>
-      <span class="fpn-title"></span>
-    </span>
-  </a>
-  <div class="fpn-current">
-    <span class="fpn-direction">Now</span>
-    <span class="fpn-num"></span>
-    <span class="fpn-title"></span>
-  </div>
-  <a class="fpn-side fpn-next-side" href="#" data-fpn-next>
-    <span class="fpn-info">
-      <span class="fpn-direction">Next</span>
-      <span class="fpn-num"></span>
-      <span class="fpn-title"></span>
-    </span>
-    <span class="fpn-arrow">→</span>
-  </a>
-</nav>
-
 <script>
   // 경력 기간 자동 카운트 (data-career-start="YYYY-MM" 가진 요소를 오늘 기준으로 계산)
   (function () {
@@ -2491,62 +2398,19 @@
     updateActive();
   })();
 
-  // 플로팅 페이지 nav (이전/현재/다음) — 프로젝트 6개에서만 표시
+  // 사이드 nav 가시성: 다크 커버가 화면에 보이는 동안은 숨김 (가독성 + 디자인 의도)
   (function () {
-    var projects = [
-      { id: 'angels',   num: 'Project 01', title: 'FG Angels' },
-      { id: 'gift',     num: 'Project 02', title: '선물하기 시스템' },
-      { id: 'vip',      num: 'Project 03', title: 'VIP 프로그램' },
-      { id: 'review',   num: 'Project 04', title: '리뷰 리워드 시스템' },
-      { id: 'yanolja',  num: 'Project 05', title: '통합예약 UX 개선' },
-      { id: 'cashwalk', num: 'Project 06', title: '캐시워크' }
-    ];
-    var fpn = document.getElementById('fpn');
-    if (!fpn) return;
-    var prevLink = fpn.querySelector('[data-fpn-prev]');
-    var nextLink = fpn.querySelector('[data-fpn-next]');
-    var current  = fpn.querySelector('.fpn-current');
-
-    function setSide(el, project) {
-      var numEl   = el.querySelector('.fpn-num');
-      var titleEl = el.querySelector('.fpn-title');
-      if (project) {
-        numEl.textContent = project.num;
-        titleEl.textContent = project.title;
-        el.setAttribute('href', '#' + project.id);
-        el.classList.remove('disabled');
-        el.removeAttribute('aria-disabled');
-      } else {
-        numEl.textContent = '';
-        titleEl.textContent = '—';
-        el.setAttribute('href', '#');
-        el.classList.add('disabled');
-        el.setAttribute('aria-disabled', 'true');
-      }
-    }
-
-    function update() {
-      var hash = (location.hash || '').replace(/^#/, '');
-      var idx = -1;
-      for (var i = 0; i < projects.length; i++) {
-        if (projects[i].id === hash) { idx = i; break; }
-      }
-      if (idx === -1) {
-        fpn.classList.remove('visible');
-        return;
-      }
-      var cur  = projects[idx];
-      var prev = idx > 0 ? projects[idx - 1] : null;
-      var next = idx < projects.length - 1 ? projects[idx + 1] : null;
-      setSide(prevLink, prev);
-      setSide(nextLink, next);
-      current.querySelector('.fpn-num').textContent = cur.num;
-      current.querySelector('.fpn-title').textContent = cur.title;
-      fpn.classList.add('visible');
-    }
-
-    window.addEventListener('hashchange', update);
-    update();
+    document.querySelectorAll('.prd-page').forEach(function (page) {
+      var cover = page.querySelector('.prd-cover');
+      var sideNav = page.querySelector('.prd-side-nav');
+      if (!cover || !sideNav) return;
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          sideNav.classList.toggle('hidden-by-cover', entry.isIntersecting);
+        });
+      }, { rootMargin: '-80px 0px 0px 0px', threshold: 0 });
+      io.observe(cover);
+    });
   })();
 
   // 라이트박스: 갤러리 이미지 클릭 시 확대 팝업
