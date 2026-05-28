@@ -1891,256 +1891,285 @@
 <!-- ═══════════════════════════════════════ -->
 <!-- 4. VIP 프로그램 (성과 개선)             -->
 <!-- ═══════════════════════════════════════ -->
-<section id="vip" class="section-dark2" style="padding-top:120px;">
-  <div style="margin-bottom:56px;">
-    <p class="project-num">PROJECT 03</p>
-    <h2 class="project-title" style="font-size:36px;">VIP 프로그램 (멤버십 구조 시스템)</h2>
-    <p class="project-subtitle">고매출 사용자 유지 및 재구매 유도를 위한 멤버십 구조 시스템 · FashionGo B2B</p>
-    <p class="project-period" style="background:rgba(255,255,255,0.08);color:#aaa;">2024.3 ~ 2025.3 NHNFashionGo(Global)</p>
-  </div>
+<section id="vip" class="prd-page">
 
-  <!-- 성과 개선 섹션 -->
-  <div class="result-highlight">
-    <h3>핵심 성과 지표</h3>
-    <div class="result-row">
-      <div class="result-item">
-        <span class="r-num">+10%</span><span class="r-unit"> YoY</span>
-        <div class="r-label">전체 플랫폼 주문액 증가</div>
-        <div class="r-note">2024 vs 2025 연간 비교</div>
-      </div>
-      <div class="result-item">
-        <span class="r-num">+23%</span>
-        <div class="r-label">VIP 사용자 그룹 주문액 증가</div>
-        <div class="r-note">비VIP(+6%) 대비 약 4배 높은 성장률</div>
-      </div>
-      <div class="result-item">
-        <span class="r-num">52K</span>
-        <div class="r-label">8월 기준 Active User</div>
-        <div class="r-note">VIP 배지 노출로 일반 고객 인지 증가</div>
-      </div>
-      <div class="result-item">
-        <span class="r-num">8%</span>
-        <div class="r-label">쿠폰 자동 지급 참여 판매자 달성</div>
-        <div class="r-note">출시 25/2/24 기준</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 의사결정 스토리 -->
-  <hr class="divider" />
-  <h3 class="section-title">핵심 의사결정 과정</h3>
-
-  <div style="max-width:720px;">
-    <div class="story-block challenge">
-      <div class="story-label">🚧 도전 과제</div>
-      <p>LA 본사에서는 VIP 등급 기준을 "연 주문 건수"로 잡길 원했고, 한국팀은 "연 매출액" 기준을 주장했습니다.
-      패션 B2B 특성상 대형 벤더는 단가가 높고 소량 주문하는 반면, 소형 벤더는 다수 소액 주문을 넣기 때문에
-      건수 기준으로는 실제 고가치 고객을 제대로 분류하지 못하는 문제가 있었습니다.</p>
-    </div>
-    <div class="story-block decision">
-      <div class="story-label">💡 의사결정</div>
-      <p>2022~2024년 Heap 데이터를 분석해 "매출 $300K 이상 구매자"가
-      전체 거래액의 약 62%를 차지함을 수치로 제시했습니다.
-      이를 LA 팀에 영어 분석 보고서로 공유하여 "연 매출액" 기준으로 정책을 최종 합의했습니다.</p>
-    </div>
-    <div class="story-block outcome">
-      <div class="story-label">✅ 결과</div>
-      <p>VIP 등급 기준이 명확해지면서 관리자 운영 공수가 줄고, 판매자들의 "왜 나는 VIP가 아닌가"
-      문의가 출시 후 1분기 내 70% 감소했습니다.</p>
-    </div>
-  </div>
-
-  <!-- 데이터 인사이트 -->
-  <div style="margin-top:64px;">
-    <h3 class="section-title">DATA INSIGHTS</h3>
-    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px;align-items:start;">
-
-    <!-- ── Chart 1: 가설 검증 ── -->
-    <div>
-      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px 12px 0 0;padding:32px;">
-        <h4 style="font-size:15px;font-weight:700;color:#fff;margin-bottom:24px;">VIP 프로그램 운영 효과 가설 검증</h4>
-
-        <!-- 두 핵심 수치 -->
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:32px;">
-          <div style="text-align:center;padding:24px;background:rgba(91,200,247,0.08);border:1px solid rgba(91,200,247,0.25);border-radius:10px;">
-            <div style="font-size:44px;font-weight:800;color:#5BC8F7;line-height:1;">90%</div>
-            <div style="font-size:12px;color:#bbb;margin-top:10px;letter-spacing:0.3px;">VIP 명단 고정율</div>
-          </div>
-          <div style="text-align:center;padding:24px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;">
-            <div style="font-size:44px;font-weight:800;color:#999;line-height:1;">20%</div>
-            <div style="font-size:12px;color:#bbb;margin-top:10px;letter-spacing:0.3px;">VIP 인지도</div>
-          </div>
-        </div>
-
-        <!-- 가설1: 매출 추이 (grouped bar) -->
-        <div style="margin-bottom:28px;">
-          <p style="font-size:13px;color:#ccc;margin-bottom:16px;font-weight:600;">[가설1] VIP고객 집중관리시, 지속적인 매출 상승 기여</p>
-          <svg viewBox="0 0 400 140" style="width:100%;height:auto;" preserveAspectRatio="none" aria-label="가설1 매출 추이 차트">
-            <!-- 2022 -->
-            <rect x="20"  y="125" width="20" height="10" fill="rgba(255,255,255,0.28)" rx="2"/>
-            <rect x="44"  y="120" width="20" height="15" fill="#5BC8F7" rx="2"/>
-            <!-- 2023 -->
-            <rect x="120" y="110" width="20" height="25" fill="rgba(255,255,255,0.28)" rx="2"/>
-            <rect x="144" y="95"  width="20" height="40" fill="#5BC8F7" rx="2"/>
-            <!-- 2024 -->
-            <rect x="220" y="80"  width="20" height="55" fill="rgba(255,255,255,0.28)" rx="2"/>
-            <rect x="244" y="60"  width="20" height="75" fill="#5BC8F7" rx="2"/>
-            <!-- 2025 -->
-            <rect x="320" y="15"  width="20" height="120" fill="rgba(255,255,255,0.4)" rx="2"/>
-            <rect x="344" y="38"  width="20" height="97" fill="#5BC8F7" rx="2"/>
-          </svg>
-          <div style="display:grid;grid-template-columns:repeat(4,1fr);font-size:11px;color:#888;margin-top:4px;text-align:center;">
-            <span>2022</span><span>2023</span><span>2024</span><span>2025</span>
-          </div>
-          <div style="display:flex;gap:16px;justify-content:center;margin-top:14px;font-size:11px;color:#888;">
-            <span style="display:inline-flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;background:rgba(255,255,255,0.28);border-radius:2px;"></span>Total Order Amount</span>
-            <span style="display:inline-flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;background:#5BC8F7;border-radius:2px;"></span>TP Order Amount</span>
-          </div>
-        </div>
-
-        <!-- 가설2: Premier 사용자 비율 (stacked bar) -->
+  <!-- Project cover -->
+  <div class="prd-cover">
+    <div class="prd-cover-inner">
+      <div class="prd-cover-head">
         <div>
-          <p style="font-size:13px;color:#ccc;margin-bottom:16px;font-weight:600;">[가설2] VIP프로그램 운영시, 일반유저에게 간접 홍보</p>
-          <svg viewBox="0 0 400 140" style="width:100%;height:auto;" preserveAspectRatio="none" aria-label="가설2 Premier 사용자 비율 차트">
-            <!-- 2022 -->
-            <rect x="30"  y="10"  width="40" height="120" fill="rgba(255,255,255,0.12)" rx="2"/>
-            <rect x="30"  y="125" width="40" height="5"   fill="#5BC8F7" rx="0 0 2 2"/>
-            <!-- 2023 -->
-            <rect x="130" y="10"  width="40" height="120" fill="rgba(255,255,255,0.12)" rx="2"/>
-            <rect x="130" y="115" width="40" height="15"  fill="#5BC8F7"/>
-            <!-- 2024 -->
-            <rect x="230" y="10"  width="40" height="120" fill="rgba(255,255,255,0.12)" rx="2"/>
-            <rect x="230" y="92"  width="40" height="38"  fill="#5BC8F7"/>
-            <!-- 2025 -->
-            <rect x="330" y="10"  width="40" height="120" fill="rgba(255,255,255,0.12)" rx="2"/>
-            <rect x="330" y="55"  width="40" height="75"  fill="#5BC8F7"/>
-          </svg>
-          <div style="display:grid;grid-template-columns:repeat(4,1fr);font-size:11px;color:#888;margin-top:4px;text-align:center;">
-            <span>2022</span><span>2023</span><span>2024</span><span>2025</span>
-          </div>
-          <div style="display:flex;gap:16px;justify-content:center;margin-top:14px;font-size:11px;color:#888;">
-            <span style="display:inline-flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;background:rgba(255,255,255,0.12);border-radius:2px;"></span>Non-Premier users ratio</span>
-            <span style="display:inline-flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;background:#5BC8F7;border-radius:2px;"></span>Premier users ratio</span>
-          </div>
+          <div class="prd-cover-eyebrow">Project 03</div>
+          <h1 class="prd-cover-title">VIP 프로그램<span class="prd-cover-subtitle">고매출 사용자 유지·재구매를 설계하는 멤버십 구조 시스템</span></h1>
+          <p class="prd-cover-summary">FashionGo B2B 플랫폼의 상위 매출 사용자를 식별·유지하고, 일반 사용자의 등급 진입을 유도하는 멤버십 구조 시스템. LA 본사와 한국팀의 등급 기준 갈등을 데이터 분석으로 정렬하고, 출시 1년 만에 VIP 그룹 주문액 +23%를 만든 프로젝트.</p>
         </div>
       </div>
-
-      <!-- 인사이트 박스 -->
-      <div style="background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.08);border-top:none;border-radius:0 0 12px 12px;padding:16px 24px;">
-        <p style="font-size:12.5px;color:#bbb;line-height:1.7;">
-          VIP 명단의 <strong style="color:#5BC8F7;">90%가 고정</strong>되어 있는 반면 인지도는 20%에 그침 → 신규 유입 부족이 핵심 과제.
-          <strong style="color:#fff;">[가설1]</strong> VIP 집중관리로 TP 주문액이 전체 대비 매년 비중을 키우며 동반 성장.
-          <strong style="color:#fff;">[가설2]</strong> 프로그램 운영 후 일반 유저의 Premier 전환율이 매년 확대 → 간접 홍보 효과 검증.
-        </p>
+      <div class="prd-cover-meta">
+        <div class="prd-cover-meta-item"><span class="prd-cover-meta-label">Period</span><span class="prd-cover-meta-value">2024.03 – 2025.03</span></div>
+        <div class="prd-cover-meta-item"><span class="prd-cover-meta-label">Team</span><span class="prd-cover-meta-value">NHN FashionGo · Global</span></div>
+        <div class="prd-cover-meta-item"><span class="prd-cover-meta-label">Role</span><span class="prd-cover-meta-value">Service Product Manager</span></div>
       </div>
     </div>
-
-    <!-- ── Chart 2: TPday 배지 클릭 추이 ── -->
-    <div>
-      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px 12px 0 0;padding:32px;">
-        <h4 style="font-size:15px;font-weight:700;color:#fff;margin-bottom:8px;">TPday 배지 클릭 추이</h4>
-        <p style="font-size:12px;color:#888;margin-bottom:24px;">WS · TPday Badge Click Count via FGW (8월 4일 ~ 8월 8일)</p>
-
-        <!-- KPI 카드 3개 -->
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px;">
-          <div style="padding:16px;background:rgba(91,200,247,0.08);border:1px solid rgba(91,200,247,0.25);border-radius:10px;">
-            <div style="font-size:11px;color:#7DD3FC;letter-spacing:0.3px;margin-bottom:4px;">ITEM DETAIL</div>
-            <div style="font-size:22px;font-weight:800;color:#fff;">1,232<span style="font-size:13px;font-weight:600;color:#bbb;"> 명</span></div>
-            <div style="font-size:12px;color:#7DD3FC;margin-top:2px;">2.34% · Unique 371.3명 (0.71%)</div>
-          </div>
-          <div style="padding:16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;">
-            <div style="font-size:11px;color:#aaa;letter-spacing:0.3px;margin-bottom:4px;">VENDOR HOME</div>
-            <div style="font-size:22px;font-weight:800;color:#fff;">950<span style="font-size:13px;font-weight:600;color:#bbb;"> 명</span></div>
-            <div style="font-size:12px;color:#aaa;margin-top:2px;">1.80% · Unique 282명 (0.54%)</div>
-          </div>
-          <div style="padding:16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;">
-            <div style="font-size:11px;color:#aaa;letter-spacing:0.3px;margin-bottom:4px;">LIVE DETAIL</div>
-            <div style="font-size:22px;font-weight:800;color:#fff;">36<span style="font-size:13px;font-weight:600;color:#bbb;"> 명</span></div>
-            <div style="font-size:12px;color:#aaa;margin-top:2px;">0.07% · Unique 11.33명 (0.02%)</div>
-          </div>
-        </div>
-
-        <!-- 라인 차트 -->
-        <svg viewBox="0 0 500 200" style="width:100%;height:auto;" aria-label="TPday 배지 클릭 라인 차트">
-          <!-- 격자 -->
-          <line x1="40" y1="30"  x2="490" y2="30"  stroke="rgba(255,255,255,0.06)" />
-          <line x1="40" y1="70"  x2="490" y2="70"  stroke="rgba(255,255,255,0.06)" />
-          <line x1="40" y1="110" x2="490" y2="110" stroke="rgba(255,255,255,0.06)" />
-          <line x1="40" y1="150" x2="490" y2="150" stroke="rgba(255,255,255,0.06)" />
-          <!-- y축 라벨 -->
-          <text x="32" y="34"  text-anchor="end" fill="#888" font-size="10">600</text>
-          <text x="32" y="74"  text-anchor="end" fill="#888" font-size="10">400</text>
-          <text x="32" y="114" text-anchor="end" fill="#888" font-size="10">200</text>
-          <text x="32" y="154" text-anchor="end" fill="#888" font-size="10">0</text>
-          <!-- Item Detail (시안, 569 피크) -->
-          <polyline points="60,150 160,30 260,52 360,68 460,150" fill="none" stroke="#5BC8F7" stroke-width="2.5" stroke-linecap="round"/>
-          <circle cx="60"  cy="150" r="3.5" fill="#5BC8F7"/>
-          <circle cx="160" cy="30"  r="4.5" fill="#5BC8F7"/>
-          <circle cx="260" cy="52"  r="3.5" fill="#5BC8F7"/>
-          <circle cx="360" cy="68"  r="3.5" fill="#5BC8F7"/>
-          <circle cx="460" cy="150" r="3.5" fill="#5BC8F7"/>
-          <!-- Vendor Home (밝은 회색, 409 피크) -->
-          <polyline points="60,150 160,68 260,80 360,86 460,150" fill="none" stroke="#bbb" stroke-width="2.5" stroke-linecap="round"/>
-          <circle cx="60"  cy="150" r="3" fill="#bbb"/>
-          <circle cx="160" cy="68"  r="4" fill="#bbb"/>
-          <circle cx="260" cy="80"  r="3" fill="#bbb"/>
-          <circle cx="360" cy="86"  r="3" fill="#bbb"/>
-          <circle cx="460" cy="150" r="3" fill="#bbb"/>
-          <!-- 569 라벨 -->
-          <text x="160" y="22" text-anchor="middle" fill="#5BC8F7" font-size="11" font-weight="700">569</text>
-          <!-- x축 라벨 -->
-          <text x="60"  y="170" text-anchor="middle" fill="#888" font-size="11">Aug 4</text>
-          <text x="160" y="170" text-anchor="middle" fill="#888" font-size="11">Aug 5</text>
-          <text x="260" y="170" text-anchor="middle" fill="#888" font-size="11">Aug 6</text>
-          <text x="360" y="170" text-anchor="middle" fill="#888" font-size="11">Aug 7</text>
-          <text x="460" y="170" text-anchor="middle" fill="#888" font-size="11">Aug 8</text>
-          <text x="60"  y="184" text-anchor="middle" fill="#666" font-size="9">Sun</text>
-          <text x="160" y="184" text-anchor="middle" fill="#666" font-size="9">Mon</text>
-          <text x="260" y="184" text-anchor="middle" fill="#666" font-size="9">Tue</text>
-          <text x="360" y="184" text-anchor="middle" fill="#666" font-size="9">Wed</text>
-          <text x="460" y="184" text-anchor="middle" fill="#666" font-size="9">Thu</text>
-        </svg>
-
-        <div style="display:flex;gap:16px;justify-content:center;margin-top:14px;font-size:11px;color:#888;">
-          <span style="display:inline-flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;background:#5BC8F7;border-radius:50%;"></span>Item Detail</span>
-          <span style="display:inline-flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;background:#bbb;border-radius:50%;"></span>Vendor Home</span>
-        </div>
-      </div>
-
-      <!-- 인사이트 박스 -->
-      <div style="background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.08);border-top:none;border-radius:0 0 12px 12px;padding:16px 24px;">
-        <p style="font-size:12.5px;color:#bbb;line-height:1.7;">
-          월요일(8/5) 발송 직후 <strong style="color:#5BC8F7;">Item Detail 569 클릭</strong> 피크 — 이후 Tue~Thu 동안 점진적 감소.
-          Item Detail(2.34%) · Vendor Home(1.80%)이 주요 진입 경로인 반면 Live Detail은 0.07%로 미미.
-          * 8월 기준 Total Active user = 52,658
-        </p>
-      </div>
-    </div>
-
-    </div><!-- /DATA INSIGHTS grid -->
   </div>
 
-  <!-- 프로젝트 갤러리 -->
-  <div style="margin-top:64px;">
-    <h3 class="section-title">GALLERY</h3>
-    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px;align-items:start;">
+  <!-- Side nav -->
+  <aside class="prd-side-nav" aria-label="Section navigation">
+    <ul class="prd-side-nav-list">
+      <li><a href="#vip-part1" data-scroll="vip-part1" class="sn-h1"><span class="sn-num">PART I</span><span class="sn-title">배경과 목표</span></a></li>
+      <li><a href="#vip-overview" data-scroll="vip-overview"><span class="sn-num">00</span><span class="sn-title">개요</span></a></li>
+      <li><a href="#vip-problem" data-scroll="vip-problem"><span class="sn-num">01</span><span class="sn-title">문제 정의</span></a></li>
+      <li><a href="#vip-goals" data-scroll="vip-goals"><span class="sn-num">02</span><span class="sn-title">목표와 성과</span></a></li>
+      <li><a href="#vip-part2" data-scroll="vip-part2" class="sn-h1"><span class="sn-num">PART II</span><span class="sn-title">결정과 결과</span></a></li>
+      <li><a href="#vip-decision" data-scroll="vip-decision"><span class="sn-num">03</span><span class="sn-title">핵심 의사결정</span></a></li>
+      <li><a href="#vip-insights" data-scroll="vip-insights"><span class="sn-num">04</span><span class="sn-title">데이터 인사이트</span></a></li>
+      <li><a href="#vip-gallery" data-scroll="vip-gallery"><span class="sn-num">05</span><span class="sn-title">갤러리</span></a></li>
+    </ul>
+  </aside>
 
-      <figure style="margin:0;">
-        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:24px;display:flex;align-items:center;justify-content:center;min-height:320px;">
-          <img src="images/vip-welcome.png" alt="The Premier 환영 화면 + Growth Tracker 분기별 비교" style="max-width:100%;display:block;">
+  <!-- Main -->
+  <div class="prd-main">
+
+    <!-- PART I -->
+    <section class="prd-part-divider" id="vip-part1">
+      <div class="prd-section-inner">
+        <div class="prd-part-eyebrow">PART I</div>
+        <h1>배경과 목표</h1>
+        <span class="prd-part-meta">Why &amp; What — 왜 만들었는가, 무엇을 이루려 했는가</span>
+      </div>
+    </section>
+
+    <!-- 00 개요 -->
+    <section class="prd-section" id="vip-overview">
+      <div class="prd-section-inner">
+        <div class="prd-section-tag"></div>
+        <div class="prd-section-head">
+          <h2><span class="num-prefix">00</span>개요</h2>
+          <p class="prd-lede">FashionGo는 거래액의 상당 부분을 상위 매출 사용자가 만들지만, 이들을 별도로 식별·관리하는 구조가 없었습니다. <b>고매출 사용자에게 가치를 돌려주고 일반 사용자에게 등급 진입 동기를 부여하는 멤버십 시스템</b>이 필요했고, 이를 1년에 걸쳐 설계·출시·검증한 프로젝트입니다.</p>
+          <p class="prd-lede">LA 본사·한국팀의 등급 기준 정렬부터, 출시 후 가설 검증·확장까지 데이터를 근거로 의사결정을 끌어낸 것이 차별점이었습니다.</p>
         </div>
-        <figcaption style="font-size:12px;color:#888;margin-top:10px;text-align:center;line-height:1.5;">Welcome to The Premier 진입 화면 · Growth Tracker 분기별 성과 비교</figcaption>
-      </figure>
-
-      <figure style="margin:0;">
-        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:24px;display:flex;align-items:center;justify-content:center;min-height:320px;">
-          <img src="images/vip-tracker.png" alt="VIP Tier Status + Growth Tracker 월별 화면" style="max-width:100%;display:block;">
+        <div class="prd-kpi-row">
+          <div class="prd-kpi"><div class="prd-kpi-value">+10<span class="unit">% YoY</span></div><div class="prd-kpi-label">전체 플랫폼 주문액 증가<br>(2024 vs 2025)</div></div>
+          <div class="prd-kpi"><div class="prd-kpi-value">+23<span class="unit">%</span></div><div class="prd-kpi-label">VIP 그룹 주문액 증가<br>(비VIP +6% 대비 약 4배)</div></div>
+          <div class="prd-kpi"><div class="prd-kpi-value">52<span class="unit">K</span></div><div class="prd-kpi-label">8월 기준 Active User<br>(VIP 배지 인지 확산)</div></div>
+          <div class="prd-kpi"><div class="prd-kpi-value">8<span class="unit">%</span></div><div class="prd-kpi-label">쿠폰 자동 지급<br>참여 판매자 (25/2/24)</div></div>
         </div>
-        <figcaption style="font-size:12px;color:#888;margin-top:10px;text-align:center;line-height:1.5;">Tier Status — 등급 진행 게이지 · Growth Tracker — 월별 목표 달성 차트</figcaption>
-      </figure>
+        <div class="prd-callout">
+          <div class="lbl">Key Takeaway</div>
+          <p>이 프로젝트의 본질은 "VIP 화면을 새로 만든다"가 아니라, <b>"등급이라는 운영 개념을 데이터·정책·UI 차원에서 동시에 세우는 것"</b>이었습니다. 등급 기준이 정렬되어야 운영이 일관되고, 운영이 일관되어야 사용자가 등급의 가치를 인지하기 때문입니다.</p>
+        </div>
+      </div>
+    </section>
 
-    </div>
+    <!-- 01 문제 정의 -->
+    <section class="prd-section" id="vip-problem">
+      <div class="prd-section-inner">
+        <div class="prd-section-tag"></div>
+        <div class="prd-section-head">
+          <h2><span class="num-prefix">01</span>문제 정의</h2>
+          <p class="prd-lede">단순히 "VIP 화면이 없다"가 아니라, <b>VIP를 정의하는 기준·인지·신규 유입 세 축이 모두 비어 있는 상태</b>였습니다. 셋 중 하나만 풀어도 다른 두 개가 다시 무너지는 구조였습니다.</p>
+        </div>
+        <div class="prd-block">
+          <div class="prd-block-head"><h3>핵심 문제 3</h3></div>
+          <div class="prd-problem-grid">
+            <div class="prd-problem-card">
+              <div class="pc-num">P1</div>
+              <h3>등급 기준 정렬 부재</h3>
+              <p>LA 본사는 "연 주문 건수", 한국팀은 "연 매출액" 기준을 주장. 패션 B2B 특성상 단가·주문 빈도가 벤더마다 달라, 기준에 따라 VIP 명단이 완전히 달라지는 상태.</p>
+            </div>
+            <div class="prd-problem-card">
+              <div class="pc-num">P2</div>
+              <h3>VIP 가치 미전달</h3>
+              <p>일반 사용자 중 VIP 프로그램을 인지하는 비율이 20%에 그침. 등급의 혜택과 진입 조건이 외부에 명시적으로 노출되지 않아 동기 부여가 일어나지 않음.</p>
+            </div>
+            <div class="prd-problem-card">
+              <div class="pc-num">P3</div>
+              <h3>신규 VIP 유입 부족</h3>
+              <p>VIP 명단의 90%가 매년 고정되어 있어, 안정적 매출원이긴 하지만 신규 진입이 거의 없음. 등급 시스템이 "닫힌 그룹"으로 인식되는 위험.</p>
+            </div>
+          </div>
+        </div>
+        <div class="prd-callout important">
+          <div class="lbl">Important</div>
+          <p>세 문제는 같은 사슬입니다. 기준이 불명확하니 운영이 흔들리고, 운영이 흔들리니 인지가 안 되고, 인지가 안 되니 신규가 안 들어옵니다. <b>기준 정렬에서 출발해 인지·유입까지 일관되게 풀어야</b> 등급 시스템이 작동합니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 목표와 성과 -->
+    <section class="prd-section" id="vip-goals">
+      <div class="prd-section-inner">
+        <div class="prd-section-tag"></div>
+        <div class="prd-section-head">
+          <h2><span class="num-prefix">02</span>목표와 성과</h2>
+          <p class="prd-lede">목표는 <b>VIP 그룹의 매출 기여를 증명하고, 일반 사용자의 등급 인지·진입을 늘리는 것</b>이었습니다. 출시 1년이 지난 시점의 결과는 다음과 같습니다.</p>
+        </div>
+        <div class="prd-block">
+          <div class="prd-block-head"><h3>달성 결과</h3><span class="meta">2024.03 출시 · 1년 누적</span></div>
+          <div class="prd-table-wrap">
+            <table>
+              <thead><tr><th>지표</th><th>출시 전</th><th class="num">출시 1년 후</th><th>해석</th></tr></thead>
+              <tbody>
+                <tr><td class="lbl-cell">전체 플랫폼 주문액</td><td>기준선</td><td class="num">+10% YoY</td><td>플랫폼 전체 동반 성장</td></tr>
+                <tr><td class="lbl-cell">VIP 그룹 주문액</td><td>기준선</td><td class="num">+23%</td><td>비VIP(+6%) 대비 약 4배</td></tr>
+                <tr><td class="lbl-cell">VIP 등급 기준 VOC</td><td>다수 접수</td><td class="num">−70%</td><td>등급 기준 명확화 효과</td></tr>
+                <tr><td class="lbl-cell">쿠폰 자동 지급 참여 판매자</td><td>0%</td><td class="num">8%</td><td>VIP 대상 자동 지급 운영 시작</td></tr>
+                <tr><td class="lbl-cell">8월 기준 Active User</td><td>—</td><td class="num">52K</td><td>VIP 배지 노출로 일반 사용자 인지 확산</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="prd-callout">
+          <div class="lbl">So What</div>
+          <p>가장 중요한 결과는 <b>VIP 그룹이 비VIP 대비 약 4배 빠른 성장률</b>을 기록했다는 점입니다. "고매출 그룹에 집중하는 것이 전체 매출을 키운다"는 가설이 실제 데이터로 증명되었고, 이는 향후 마케팅·운영 자원 배분의 근거가 됩니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PART II -->
+    <section class="prd-part-divider" id="vip-part2">
+      <div class="prd-section-inner">
+        <div class="prd-part-eyebrow">PART II</div>
+        <h1>결정과 결과</h1>
+        <span class="prd-part-meta">How — 무엇을 결정했고, 어떤 데이터가 그것을 받쳐줬는가</span>
+      </div>
+    </section>
+
+    <!-- 03 핵심 의사결정 -->
+    <section class="prd-section" id="vip-decision">
+      <div class="prd-section-inner">
+        <div class="prd-section-tag"></div>
+        <div class="prd-section-head">
+          <h2><span class="num-prefix">03</span>핵심 의사결정</h2>
+          <p class="prd-lede">프로젝트 초기 가장 큰 의사결정은 <b>"VIP 등급을 무엇으로 정의할 것인가"</b>였습니다. LA 본사와 한국팀의 입장 차이를 감정·권위가 아닌 <b>데이터로 정렬</b>한 과정이 핵심이었습니다.</p>
+        </div>
+        <div class="prd-insight-list">
+          <div class="prd-insight-row">
+            <div class="prd-insight-num">1</div>
+            <div class="prd-insight-body">
+              <div class="prd-insight-title">도전 과제 — 등급 기준 갈등</div>
+              <p>LA 본사는 직관적인 <b>"연 주문 건수"</b>를, 한국팀은 비즈니스 임팩트 중심의 <b>"연 매출액"</b>을 주장. 패션 B2B 특성상 대형 벤더는 단가가 높고 소량 주문하고, 소형 벤더는 다수 소액 주문을 넣어 기준에 따라 VIP 명단이 거의 달라지는 상황.</p>
+            </div>
+          </div>
+          <div class="prd-insight-row">
+            <div class="prd-insight-num">2</div>
+            <div class="prd-insight-body">
+              <div class="prd-insight-title">의사결정 — Heap 데이터로 가설 정렬</div>
+              <p>2022 – 2024년 Heap 데이터를 분석해 <b>"연 매출 $300K 이상 구매자가 전체 거래액의 약 62%를 차지"</b>한다는 사실을 수치로 제시. 이를 영어 분석 보고서로 LA 팀과 공유해 <b>"연 매출액" 기준으로 정책 합의</b>.</p>
+            </div>
+          </div>
+          <div class="prd-insight-row">
+            <div class="prd-insight-num">3</div>
+            <div class="prd-insight-body">
+              <div class="prd-insight-title">결과 — 운영 일관성 회복</div>
+              <p>VIP 등급 기준이 명확해지면서 관리자 운영 공수가 줄었고, <b>"왜 나는 VIP가 아닌가" 판매자 문의가 출시 후 1분기 내 70% 감소</b>. 의사결정의 근거가 명확하니 외부 설명도 일관되게 가능해진 사례.</p>
+            </div>
+          </div>
+        </div>
+        <div class="prd-callout note">
+          <div class="lbl">Note</div>
+          <p>이 사례는 글로벌 본사와의 의견 충돌을 <b>"이긴다"가 아니라 "정렬한다"의 방식으로 푼 케이스</b>입니다. 양 팀이 동의할 수 있는 공통 언어(데이터)를 만들어 제시하는 것이 PM의 핵심 역할임을 체득.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 데이터 인사이트 -->
+    <section class="prd-section" id="vip-insights">
+      <div class="prd-section-inner">
+        <div class="prd-section-tag"></div>
+        <div class="prd-section-head">
+          <h2><span class="num-prefix">04</span>데이터 인사이트</h2>
+          <p class="prd-lede">출시 1년 시점에 프로그램의 운영 가설을 검증하기 위해 분석한 데이터입니다. 결과는 <b>"집중 관리가 전체 매출을 끌어올린다"</b>와 <b>"VIP 노출이 간접 홍보 효과로 작동한다"</b> 두 가설을 모두 지지합니다.</p>
+        </div>
+
+        <div class="prd-block">
+          <div class="prd-block-head"><h3>VIP 명단 안정성 · 인지도</h3></div>
+          <div class="prd-kpi-row" style="grid-template-columns: 1fr 1fr;">
+            <div class="prd-kpi"><div class="prd-kpi-value">90<span class="unit">%</span></div><div class="prd-kpi-label">VIP 명단 고정율<br>연간 유지율</div></div>
+            <div class="prd-kpi"><div class="prd-kpi-value">20<span class="unit">%</span></div><div class="prd-kpi-label">VIP 인지도<br>일반 사용자 대상</div></div>
+          </div>
+          <div class="prd-callout note">
+            <div class="lbl">Read</div>
+            <p>명단이 90% 고정된 것은 <b>VIP가 안정적 매출원</b>이라는 신호이지만, 인지도가 20%에 그치는 것은 <b>신규 유입을 위한 인지 확산이 핵심 과제</b>임을 보여줍니다. 두 수치를 함께 봐야 다음 액션이 보입니다.</p>
+          </div>
+        </div>
+
+        <div class="prd-block">
+          <div class="prd-block-head"><h3>운영 가설 검증</h3></div>
+          <div class="prd-insight-list">
+            <div class="prd-insight-row">
+              <div class="prd-insight-num">1</div>
+              <div class="prd-insight-body">
+                <div class="prd-insight-title">[가설1] VIP 집중관리 → 지속 매출 성장</div>
+                <p>2022 → 2025년 추이를 보면 TP(VIP) 주문액이 매년 전체 거래액 대비 비중을 키우며 동반 성장. <b>VIP 그룹에 집중된 운영이 전체 매출을 견인</b>한다는 가설을 4개년 데이터로 검증.</p>
+              </div>
+            </div>
+            <div class="prd-insight-row">
+              <div class="prd-insight-num">2</div>
+              <div class="prd-insight-body">
+                <div class="prd-insight-title">[가설2] VIP 프로그램 → 일반유저 간접 홍보</div>
+                <p>프로그램 운영 이후 일반 사용자의 Premier 전환율이 매년 확대. VIP 배지 노출만으로도 <b>일반 고객의 등급 인지·도전 행동을 유도</b>하는 간접 홍보 효과가 확인됨.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="prd-block">
+          <div class="prd-block-head"><h3>TPday 배지 클릭 추이</h3><span class="meta">8/4 – 8/8 · FGW 기준</span></div>
+          <div class="prd-kpi-row" style="grid-template-columns: repeat(3, 1fr);">
+            <div class="prd-kpi"><div class="prd-kpi-value">1,232<span class="unit">명</span></div><div class="prd-kpi-label">Item Detail<br>2.34% · Unique 371명 (0.71%)</div></div>
+            <div class="prd-kpi"><div class="prd-kpi-value">950<span class="unit">명</span></div><div class="prd-kpi-label">Vendor Home<br>1.80% · Unique 282명 (0.54%)</div></div>
+            <div class="prd-kpi"><div class="prd-kpi-value">36<span class="unit">명</span></div><div class="prd-kpi-label">Live Detail<br>0.07% · Unique 11명 (0.02%)</div></div>
+          </div>
+          <div class="prd-callout">
+            <div class="lbl">Read</div>
+            <p>월요일(8/5) 발송 직후 <b>Item Detail에서 569 클릭 피크</b>를 기록한 뒤 Tue – Thu 동안 점진적 감소. 주요 진입 경로는 Item Detail · Vendor Home이며 Live Detail은 0.07%로 미미. * 8월 기준 Total Active User = 52,658.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 갤러리 -->
+    <section class="prd-section" id="vip-gallery">
+      <div class="prd-section-inner">
+        <div class="prd-section-tag"></div>
+        <div class="prd-section-head">
+          <h2><span class="num-prefix">05</span>갤러리</h2>
+          <p class="prd-lede">사용자가 마주하는 VIP 환영 화면과 등급 진행·성장 트래킹 화면입니다.</p>
+        </div>
+        <div class="prd-gallery" style="grid-template-columns: repeat(2, 1fr);">
+          <figure>
+            <div class="img-frame"><img src="images/vip-welcome.png" alt="The Premier 환영 화면 + Growth Tracker 분기별 비교"></div>
+            <figcaption>Welcome to The Premier 진입 화면 · Growth Tracker 분기별 성과 비교</figcaption>
+          </figure>
+          <figure>
+            <div class="img-frame"><img src="images/vip-tracker.png" alt="VIP Tier Status + Growth Tracker 월별 화면"></div>
+            <figcaption>Tier Status — 등급 진행 게이지 · Growth Tracker — 월별 목표 달성 차트</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
   </div>
+
+  <!-- Footer -->
+  <footer class="prd-footer">
+    <div class="prd-footer-inner">
+      <div class="prd-footer-row">
+        <div class="prd-footer-left">
+          <div class="prd-footer-title">VIP 프로그램 — 고매출 사용자 유지·재구매를 위한 멤버십 구조 시스템</div>
+          <div class="prd-footer-sub">윤혜련 · Service Product Manager · 2024.03 – 2025.03</div>
+        </div>
+        <div class="prd-footer-contact">
+          <a href="mailto:dusqkq0@naver.com" class="prd-footer-link">
+            <span aria-hidden="true">✉️</span> dusqkq0@naver.com
+          </a>
+          <a href="https://www.linkedin.com/in/hyeryeon/" target="_blank" rel="noopener" class="prd-footer-link">
+            <span aria-hidden="true">🔗</span> linkedin.com/in/hyeryeon
+          </a>
+        </div>
+      </div>
+      <div class="prd-footer-copyright">© 2026 윤혜련. All rights reserved.</div>
+    </div>
+  </footer>
 </section>
 
 
