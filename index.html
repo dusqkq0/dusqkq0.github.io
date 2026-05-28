@@ -467,16 +467,12 @@
       font-size: 13px; color: rgba(255,255,255,0.92); font-weight: 500;
     }
 
-    /* Side nav */
+    /* Side nav — JS pins `top` to align with .prd-main, with 120px viewport floor */
     .prd-page .prd-side-nav {
-      position: fixed; top: 120px;
+      position: fixed;
       left: max(24px, calc(50% - 400px - 40px - 200px));
       width: 200px; max-height: calc(100vh - 160px);
       overflow-y: auto; z-index: 90;
-      opacity: 1; transition: opacity 240ms ease;
-    }
-    .prd-page .prd-side-nav.hidden-by-cover {
-      opacity: 0; pointer-events: none;
     }
     .prd-page .prd-side-nav-list {
       list-style: none; border-left: 2px solid var(--prd-line-soft);
@@ -2398,19 +2394,23 @@
     updateActive();
   })();
 
-  // 사이드 nav 가시성: 다크 커버가 화면에 보이는 동안은 숨김 (가독성 + 디자인 의도)
+  // 사이드 nav 위치: 본문(.prd-main) 상단에 정렬, 스크롤 시 viewport 120px에서 sticky 고정
   (function () {
-    document.querySelectorAll('.prd-page').forEach(function (page) {
-      var cover = page.querySelector('.prd-cover');
-      var sideNav = page.querySelector('.prd-side-nav');
-      if (!cover || !sideNav) return;
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          sideNav.classList.toggle('hidden-by-cover', entry.isIntersecting);
-        });
-      }, { rootMargin: '-80px 0px 0px 0px', threshold: 0 });
-      io.observe(cover);
-    });
+    var PIN_TOP = 120;
+    function pinSideNavs() {
+      document.querySelectorAll('.prd-page').forEach(function (page) {
+        var nav = page.querySelector('.prd-side-nav');
+        var main = page.querySelector('.prd-main');
+        if (!nav || !main) return;
+        var mainTop = main.getBoundingClientRect().top;
+        nav.style.top = Math.max(PIN_TOP, mainTop) + 'px';
+      });
+    }
+    window.addEventListener('scroll', pinSideNavs, { passive: true });
+    window.addEventListener('resize', pinSideNavs);
+    window.addEventListener('hashchange', function () { setTimeout(pinSideNavs, 50); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(pinSideNavs);
+    pinSideNavs();
   })();
 
   // 라이트박스: 갤러리 이미지 클릭 시 확대 팝업
