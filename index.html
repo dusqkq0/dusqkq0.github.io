@@ -321,6 +321,14 @@
       padding: 8px 14px; border-radius: 10px;
       font-size: 13px; letter-spacing: 0.2px;
     }
+
+    /* ── PAGE ROUTING (hash-based SPA) ── */
+    body > section[id]:not(.page-active) { display: none !important; }
+    body > section[id].page-active { animation: pageFadeIn 0.35s ease both; }
+    @keyframes pageFadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
@@ -1881,39 +1889,36 @@
     });
   })();
 
-  // 스크롤 스파이: 현재 화면 중앙에 보이는 섹션에 따라 GNB 활성화 상태 변경
-  document.addEventListener('DOMContentLoaded', function () {
-    var sections = document.querySelectorAll('section[id]');
+  // 해시 기반 페이지 라우터: 한 번에 한 섹션만 노출, 메뉴/목차 클릭 시 해당 페이지로 랜딩
+  (function () {
+    var sections = document.querySelectorAll('body > section[id]');
     var navLinks = document.querySelectorAll('nav a[href^="#"]');
 
-    function setActive(id) {
-      navLinks.forEach(function (a) {
-        a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+    function showPage(hash) {
+      var target = (hash || '#cover').replace(/^#/, '');
+      if (!document.getElementById(target)) target = 'cover';
+      sections.forEach(function (s) {
+        s.classList.toggle('page-active', s.id === target);
       });
+      navLinks.forEach(function (a) {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + target);
+      });
+      window.scrollTo(0, 0);
     }
 
-    var observer = new IntersectionObserver(function (entries) {
-      // 교차된 섹션 중 가장 위에 있는 것을 active로
-      var visible = entries
-        .filter(function (e) { return e.isIntersecting; })
-        .sort(function (a, b) { return a.boundingClientRect.top - b.boundingClientRect.top; });
-      if (visible.length > 0) setActive(visible[0].target.id);
-    }, {
-      // viewport 중앙 부분만 감지 영역으로 사용
-      rootMargin: '-40% 0px -55% 0px',
-      threshold: 0
-    });
-
-    sections.forEach(function (s) { observer.observe(s); });
-
-    // GNB 클릭 시 즉시 활성화 상태 반영 (스크롤 도중에도 자연스럽게)
+    window.addEventListener('hashchange', function () { showPage(location.hash); });
+    // 같은 해시를 다시 클릭해도 페이지 상단으로 이동
     navLinks.forEach(function (a) {
       a.addEventListener('click', function () {
         var href = a.getAttribute('href');
-        if (href && href.length > 1) setActive(href.slice(1));
+        if (href === '#' + (location.hash || '#cover').replace(/^#/, '')) {
+          window.scrollTo(0, 0);
+        }
       });
     });
-  });
+
+    showPage(location.hash);
+  })();
 </script>
 
 </body>
