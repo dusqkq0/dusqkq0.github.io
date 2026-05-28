@@ -758,6 +758,26 @@
       .prd-page .prd-footer-contact { align-items: flex-start; }
     }
 
+    /* Video grid (YouTube embeds) */
+    .prd-page .prd-video-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    }
+    .prd-page .prd-video { margin: 0; }
+    .prd-page .prd-video iframe {
+      width: 100%; aspect-ratio: 16/9;
+      border: 0; display: block;
+      background: var(--prd-surface-1);
+      border: 1px solid var(--prd-line-soft);
+      border-radius: 8px;
+    }
+    .prd-page .prd-video figcaption {
+      font-size: 12px; color: var(--prd-ink-4);
+      margin-top: 10px; text-align: center; line-height: 1.5;
+    }
+    @media (max-width: 760px) {
+      .prd-page .prd-video-grid { grid-template-columns: 1fr; }
+    }
+
     /* Link cards */
     .prd-page .prd-links { display: flex; flex-wrap: wrap; gap: 10px; }
     .prd-page .prd-link-card {
@@ -1621,14 +1641,32 @@
           <h2><span class="num-prefix">07</span>자료</h2>
           <p class="prd-lede">실제 서비스 · 발표 자료 · 데모 영상 · 뉴스 보도를 모두 모았습니다.</p>
         </div>
-        <div class="prd-links">
-          <a href="https://factory-finder-fashiongo.lovable.app/" target="_blank" class="prd-link-card primary">🌐 실제 서비스 (Lovable)</a>
-          <a href="https://gamma.app/docs/FG-Angels-ngjjjxo4700hh9s?mode=doc" target="_blank" class="prd-link-card">📊 발표 자료 (Gamma)</a>
-          <a href="https://youtu.be/_2gPgEb4iJo?si=84M4bINRYJVe8M-W" target="_blank" class="prd-link-card video">▶ 데모 영상</a>
-          <a href="https://www.youtube.com/live/yk9EnnziWVw" target="_blank" class="prd-link-card video">▶ 스프린톤 1일차</a>
-          <a href="https://www.youtube.com/live/w5h4cxDSTog" target="_blank" class="prd-link-card video">▶ 스프린톤 2일차</a>
-          <a href="https://n.news.naver.com/mnews/article/092/0002418772?sid=105" target="_blank" class="prd-link-card">📰 뉴스 기사 1</a>
-          <a href="https://n.news.naver.com/mnews/article/018/0006245221?sid=105" target="_blank" class="prd-link-card">📰 뉴스 기사 2</a>
+        <div class="prd-block">
+          <div class="prd-block-head"><h3>영상</h3><span class="meta">YouTube</span></div>
+          <div class="prd-video-grid">
+            <figure class="prd-video">
+              <iframe src="https://www.youtube.com/embed/_2gPgEb4iJo" title="FG Angels 데모 영상" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              <figcaption>데모 영상 — 서비스 동작 시연</figcaption>
+            </figure>
+            <figure class="prd-video">
+              <iframe src="https://www.youtube.com/embed/yk9EnnziWVw" title="NHN 1st AI 스프린톤 1일차" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              <figcaption>스프린톤 1일차 (라이브)</figcaption>
+            </figure>
+            <figure class="prd-video">
+              <iframe src="https://www.youtube.com/embed/w5h4cxDSTog" title="NHN 1st AI 스프린톤 2일차" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              <figcaption>스프린톤 2일차 (라이브)</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="prd-block">
+          <div class="prd-block-head"><h3>관련 링크</h3></div>
+          <div class="prd-links">
+            <a href="https://factory-finder-fashiongo.lovable.app/" target="_blank" rel="noopener" class="prd-link-card primary">🌐 실제 서비스 (Lovable)</a>
+            <a href="https://gamma.app/docs/FG-Angels-ngjjjxo4700hh9s?mode=doc" target="_blank" rel="noopener" class="prd-link-card">📊 발표 자료 (Gamma)</a>
+            <a href="https://n.news.naver.com/mnews/article/092/0002418772?sid=105" target="_blank" rel="noopener" class="prd-link-card">📰 뉴스 기사 1</a>
+            <a href="https://n.news.naver.com/mnews/article/018/0006245221?sid=105" target="_blank" rel="noopener" class="prd-link-card">📰 뉴스 기사 2</a>
+          </div>
         </div>
       </div>
     </section>
