@@ -672,6 +672,41 @@
       font-size: 12px; color: var(--prd-ink-4); margin-top: 10px; line-height: 1.5;
     }
 
+    /* Footer */
+    .prd-page .prd-footer {
+      background: var(--prd-surface);
+      border-top: 1px solid var(--prd-line-soft);
+      padding: 32px 56px;
+      margin-top: 120px;
+    }
+    .prd-page .prd-footer-inner { max-width: 800px; margin: 0 auto; }
+    .prd-page .prd-footer-row {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 24px; flex-wrap: wrap;
+    }
+    .prd-page .prd-footer-left { display: flex; flex-direction: column; gap: 6px; }
+    .prd-page .prd-footer-title {
+      font-size: 14px; font-weight: 700; color: var(--prd-ink);
+    }
+    .prd-page .prd-footer-sub { font-size: 12px; color: var(--prd-ink-3); }
+    .prd-page .prd-footer-contact {
+      display: flex; flex-direction: column; gap: 8px; align-items: flex-end;
+    }
+    .prd-page .prd-footer-link {
+      font-size: 13px; color: var(--prd-ink-3); text-decoration: none;
+      display: inline-flex; align-items: center; gap: 6px;
+      transition: color 240ms;
+    }
+    .prd-page .prd-footer-link:hover { color: var(--prd-accent); }
+    .prd-page .prd-footer-copyright {
+      font-size: 12px; color: var(--prd-ink-5); margin-top: 24px;
+      padding-top: 16px; border-top: 1px solid var(--prd-surface-1);
+    }
+    @media (max-width: 760px) {
+      .prd-page .prd-footer { padding: 24px; }
+      .prd-page .prd-footer-contact { align-items: flex-start; }
+    }
+
     /* Link cards */
     .prd-page .prd-links { display: flex; flex-wrap: wrap; gap: 10px; }
     .prd-page .prd-link-card {
@@ -1549,6 +1584,27 @@
     </section>
 
   </div>
+
+  <!-- Footer -->
+  <footer class="prd-footer">
+    <div class="prd-footer-inner">
+      <div class="prd-footer-row">
+        <div class="prd-footer-left">
+          <div class="prd-footer-title">FG Angels — AI Agent for FashionGo</div>
+          <div class="prd-footer-sub">윤혜련 · Service Product Manager · 2026.03 – 2026.06</div>
+        </div>
+        <div class="prd-footer-contact">
+          <a href="mailto:dusqkq0@naver.com" class="prd-footer-link">
+            <span aria-hidden="true">✉️</span> dusqkq0@naver.com
+          </a>
+          <a href="https://www.linkedin.com/in/hyeryeon/" target="_blank" rel="noopener" class="prd-footer-link">
+            <span aria-hidden="true">🔗</span> linkedin.com/in/hyeryeon
+          </a>
+        </div>
+      </div>
+      <div class="prd-footer-copyright">© 2026 윤혜련. All rights reserved.</div>
+    </div>
+  </footer>
 </section>
 
 
