@@ -326,9 +326,10 @@
     /* ── PAGE ROUTING (hash-based SPA) ── */
     body > section[id]:not(.page-active) { display: none !important; }
     body > section[id].page-active { animation: pageFadeIn 0.35s ease both; }
+    /* opacity-only fade — transform would create a containing block for position:fixed descendants */
     @keyframes pageFadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to   { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; }
+      to   { opacity: 1; }
     }
 
     /* ════════════════════════════════════════ */
