@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>포트폴리오 개선 예시 – 윤혜련</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
   <style>
     :root {
       --dark: #1e1e1e;
@@ -328,6 +329,382 @@
     @keyframes pageFadeIn {
       from { opacity: 0; transform: translateY(8px); }
       to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ════════════════════════════════════════ */
+    /* PRD-STYLE PROJECT PAGE (scope: .prd-page) */
+    /* ════════════════════════════════════════ */
+    .prd-page {
+      --prd-ink: #191919;
+      --prd-ink-2: #2e2e2e;
+      --prd-ink-3: #545454;
+      --prd-ink-4: #767676;
+      --prd-ink-5: #a1a1a1;
+      --prd-surface: #ffffff;
+      --prd-surface-1: #f7f7f7;
+      --prd-surface-2: #efefef;
+      --prd-line: #191919;
+      --prd-line-soft: #e3e3e3;
+      --prd-line-softer: #ededed;
+      --prd-accent: #0F80F6;
+      --prd-danger: #EB453D;
+      --prd-success: #01A058;
+      font-family: "Pretendard", system-ui, -apple-system, sans-serif;
+      font-feature-settings: "ss01","cv11","tnum";
+      word-break: keep-all; overflow-wrap: break-word;
+      -webkit-font-smoothing: antialiased;
+      background: var(--prd-surface) !important;
+      color: var(--prd-ink-2);
+      line-height: 1.7;
+      padding: 0 !important;
+      min-height: 100vh;
+    }
+    .prd-page * { box-sizing: border-box; }
+
+    /* Cover (project header) */
+    .prd-page .prd-cover {
+      background:
+        radial-gradient(ellipse 70% 55% at 25% 0%, rgba(15,128,246,0.18), transparent 65%),
+        radial-gradient(ellipse 60% 50% at 90% 100%, rgba(235,69,61,0.10), transparent 60%),
+        var(--prd-ink);
+      color: var(--prd-surface);
+      padding: 96px 56px;
+    }
+    .prd-page .prd-cover-inner {
+      max-width: 800px; margin: 0 auto;
+      display: flex; flex-direction: column; gap: 64px;
+    }
+    .prd-page .prd-cover-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 32px; }
+    .prd-page .prd-cover-eyebrow {
+      font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase;
+      font-weight: 600; color: rgba(255,255,255,0.7); margin-bottom: 24px;
+    }
+    .prd-page .prd-cover-title {
+      font-size: 56px; line-height: 1.2; letter-spacing: -0.04em;
+      font-weight: 700; color: var(--prd-surface); margin: 0;
+    }
+    .prd-page .prd-cover-subtitle {
+      display: block; font-size: 22px; font-weight: 500;
+      color: rgba(255,255,255,0.65); margin-top: 16px; letter-spacing: -0.01em;
+    }
+    .prd-page .prd-cover-summary {
+      margin-top: 28px; font-size: 17px; line-height: 1.7;
+      color: rgba(255,255,255,0.72); max-width: 640px;
+    }
+    .prd-page .prd-cover-badge {
+      flex-shrink: 0; display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+      font-weight: 600; color: rgba(255,255,255,0.85);
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 4px; padding: 7px 12px;
+    }
+    .prd-page .prd-cover-badge::before {
+      content: ""; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--prd-accent);
+    }
+    .prd-page .prd-cover-meta {
+      display: grid; grid-template-columns: repeat(3, auto);
+      gap: 48px; justify-content: start;
+    }
+    .prd-page .prd-cover-meta-item { display: flex; flex-direction: column; gap: 6px; }
+    .prd-page .prd-cover-meta-label {
+      font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+    .prd-page .prd-cover-meta-value {
+      font-size: 13px; color: rgba(255,255,255,0.92); font-weight: 500;
+    }
+
+    /* Side nav */
+    .prd-page .prd-side-nav {
+      position: fixed; top: 120px;
+      left: max(24px, calc(50% - 400px - 40px - 200px));
+      width: 200px; max-height: calc(100vh - 160px);
+      overflow-y: auto; z-index: 90;
+    }
+    .prd-page .prd-side-nav-list {
+      list-style: none; border-left: 2px solid var(--prd-line-soft);
+      padding: 0; margin: 0;
+    }
+    .prd-page .prd-side-nav-list li { margin: 0; }
+    .prd-page .prd-side-nav-list a {
+      display: grid; grid-template-columns: auto 1fr; gap: 8px; align-items: baseline;
+      padding: 7px 0 7px 12px; margin-left: -2px;
+      border-left: 2px solid transparent;
+      color: var(--prd-ink-4); text-decoration: none;
+      transition: color 240ms cubic-bezier(0.32,0.72,0,1), border-color 240ms;
+      cursor: pointer;
+    }
+    .prd-page .prd-side-nav-list a:hover { color: var(--prd-ink); }
+    .prd-page .prd-side-nav-list a.active { color: var(--prd-accent); border-left-color: var(--prd-accent); }
+    .prd-page .prd-side-nav-list .sn-num {
+      font-size: 12px; font-weight: 600; color: var(--prd-ink-5); letter-spacing: 0;
+    }
+    .prd-page .prd-side-nav-list .sn-title {
+      font-size: 13px; font-weight: 500; line-height: 1.25; color: var(--prd-ink-4);
+    }
+    .prd-page .prd-side-nav-list a.active .sn-num,
+    .prd-page .prd-side-nav-list a.active .sn-title { color: var(--prd-accent); }
+    .prd-page .prd-side-nav-list a.sn-h1 .sn-num {
+      font-size: 11px; font-weight: 700; color: var(--prd-ink-4); text-transform: uppercase;
+    }
+    .prd-page .prd-side-nav-list a.sn-h1 .sn-title {
+      font-size: 13px; font-weight: 700; color: var(--prd-ink-4);
+    }
+    .prd-page .prd-side-nav-list a:not(.sn-h1) { padding-left: 20px; }
+    @media (max-width: 1499px) { .prd-page .prd-side-nav { display: none; } }
+
+    /* Main */
+    .prd-page .prd-main { padding: 0 56px; background: var(--prd-surface); }
+    .prd-page .prd-section { padding: 72px 0; }
+    .prd-page .prd-section-inner { max-width: 800px; margin: 0 auto; }
+    .prd-page .prd-section-inner > * { margin-top: 56px; }
+    .prd-page .prd-section-inner > *:first-child { margin-top: 0; }
+    .prd-page .prd-section-tag { border-top: 3px solid var(--prd-line); margin-bottom: 28px; }
+    .prd-page .prd-section-head { margin-bottom: 0; }
+    .prd-page .prd-section-head > h2 { margin-bottom: 24px; }
+    .prd-page .prd-section-head h2 {
+      font-size: 40px; line-height: 1.25; font-weight: 700; color: var(--prd-ink);
+      letter-spacing: -0.01em;
+    }
+    .prd-page .prd-section-head h2 .num-prefix {
+      display: inline-block; margin-right: 16px; color: var(--prd-ink-4); font-weight: 700;
+    }
+    .prd-page .prd-lede {
+      font-size: 17px; line-height: 1.7; letter-spacing: -0.005em;
+      color: var(--prd-ink-3); font-weight: 500;
+    }
+    .prd-page .prd-lede + .prd-lede { margin-top: 16px; }
+    .prd-page .prd-lede b { color: var(--prd-ink); font-weight: 700; }
+    .prd-page .prd-section h3 {
+      font-size: 20px; line-height: 1.25; font-weight: 700; color: var(--prd-ink);
+    }
+
+    /* Block */
+    .prd-page .prd-block > * + * { margin-top: 24px; }
+    .prd-page .prd-block-head {
+      display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+    }
+    .prd-page .prd-block-head h3 { margin-top: 0; }
+    .prd-page .prd-block-head .meta { font-size: 12px; color: var(--prd-ink-4); text-transform: uppercase; }
+
+    /* KPI row */
+    .prd-page .prd-kpi-row {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1px; background: var(--prd-line-soft);
+      border: 1px solid var(--prd-line-soft);
+    }
+    .prd-page .prd-kpi { background: var(--prd-surface); padding: 24px 22px; }
+    .prd-page .prd-kpi-value {
+      font-size: 30px; font-weight: 700; color: var(--prd-ink);
+      line-height: 1.1; letter-spacing: -0.02em;
+    }
+    .prd-page .prd-kpi-value .unit {
+      font-size: 16px; font-weight: 600; color: var(--prd-ink-3); margin-left: 2px;
+    }
+    .prd-page .prd-kpi-label {
+      font-size: 13px; color: var(--prd-ink-4); line-height: 1.4; margin-top: 10px;
+    }
+
+    /* Table */
+    .prd-page .prd-table-wrap {
+      border-top: 1px solid var(--prd-ink); border-bottom: 1px solid var(--prd-ink);
+      overflow-x: auto;
+    }
+    .prd-page .prd-table-wrap table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .prd-page .prd-table-wrap thead th {
+      text-align: left; padding: 12px 16px;
+      background: var(--prd-surface-2); color: var(--prd-ink);
+      font-size: 12px; text-transform: uppercase;
+      font-weight: 600; white-space: nowrap;
+    }
+    .prd-page .prd-table-wrap thead th.num { text-align: right; }
+    .prd-page .prd-table-wrap tbody td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--prd-line-softer);
+      color: var(--prd-ink-2); vertical-align: top;
+      font-size: 13.5px; line-height: 1.55;
+    }
+    .prd-page .prd-table-wrap tbody td.num { text-align: right; }
+    .prd-page .prd-table-wrap tbody td.lbl-cell { font-weight: 700; color: var(--prd-ink); white-space: nowrap; }
+    .prd-page .prd-table-wrap tbody tr:last-child td { border-bottom: none; }
+
+    /* Insight list */
+    .prd-page .prd-insight-list {
+      border-top: 1px solid var(--prd-ink); border-bottom: 1px solid var(--prd-ink);
+    }
+    .prd-page .prd-insight-row {
+      display: grid; grid-template-columns: auto 1fr; gap: 24px;
+      padding: 22px 0; border-top: 1px solid var(--prd-line-soft); align-items: baseline;
+    }
+    .prd-page .prd-insight-row:first-child { border-top: none; }
+    .prd-page .prd-insight-num {
+      font-size: 24px; font-weight: 700; color: var(--prd-ink-5);
+      line-height: 1; min-width: 28px;
+    }
+    .prd-page .prd-insight-title {
+      font-size: 16px; font-weight: 700; color: var(--prd-ink);
+      line-height: 1.25; margin-bottom: 6px;
+    }
+    .prd-page .prd-insight-body p { font-size: 15px; color: var(--prd-ink-3); line-height: 1.7; }
+
+    /* Problem grid */
+    .prd-page .prd-problem-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--prd-line-soft);
+      border: 1px solid var(--prd-line-soft);
+    }
+    .prd-page .prd-problem-card { background: var(--prd-surface); padding: 26px 24px; }
+    .prd-page .prd-problem-card .pc-num {
+      font-size: 12px; font-weight: 700; color: var(--prd-accent);
+    }
+    .prd-page .prd-problem-card h3 {
+      font-size: 16px; font-weight: 700; color: var(--prd-ink);
+      line-height: 1.25; margin-top: 8px;
+    }
+    .prd-page .prd-problem-card p {
+      font-size: 13px; color: var(--prd-ink-3); line-height: 1.7; margin-top: 10px;
+    }
+
+    /* Tool stack */
+    .prd-page .prd-tool-stack {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--prd-line-soft);
+      border: 1px solid var(--prd-line-soft);
+    }
+    .prd-page .prd-tool-card { background: var(--prd-surface); padding: 26px 24px; }
+    .prd-page .prd-tool-card .tool-role {
+      font-size: 11px; text-transform: uppercase; color: var(--prd-accent);
+      font-weight: 600; margin-bottom: 12px; letter-spacing: 0.08em;
+    }
+    .prd-page .prd-tool-card .tool-name {
+      font-size: 18px; font-weight: 700; color: var(--prd-ink);
+      margin-bottom: 10px; line-height: 1.25;
+    }
+    .prd-page .prd-tool-card p {
+      font-size: 13px; color: var(--prd-ink-3); line-height: 1.7;
+    }
+
+    /* Flow */
+    .prd-page .prd-flow {
+      border-top: 1px solid var(--prd-ink); border-bottom: 1px solid var(--prd-ink);
+    }
+    .prd-page .prd-flow-step {
+      display: grid; grid-template-columns: auto 1fr; gap: 20px;
+      padding: 20px 0; border-top: 1px solid var(--prd-line-soft); align-items: baseline;
+    }
+    .prd-page .prd-flow-step:first-child { border-top: none; }
+    .prd-page .prd-flow-num {
+      font-size: 12px; font-weight: 700; color: var(--prd-ink-5); min-width: 24px;
+    }
+    .prd-page .prd-flow-name {
+      font-size: 15px; font-weight: 700; color: var(--prd-ink);
+    }
+    .prd-page .prd-flow-desc {
+      font-size: 13px; color: var(--prd-ink-4); margin-top: 4px; line-height: 1.4;
+    }
+
+    /* Callout */
+    .prd-page .prd-callout { padding: 24px 28px; background: rgba(252,246,131,0.30); }
+    .prd-page .prd-callout.note { background: rgba(15,128,246,0.08); }
+    .prd-page .prd-callout.important { background: rgba(235,69,61,0.08); }
+    .prd-page .prd-callout .lbl {
+      font-size: 12px; text-transform: uppercase;
+      color: var(--prd-ink-4); margin-bottom: 10px; font-weight: 600; letter-spacing: 0.05em;
+    }
+    .prd-page .prd-callout p { font-size: 15px; color: var(--prd-ink); line-height: 1.7; }
+    .prd-page .prd-callout p b { font-weight: 700; }
+
+    /* Part divider */
+    .prd-page .prd-part-divider { padding: 0 56px; margin-top: 120px; }
+    .prd-page .prd-part-divider:first-of-type { margin-top: 72px; }
+    .prd-page .prd-part-divider .prd-section-inner {
+      max-width: 800px; margin: 0 auto;
+      background:
+        linear-gradient(115deg, rgba(15,128,246,0.10) 0%, transparent 35%, transparent 65%, rgba(1,160,88,0.06) 100%),
+        var(--prd-ink);
+      color: var(--prd-surface);
+      padding: 40px; border-radius: 16px; overflow: hidden;
+    }
+    .prd-page .prd-part-divider .prd-part-eyebrow {
+      font-size: 14px; text-transform: uppercase;
+      color: rgba(255,255,255,0.70); font-weight: 700; margin-bottom: 12px;
+    }
+    .prd-page .prd-part-divider h1 {
+      color: var(--prd-surface); font-size: 48px; line-height: 1.15;
+      font-weight: 700; letter-spacing: -0.02em;
+    }
+    .prd-page .prd-part-divider .prd-part-meta {
+      display: block; margin-top: 12px; font-size: 14px; text-transform: uppercase;
+      color: rgba(255,255,255,0.70); font-weight: 600;
+    }
+
+    /* Tags */
+    .prd-page .prd-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .prd-page .prd-tag {
+      font-size: 12px; padding: 6px 12px;
+      background: var(--prd-surface-2); color: var(--prd-ink-3);
+      border-radius: 4px; font-weight: 500;
+    }
+    .prd-page .prd-tag.highlight {
+      background: rgba(15,128,246,0.10); color: var(--prd-accent); font-weight: 600;
+    }
+
+    /* Gallery */
+    .prd-page .prd-gallery {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    }
+    .prd-page .prd-gallery figure { margin: 0; }
+    .prd-page .prd-gallery .img-frame {
+      background: var(--prd-surface-1);
+      border: 1px solid var(--prd-line-soft);
+      aspect-ratio: 16/10; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .prd-page .prd-gallery .img-frame.empty {
+      border: 1px dashed var(--prd-line-soft);
+      flex-direction: column; gap: 8px; color: var(--prd-ink-5);
+      text-align: center; padding: 16px;
+    }
+    .prd-page .prd-gallery img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .prd-page .prd-gallery figcaption {
+      font-size: 12px; color: var(--prd-ink-4); margin-top: 10px; line-height: 1.5;
+    }
+
+    /* Link cards */
+    .prd-page .prd-links { display: flex; flex-wrap: wrap; gap: 10px; }
+    .prd-page .prd-link-card {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 18px; font-size: 13px;
+      color: var(--prd-ink-2); text-decoration: none;
+      background: var(--prd-surface-1); border: 1px solid var(--prd-line-soft);
+      border-radius: 6px; transition: background 240ms, border-color 240ms;
+    }
+    .prd-page .prd-link-card:hover { background: var(--prd-surface-2); border-color: var(--prd-ink-5); }
+    .prd-page .prd-link-card.primary {
+      background: rgba(15,128,246,0.08); border-color: rgba(15,128,246,0.30);
+      color: var(--prd-accent); font-weight: 600;
+    }
+    .prd-page .prd-link-card.video {
+      background: rgba(235,69,61,0.06); border-color: rgba(235,69,61,0.25);
+      color: var(--prd-danger);
+    }
+
+    @media (max-width: 760px) {
+      .prd-page .prd-kpi-row,
+      .prd-page .prd-problem-grid,
+      .prd-page .prd-tool-stack { grid-template-columns: 1fr; }
+      .prd-page .prd-gallery { grid-template-columns: repeat(2, 1fr); }
+      .prd-page .prd-cover { padding: 64px 24px; }
+      .prd-page .prd-cover-title { font-size: 36px; }
+      .prd-page .prd-cover-subtitle { font-size: 18px; }
+      .prd-page .prd-cover-meta { grid-template-columns: 1fr; gap: 24px; }
+      .prd-page .prd-cover-head { flex-direction: column; }
+      .prd-page .prd-main { padding: 0 24px; }
+      .prd-page .prd-section { padding: 56px 0; }
+      .prd-page .prd-section-head h2 { font-size: 28px; }
+      .prd-page .prd-part-divider { padding: 0 24px; margin-top: 80px; }
+      .prd-page .prd-part-divider h1 { font-size: 32px; }
     }
   </style>
 </head>
@@ -807,424 +1184,369 @@
 <!-- ═══════════════════════════════════════ -->
 <!-- FG ANGELS (AI 프로젝트 — 신규)          -->
 <!-- ═══════════════════════════════════════ -->
-<section id="angels" style="
-  background: linear-gradient(160deg, #050a1a 0%, #0a1428 50%, #0d1a35 100%);
-  color: white; padding: 120px 80px 80px; min-height: 100vh; position: relative; overflow: hidden;
-">
-  <!-- 배경 장식 -->
-  <div style="
-    position:absolute; top:-80px; right:-80px; width:400px; height:400px;
-    background: radial-gradient(circle, rgba(91,200,247,0.14) 0%, transparent 70%);
-    border-radius:50%; pointer-events:none;
-  "></div>
-  <div style="
-    position:absolute; bottom:-60px; left:10%; width:300px; height:300px;
-    background: radial-gradient(circle, rgba(30,136,229,0.12) 0%, transparent 70%);
-    border-radius:50%; pointer-events:none;
-  "></div>
+<section id="angels" class="prd-page">
 
-  <!-- 프로젝트 헤더 -->
-  <div style="margin-bottom:56px;">
-    <p style="font-size:12px;color:#888;letter-spacing:2px;margin-bottom:10px;">PROJECT 01</p>
-    <h2 style="font-size:44px;font-weight:800;line-height:1.15;margin-bottom:16px;">
-      FG Angels <span style="font-size:24px;font-weight:400;color:#aaa;">— AI Agent for FashionGo</span>
-    </h2>
-    <p style="font-size:16px;color:#ccc;line-height:1.7;max-width:680px;margin-bottom:18px;">
-      북미 1위 B2B 패션 플랫폼 FashionGo의 아시아 공장 소싱 전 과정을
-      AI 에이전트로 자동화한 PoC. 도메인 전문가 1·기획자(본인) 1·개발자 1,
-      단 3인 크로스펑셔널 팀으로 기획부터 동작하는 프로토타입까지 완성.
-    </p>
-    <p class="project-period" style="background:rgba(255,255,255,0.08);color:#aaa;">2026.3 ~ 2026.6 NHNCommerce</p>
-  </div>
-
-  <!-- 배경 및 문제 정의 -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-bottom:56px;">
-    <div>
-      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:28px;">
-        <h4 style="font-size:16px;font-weight:700;margin-bottom:16px;color:#5BC8F7;">기존의 문제</h4>
-        <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:14px;">
-          <li style="display:flex;gap:12px;font-size:14px;color:#ccc;line-height:1.7;">
-            <span style="color:#e74c3c;font-size:18px;flex-shrink:0;">✗</span>
-            <span>아시아 공장 소싱이 <strong style="color:white;">3년 · 50번의 출장</strong>이 필요한 100% 수동 방식으로만 운영</span>
-          </li>
-          <li style="display:flex;gap:12px;font-size:14px;color:#ccc;line-height:1.7;">
-            <span style="color:#e74c3c;font-size:18px;flex-shrink:0;">✗</span>
-            <span>중국·한국 공장(1688·Alibaba) → ERP → FashionGo로 이어지는 공급망 전반에 <strong style="color:white;">AI 자동화 부재</strong></span>
-          </li>
-          <li style="display:flex;gap:12px;font-size:14px;color:#ccc;line-height:1.7;">
-            <span style="color:#e74c3c;font-size:18px;flex-shrink:0;">✗</span>
-            <span>GMV 1조원·바이어 ~100만명 규모 플랫폼에 비해 <strong style="color:white;">공급망 디지털화가 크게 뒤처진 상태</strong></span>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <div>
-      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:28px;">
-        <h4 style="font-size:16px;font-weight:700;margin-bottom:16px;color:#5BC8F7;">사용 기술 스택</h4>
-        <div style="display:flex;flex-wrap:wrap;gap:10px;">
-          <span style="background:rgba(91,200,247,0.12);border:1px solid rgba(91,200,247,0.28);color:#7DD3FC;font-size:13px;padding:6px 14px;border-radius:20px;">Vision AI</span>
-          <span style="background:rgba(91,200,247,0.12);border:1px solid rgba(91,200,247,0.28);color:#7DD3FC;font-size:13px;padding:6px 14px;border-radius:20px;">Gemini 2.5 Flash</span>
-          <span style="background:rgba(91,200,247,0.12);border:1px solid rgba(91,200,247,0.28);color:#7DD3FC;font-size:13px;padding:6px 14px;border-radius:20px;">Vertex AI</span>
-          <span style="background:rgba(91,200,247,0.12);border:1px solid rgba(91,200,247,0.28);color:#7DD3FC;font-size:13px;padding:6px 14px;border-radius:20px;">24h Agent</span>
-          <span style="background:rgba(91,200,247,0.22);border:1px solid rgba(91,200,247,0.45);color:#5BC8F7;font-size:13px;padding:6px 14px;border-radius:20px;font-weight:600;">Lovable (직접 구현)</span>
-        </div>
-        <p style="font-size:13px;color:#aaa;margin-top:16px;line-height:1.7;">
-          멀티모달 AI 스택 기반으로 설계·구현.<br>
-          <strong style="color:#5BC8F7;">비개발자 기획자가 Lovable을 직접 활용</strong>해
-          프로토타입을 End-to-End로 리딩.
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <!-- AI 에이전트 플로우 -->
-  <div style="margin-bottom:56px;">
-    <div style="
-      background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);
-      border-radius:14px;padding:32px;
-    ">
-      <h4 style="font-size:18px;font-weight:700;margin-bottom:8px;color:white;">AI AGENT PIPELINE</h4>
-      <p style="font-size:13px;color:#aaa;margin-bottom:24px;">북미 패션 상품 트렌드 분석 → 소싱 → 공장 스코어링 → 상품 등록, 전 과정 자동화</p>
-      <div style="display:flex;gap:0;overflow-x:auto;">
-        <!-- 단계별 카드 -->
-        <div style="flex:1;min-width:140px;text-align:center;padding:20px 12px;position:relative;">
-          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#7DD3FC,#38BDF8);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:18px;">🔍</div>
-          <div style="font-size:12px;font-weight:700;color:white;margin-bottom:6px;">트렌드 분석</div>
-          <div style="font-size:11px;color:#888;line-height:1.5;">북미 패션<br>트렌드 수집·분석</div>
-          <div style="position:absolute;right:-1px;top:50%;transform:translateY(-50%);font-size:20px;color:#444;">→</div>
-        </div>
-        <div style="flex:1;min-width:140px;text-align:center;padding:20px 12px;position:relative;">
-          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#5BC8F7,#1E88E5);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:18px;">🏭</div>
-          <div style="font-size:12px;font-weight:700;color:white;margin-bottom:6px;">공장 소싱</div>
-          <div style="font-size:11px;color:#888;line-height:1.5;">1688·Alibaba<br>자동 탐색·매칭</div>
-          <div style="position:absolute;right:-1px;top:50%;transform:translateY(-50%);font-size:20px;color:#444;">→</div>
-        </div>
-        <div style="flex:1;min-width:140px;text-align:center;padding:20px 12px;position:relative;">
-          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#38BDF8,#0EA5E9);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:18px;">⭐</div>
-          <div style="font-size:12px;font-weight:700;color:white;margin-bottom:6px;">공장 스코어링</div>
-          <div style="font-size:11px;color:#888;line-height:1.5;">AI 기반 품질·신뢰도<br>자동 평가</div>
-          <div style="position:absolute;right:-1px;top:50%;transform:translateY(-50%);font-size:20px;color:#444;">→</div>
-        </div>
-        <div style="flex:1;min-width:140px;text-align:center;padding:20px 12px;position:relative;">
-          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#0EA5E9,#0284C7);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:18px;">🤖</div>
-          <div style="font-size:12px;font-weight:700;color:white;margin-bottom:6px;">자기학습</div>
-          <div style="font-size:11px;color:#888;line-height:1.5;">피드백 기반<br>모델 자동 개선</div>
-          <div style="position:absolute;right:-1px;top:50%;transform:translateY(-50%);font-size:20px;color:#444;">→</div>
-        </div>
-        <div style="flex:1;min-width:140px;text-align:center;padding:20px 12px;">
-          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#0284C7,#075985);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:18px;">📦</div>
-          <div style="font-size:12px;font-weight:700;color:white;margin-bottom:6px;">자동 등록</div>
-          <div style="font-size:11px;color:#888;line-height:1.5;">FashionGo ERP<br>자동 상품 등록</div>
-        </div>
-      </div>
-      <div style="margin-top:20px;padding:14px 20px;background:rgba(91,200,247,0.08);border:1px solid rgba(91,200,247,0.2);border-radius:8px;font-size:13px;color:#5BC8F7;">
-        💡 단순 업무 효율화가 아닌 <strong>글로벌 B2B 전 산업으로 확장 가능한 AI 인프라 구조</strong>로 설계
-      </div>
-    </div>
-  </div>
-
-  <!-- 핵심 성과 -->
-  <div style="margin-bottom:56px;">
-    <h3 style="font-size:28px;font-weight:700;color:white;text-align:center;margin-bottom:32px;letter-spacing:0.5px;">KEY RESULTS</h3>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
-      <div style="
-        background:linear-gradient(135deg,rgba(91,200,247,0.18),rgba(30,136,229,0.08));
-        border:1px solid rgba(91,200,247,0.35);border-radius:14px;padding:28px;text-align:center;
-      ">
-        <div style="font-size:42px;font-weight:800;color:#5BC8F7;">1위</div>
-        <div style="font-size:13px;color:#ccc;margin-top:8px;line-height:1.6;">NHN 1st AI 스프린톤<br>업무생산성 트랙</div>
-        <div style="font-size:12px;color:#888;margin-top:8px;">12팀 중 1위 · 상금 1,000만원</div>
-      </div>
-      <div style="
-        background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);
-        border-radius:14px;padding:28px;text-align:center;
-      ">
-        <div style="font-size:32px;font-weight:800;color:#7DD3FC;">3년→즉시</div>
-        <div style="font-size:13px;color:#ccc;margin-top:8px;line-height:1.6;">수동 소싱 프로세스를<br>AI 자동화로 대체</div>
-        <div style="font-size:12px;color:#888;margin-top:8px;">3년 · 50번 출장 필요하던 과정<br>PoC로 완성</div>
-      </div>
-      <div style="
-        background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);
-        border-radius:14px;padding:28px;text-align:center;
-      ">
-        <div style="font-size:32px;font-weight:800;color:#38BDF8;">E2E</div>
-        <div style="font-size:13px;color:#ccc;margin-top:8px;line-height:1.6;">비개발자 기획자로서<br>프로토타입 직접 구현</div>
-        <div style="font-size:12px;color:#888;margin-top:8px;">Lovable 활용, 아이디어→<br>동작하는 AI 에이전트까지</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 역량 강화 포인트 -->
-  <h3 style="font-size:28px;font-weight:700;color:white;text-align:center;margin-bottom:32px;letter-spacing:0.5px;">WHAT I LEARNED</h3>
-  <div style="
-    background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);
-    border-radius:14px;padding:32px;margin-bottom:48px;
-  ">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
-      <div style="display:flex;gap:14px;">
-        <span style="font-size:24px;flex-shrink:0;">🤝</span>
+  <!-- Project cover -->
+  <div class="prd-cover">
+    <div class="prd-cover-inner">
+      <div class="prd-cover-head">
         <div>
-          <div style="font-size:14px;font-weight:700;color:white;margin-bottom:6px;">3인 크로스펑셔널 협업</div>
-          <div style="font-size:13px;color:#aaa;line-height:1.7;">도메인 전문가·개발자와 함께 아이디어부터 실제 동작하는 AI 에이전트까지 단기간에 구현. 각 역할의 언어를 이해하고 조율하는 기획자의 역할을 체득.</div>
+          <div class="prd-cover-eyebrow">Project 01 · AI Agent for FashionGo</div>
+          <h1 class="prd-cover-title">FG Angels<span class="prd-cover-subtitle">AI 에이전트로 자동화한 패션 공장 소싱 PoC</span></h1>
+          <p class="prd-cover-summary">북미 1위 B2B 패션 플랫폼 FashionGo의 아시아 공장 소싱 전 과정을 AI 에이전트로 자동화한 PoC. 도메인 전문가 · 기획자(본인) · 개발자 3인 크로스펑셔널 팀으로 기획부터 동작하는 프로토타입까지 단기간 완성.</p>
         </div>
+        <span class="prd-cover-badge">1st Prize</span>
       </div>
-      <div style="display:flex;gap:14px;">
-        <span style="font-size:24px;flex-shrink:0;">🚀</span>
-        <div>
-          <div style="font-size:14px;font-weight:700;color:white;margin-bottom:6px;">기획자 → Service Launcher</div>
-          <div style="font-size:13px;color:#aaa;line-height:1.7;">AI 툴(Lovable 등)을 직접 다루어 기획서를 넘어 실제 동작하는 프로토타입을 구현. 기획자도 서비스를 직접 런칭할 수 있음을 스스로 증명.</div>
-        </div>
+      <div class="prd-cover-meta">
+        <div class="prd-cover-meta-item"><span class="prd-cover-meta-label">Period</span><span class="prd-cover-meta-value">2026.03 – 2026.06</span></div>
+        <div class="prd-cover-meta-item"><span class="prd-cover-meta-label">Team</span><span class="prd-cover-meta-value">NHN Commerce · 3인</span></div>
+        <div class="prd-cover-meta-item"><span class="prd-cover-meta-label">Role</span><span class="prd-cover-meta-value">PM · Service Launcher</span></div>
       </div>
     </div>
   </div>
 
-  <!-- AI-Native Workflow -->
-  <div style="margin-bottom:48px;">
-    <h3 style="font-size:28px;font-weight:700;color:white;text-align:center;margin-bottom:8px;letter-spacing:0.5px;">AI-NATIVE WORKFLOW</h3>
-    <p style="font-size:13px;color:#888;text-align:center;margin-bottom:32px;line-height:1.7;">
-      비개발자 기획자 · 도메인 전문가 · 개발자, 3인이 <strong style="color:#5BC8F7;">Lovable · Claude Code · Git</strong>을 결합해<br>
-      동시다발적으로 커밋·배포한 AI 네이티브 협업 구조
-    </p>
+  <!-- Side nav -->
+  <aside class="prd-side-nav" aria-label="Section navigation">
+    <ul class="prd-side-nav-list">
+      <li><a href="#angels-part1" data-scroll="angels-part1" class="sn-h1"><span class="sn-num">PART I</span><span class="sn-title">배경과 목표</span></a></li>
+      <li><a href="#angels-overview" data-scroll="angels-overview"><span class="sn-num">00</span><span class="sn-title">개요</span></a></li>
+      <li><a href="#angels-problem" data-scroll="angels-problem"><span class="sn-num">01</span><span class="sn-title">문제 정의</span></a></li>
+      <li><a href="#angels-goals" data-scroll="angels-goals"><span class="sn-num">02</span><span class="sn-title">목표와 성과</span></a></li>
+      <li><a href="#angels-part2" data-scroll="angels-part2" class="sn-h1"><span class="sn-num">PART II</span><span class="sn-title">실행과 결과</span></a></li>
+      <li><a href="#angels-pipeline" data-scroll="angels-pipeline"><span class="sn-num">03</span><span class="sn-title">AI 에이전트 파이프라인</span></a></li>
+      <li><a href="#angels-workflow" data-scroll="angels-workflow"><span class="sn-num">04</span><span class="sn-title">AI-Native 워크플로우</span></a></li>
+      <li><a href="#angels-gallery" data-scroll="angels-gallery"><span class="sn-num">05</span><span class="sn-title">갤러리</span></a></li>
+      <li><a href="#angels-learning" data-scroll="angels-learning"><span class="sn-num">06</span><span class="sn-title">학습과 회고</span></a></li>
+      <li><a href="#angels-links" data-scroll="angels-links"><span class="sn-num">07</span><span class="sn-title">자료</span></a></li>
+    </ul>
+  </aside>
 
-    <!-- 3-Tool Stack -->
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px;">
-      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(91,200,247,0.25);border-radius:14px;padding:24px;">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-          <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#FF6B9D,#C44569);display:flex;align-items:center;justify-content:center;font-size:16px;">💖</div>
-          <div style="font-size:15px;font-weight:700;color:white;">Lovable</div>
-        </div>
-        <div style="font-size:12px;color:#5BC8F7;font-weight:600;margin-bottom:8px;">UI · 프로토타이핑</div>
-        <div style="font-size:12px;color:#aaa;line-height:1.7;">자연어 프롬프트로 React 화면을 즉시 생성·수정. 기획자가 직접 UI를 만들어 빠르게 검증.</div>
-      </div>
-      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(91,200,247,0.25);border-radius:14px;padding:24px;">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-          <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#D97706,#92400E);display:flex;align-items:center;justify-content:center;font-size:16px;">🤖</div>
-          <div style="font-size:15px;font-weight:700;color:white;">Claude Code</div>
-        </div>
-        <div style="font-size:12px;color:#5BC8F7;font-weight:600;margin-bottom:8px;">로직 · 리팩토링 · 디버깅</div>
-        <div style="font-size:12px;color:#aaa;line-height:1.7;">Lovable이 다루기 어려운 복잡 로직·API 연동·머지 충돌을 CLI 기반으로 처리. 코드 품질 보강.</div>
-      </div>
-      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(91,200,247,0.25);border-radius:14px;padding:24px;">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-          <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#F97316,#C2410C);display:flex;align-items:center;justify-content:center;font-size:16px;">🔀</div>
-          <div style="font-size:15px;font-weight:700;color:white;">Git · GitHub</div>
-        </div>
-        <div style="font-size:12px;color:#5BC8F7;font-weight:600;margin-bottom:8px;">동시 커밋 · 배포</div>
-        <div style="font-size:12px;color:#aaa;line-height:1.7;">Lovable 프로젝트를 GitHub에 연결. 3명이 각자 브랜치에서 동시 작업, 머지 후 자동 배포까지.</div>
-      </div>
-    </div>
+  <!-- Main -->
+  <div class="prd-main">
 
-    <!-- 3인 동시 커밋 플로우 -->
-    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:32px;margin-bottom:24px;">
-      <h4 style="font-size:16px;font-weight:700;margin-bottom:6px;color:white;">3인 동시다발 커밋 → 배포 플로우</h4>
-      <p style="font-size:12px;color:#888;margin-bottom:28px;">각자 자기 영역을 병렬로 작업, AI가 충돌·코드 품질을 보조 → Lovable이 자동 배포</p>
+    <!-- PART I -->
+    <section class="prd-part-divider" id="angels-part1">
+      <div class="prd-section-inner">
+        <div class="prd-part-eyebrow">PART I</div>
+        <h1>배경과 목표</h1>
+        <span class="prd-part-meta">Why &amp; What — 왜 만들었는가, 무엇을 이루려 했는가</span>
+      </div>
+    </section>
 
-      <!-- 3 lanes -->
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px;">
-        <!-- Lane 1: 기획자 -->
-        <div style="background:rgba(91,200,247,0.06);border:1px solid rgba(91,200,247,0.2);border-radius:10px;padding:16px;">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
-            <span style="font-size:18px;">👩‍💼</span>
-            <span style="font-size:13px;font-weight:700;color:#5BC8F7;">기획자 (본인)</span>
-          </div>
-          <div style="font-size:11px;color:#888;margin-bottom:10px;">UI · 사용자 플로우</div>
-          <div style="display:flex;flex-direction:column;gap:6px;">
-            <div style="font-family:monospace;font-size:10px;background:rgba(0,0,0,0.3);padding:6px 10px;border-radius:4px;color:#7DD3FC;">→ Lovable로 화면 생성</div>
-            <div style="font-family:monospace;font-size:10px;background:rgba(0,0,0,0.3);padding:6px 10px;border-radius:4px;color:#7DD3FC;">→ Claude Code로 디테일 수정</div>
-            <div style="font-family:monospace;font-size:10px;background:rgba(0,0,0,0.3);padding:6px 10px;border-radius:4px;color:#7DD3FC;">→ git commit · push</div>
-          </div>
+    <!-- 00 개요 -->
+    <section class="prd-section" id="angels-overview">
+      <div class="prd-section-inner">
+        <div class="prd-section-tag"></div>
+        <div class="prd-section-head">
+          <h2><span class="num-prefix">00</span>개요</h2>
+          <p class="prd-lede">FG Angels는 북미 1위 B2B 패션 플랫폼 FashionGo의 <b>아시아 공장 소싱 전 과정을 AI 에이전트로 자동화한 PoC</b>입니다. 3년·50번의 출장이 필요하던 수동 소싱 프로세스를 AI 파이프라인으로 대체하는 것이 목표였습니다.</p>
+          <p class="prd-lede">단 3인 크로스펑셔널 팀(도메인 전문가 · 기획자(본인) · 개발자)으로 기획부터 동작하는 프로토타입까지 단기간에 완성했고, <b>NHN 1st AI 스프린톤 업무생산성 트랙</b>에서 12팀 중 1위로 선정됐습니다.</p>
         </div>
-        <!-- Lane 2: 개발자 -->
-        <div style="background:rgba(125,211,252,0.06);border:1px solid rgba(125,211,252,0.2);border-radius:10px;padding:16px;">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
-            <span style="font-size:18px;">👨‍💻</span>
-            <span style="font-size:13px;font-weight:700;color:#7DD3FC;">개발자</span>
-          </div>
-          <div style="font-size:11px;color:#888;margin-bottom:10px;">AI 파이프라인 · API</div>
-          <div style="display:flex;flex-direction:column;gap:6px;">
-            <div style="font-family:monospace;font-size:10px;background:rgba(0,0,0,0.3);padding:6px 10px;border-radius:4px;color:#5BC8F7;">→ Vertex AI · Gemini 연동</div>
-            <div style="font-family:monospace;font-size:10px;background:rgba(0,0,0,0.3);padding:6px 10px;border-radius:4px;color:#5BC8F7;">→ Claude Code로 리팩토링</div>
-            <div style="font-family:monospace;font-size:10px;background:rgba(0,0,0,0.3);padding:6px 10px;border-radius:4px;color:#5BC8F7;">→ git commit · push</div>
-          </div>
+        <div class="prd-kpi-row">
+          <div class="prd-kpi"><div class="prd-kpi-value">1<span class="unit">위</span></div><div class="prd-kpi-label">NHN 1st AI 스프린톤<br>업무생산성 트랙</div></div>
+          <div class="prd-kpi"><div class="prd-kpi-value">12<span class="unit">팀</span></div><div class="prd-kpi-label">경쟁 팀 수</div></div>
+          <div class="prd-kpi"><div class="prd-kpi-value">3<span class="unit">인</span></div><div class="prd-kpi-label">크로스펑셔널 팀 사이즈</div></div>
+          <div class="prd-kpi"><div class="prd-kpi-value">1,000<span class="unit">만원</span></div><div class="prd-kpi-label">수상 상금</div></div>
         </div>
-        <!-- Lane 3: 도메인 전문가 -->
-        <div style="background:rgba(56,189,248,0.06);border:1px solid rgba(56,189,248,0.2);border-radius:10px;padding:16px;">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
-            <span style="font-size:18px;">🧠</span>
-            <span style="font-size:13px;font-weight:700;color:#38BDF8;">도메인 전문가</span>
-          </div>
-          <div style="font-size:11px;color:#888;margin-bottom:10px;">데이터 · 매칭 로직</div>
-          <div style="display:flex;flex-direction:column;gap:6px;">
-            <div style="font-family:monospace;font-size:10px;background:rgba(0,0,0,0.3);padding:6px 10px;border-radius:4px;color:#38BDF8;">→ 공장 스코어링 룰 설계</div>
-            <div style="font-family:monospace;font-size:10px;background:rgba(0,0,0,0.3);padding:6px 10px;border-radius:4px;color:#38BDF8;">→ Claude Code로 코드화</div>
-            <div style="font-family:monospace;font-size:10px;background:rgba(0,0,0,0.3);padding:6px 10px;border-radius:4px;color:#38BDF8;">→ git commit · push</div>
+        <div class="prd-callout">
+          <div class="lbl">Key Takeaway</div>
+          <p>FG Angels는 단순 업무 효율화 도구가 아니라, <b>글로벌 B2B 공급망 전 산업으로 확장 가능한 AI 인프라 구조</b>로 설계했습니다. 비개발자 기획자가 Lovable과 Claude Code를 직접 활용해 프로토타입을 End-to-End로 리딩한 것이 핵심입니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 01 문제 정의 -->
+    <section class="prd-section" id="angels-problem">
+      <div class="prd-section-inner">
+        <div class="prd-section-tag"></div>
+        <div class="prd-section-head">
+          <h2><span class="num-prefix">01</span>문제 정의</h2>
+          <p class="prd-lede">FashionGo는 GMV 1조원 · 바이어 ~100만명 규모의 플랫폼이지만, 가장 중요한 <b>공급망(소싱) 단계가 100% 수동</b>으로 운영됐습니다. 공급망 디지털화가 거래 단의 규모를 따라가지 못한 상태가 핵심 문제입니다.</p>
+        </div>
+        <div class="prd-block">
+          <div class="prd-block-head"><h3>핵심 문제 3</h3></div>
+          <div class="prd-problem-grid">
+            <div class="prd-problem-card">
+              <div class="pc-num">P1</div>
+              <h3>수동 소싱 의존</h3>
+              <p>아시아 공장 소싱이 3년 · 50번의 출장이 필요한 100% 수동 방식으로만 운영되어 시간·비용 비효율이 큽니다.</p>
+            </div>
+            <div class="prd-problem-card">
+              <div class="pc-num">P2</div>
+              <h3>공급망 AI 부재</h3>
+              <p>중국·한국 공장(1688 · Alibaba) → ERP → FashionGo로 이어지는 공급망 전체에 AI 자동화가 적용되지 않았습니다.</p>
+            </div>
+            <div class="prd-problem-card">
+              <div class="pc-num">P3</div>
+              <h3>디지털화 격차</h3>
+              <p>거래 단(GMV 1조 · 바이어 100만)에 비해 공급망 디지털화는 크게 뒤처져 성장 한계를 만들고 있습니다.</p>
+            </div>
           </div>
         </div>
-      </div>
-
-      <!-- Merge arrow -->
-      <div style="text-align:center;margin:18px 0;">
-        <div style="display:inline-block;font-size:24px;color:#5BC8F7;">↓ ↓ ↓</div>
-      </div>
-
-      <!-- Merge & Deploy -->
-      <div style="display:grid;grid-template-columns:1fr 60px 1fr 60px 1fr;align-items:center;gap:0;">
-        <div style="background:rgba(91,200,247,0.1);border:1px solid rgba(91,200,247,0.3);border-radius:10px;padding:16px;text-align:center;">
-          <div style="font-size:22px;margin-bottom:6px;">🔀</div>
-          <div style="font-size:13px;font-weight:700;color:white;margin-bottom:4px;">GitHub 머지</div>
-          <div style="font-size:11px;color:#aaa;line-height:1.6;">Claude Code가 충돌 해결·리뷰 보조</div>
-        </div>
-        <div style="text-align:center;font-size:22px;color:#5BC8F7;">→</div>
-        <div style="background:rgba(91,200,247,0.1);border:1px solid rgba(91,200,247,0.3);border-radius:10px;padding:16px;text-align:center;">
-          <div style="font-size:22px;margin-bottom:6px;">🔄</div>
-          <div style="font-size:13px;font-weight:700;color:white;margin-bottom:4px;">Lovable 동기화</div>
-          <div style="font-size:11px;color:#aaa;line-height:1.6;">main 브랜치 변경 자동 반영</div>
-        </div>
-        <div style="text-align:center;font-size:22px;color:#5BC8F7;">→</div>
-        <div style="background:linear-gradient(135deg,rgba(91,200,247,0.2),rgba(30,136,229,0.1));border:1px solid rgba(91,200,247,0.45);border-radius:10px;padding:16px;text-align:center;">
-          <div style="font-size:22px;margin-bottom:6px;">🚀</div>
-          <div style="font-size:13px;font-weight:700;color:#5BC8F7;margin-bottom:4px;">자동 배포</div>
-          <div style="font-size:11px;color:#aaa;line-height:1.6;">factory-finder-fashiongo.lovable.app</div>
+        <div class="prd-callout important">
+          <div class="lbl">Important</div>
+          <p>세 문제는 따로가 아니라 하나의 사슬입니다. 수동 의존이 자동화 부재의 원인이며, 그 결과 디지털화 격차가 누적됩니다. 단계별 도구 개선이 아닌, <b>소싱 파이프라인 전체를 AI로 재설계</b>해야 풀리는 문제입니다.</p>
         </div>
       </div>
+    </section>
 
-      <div style="margin-top:24px;padding:14px 20px;background:rgba(91,200,247,0.08);border:1px solid rgba(91,200,247,0.2);border-radius:8px;font-size:13px;color:#5BC8F7;line-height:1.7;">
-        💡 결과적으로 <strong>비개발자 기획자도 Git 워크플로우에 직접 참여</strong>해 코드를 커밋·배포할 수 있었고,
-        AI가 충돌 해결·코드 품질을 보조하면서 3인 팀의 개발 속도를 크게 단축
+    <!-- 02 목표와 성과 -->
+    <section class="prd-section" id="angels-goals">
+      <div class="prd-section-inner">
+        <div class="prd-section-tag"></div>
+        <div class="prd-section-head">
+          <h2><span class="num-prefix">02</span>목표와 성과</h2>
+          <p class="prd-lede">목표는 단기 PoC를 통해 <b>AI 에이전트 기반 소싱 파이프라인의 가능성을 검증</b>하는 것이었습니다. 기획부터 동작하는 프로토타입까지 3개월 안에 End-to-End로 완성하는 것이 1차 성공 조건이었습니다.</p>
+        </div>
+        <div class="prd-block">
+          <div class="prd-block-head"><h3>달성 결과</h3></div>
+          <div class="prd-table-wrap">
+            <table>
+              <thead><tr><th>지표</th><th>목표</th><th>결과</th><th>비고</th></tr></thead>
+              <tbody>
+                <tr><td class="lbl-cell">PoC 완성도</td><td>동작하는 프로토타입</td><td>End-to-End 동작</td><td>Lovable 기반 배포 완료</td></tr>
+                <tr><td class="lbl-cell">대외 검증</td><td>스프린톤 통과</td><td>1위 · 상금 1,000만원</td><td>업무생산성 트랙 12팀 中</td></tr>
+                <tr><td class="lbl-cell">대중 노출</td><td>—</td><td>한경 등 뉴스 기사 2건</td><td>YouTube 데모 영상 공개</td></tr>
+                <tr><td class="lbl-cell">기획자 직접 구현</td><td>아이디어 → 동작</td><td>비개발자 E2E 완성</td><td>Lovable + Claude Code 활용</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="prd-callout">
+          <div class="lbl">So What</div>
+          <p>네 결과 중 가장 의미 있는 건 <b>비개발자 기획자가 동작하는 프로토타입을 직접 만들어 검증까지 받아냈다는 점</b>입니다. 나머지(스프린톤 수상 · 뉴스 노출)는 이를 뒷받침하는 결과 지표이고, 기획자의 직접 구현이 이번 프로젝트가 보여준 새로운 작업 방식의 핵심입니다.</p>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <!-- 이미지 영역 (추후 채워넣기) -->
-    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px;">
-      <figure style="margin:0;">
-        <div style="background:rgba(255,255,255,0.04);border:1px dashed rgba(91,200,247,0.3);border-radius:12px;overflow:hidden;aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;color:#5BC8F7;">
-          <!-- TODO: images/fg-angels-workflow.png 추가 -->
-          <div style="font-size:32px;opacity:0.4;">🖼️</div>
-          <div style="font-size:12px;color:#666;">images/fg-angels-workflow.png</div>
-          <div style="font-size:11px;color:#555;">워크플로우 다이어그램 자리</div>
-        </div>
-        <figcaption style="font-size:12px;color:#888;margin-top:10px;text-align:center;line-height:1.5;">Lovable × Claude Code × Git 협업 구조도</figcaption>
-      </figure>
-      <figure style="margin:0;">
-        <div style="background:rgba(255,255,255,0.04);border:1px dashed rgba(91,200,247,0.3);border-radius:12px;overflow:hidden;aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;color:#5BC8F7;">
-          <!-- TODO: images/fg-angels-git-history.png 추가 -->
-          <div style="font-size:32px;opacity:0.4;">🖼️</div>
-          <div style="font-size:12px;color:#666;">images/fg-angels-git-history.png</div>
-          <div style="font-size:11px;color:#555;">Git 커밋 히스토리 자리</div>
-        </div>
-        <figcaption style="font-size:12px;color:#888;margin-top:10px;text-align:center;line-height:1.5;">3인 동시 커밋이 보이는 GitHub 히스토리</figcaption>
-      </figure>
-    </div>
-  </div>
+    <!-- PART II -->
+    <section class="prd-part-divider" id="angels-part2">
+      <div class="prd-section-inner">
+        <div class="prd-part-eyebrow">PART II</div>
+        <h1>실행과 결과</h1>
+        <span class="prd-part-meta">How — 무엇을 만들고, 어떻게 만들었는가</span>
+      </div>
+    </section>
 
-  <!-- 프로젝트 갤러리 -->
-  <div style="margin-bottom:48px;">
-    <h3 class="section-title">GALLERY</h3>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
-      <figure style="margin:0;">
-        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;">
-          <img src="images/fg-angels-service.png" alt="FG Angels 트렌드 상품 탐색 화면" style="width:100%;height:100%;object-fit:cover;display:block;">
+    <!-- 03 AI 파이프라인 -->
+    <section class="prd-section" id="angels-pipeline">
+      <div class="prd-section-inner">
+        <div class="prd-section-tag"></div>
+        <div class="prd-section-head">
+          <h2><span class="num-prefix">03</span>AI 에이전트 파이프라인</h2>
+          <p class="prd-lede">FG Angels의 핵심은 <b>트렌드 분석 → 공장 소싱 → 스코어링 → 자기학습 → 자동 등록</b>까지 이어지는 5단계 자동화 파이프라인입니다. 24h Agent로 무중단 동작하도록 설계했습니다.</p>
         </div>
-        <figcaption style="font-size:12px;color:#888;margin-top:10px;text-align:center;line-height:1.5;">실제 서비스 UI · 트렌드 상품 탐색</figcaption>
-      </figure>
-      <figure style="margin:0;">
-        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;">
-          <img src="images/fg-angels-presentation.png" alt="NHN 1st AI 스프린톤 발표 슬라이드" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="prd-block">
+          <div class="prd-block-head"><h3>사용 기술 스택</h3></div>
+          <div class="prd-tags">
+            <span class="prd-tag">Vision AI</span>
+            <span class="prd-tag">Gemini 2.5 Flash</span>
+            <span class="prd-tag">Vertex AI</span>
+            <span class="prd-tag">24h Agent</span>
+            <span class="prd-tag highlight">Lovable</span>
+            <span class="prd-tag highlight">Claude Code</span>
+          </div>
         </div>
-        <figcaption style="font-size:12px;color:#888;margin-top:10px;text-align:center;line-height:1.5;">발표 슬라이드 · 미녀삼총사 팀</figcaption>
-      </figure>
-      <figure style="margin:0;">
-        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;">
-          <img src="images/fg-angels-team.png" alt="FG Angels 팀 인터뷰" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="prd-block">
+          <div class="prd-block-head"><h3>5단계 자동화 흐름</h3></div>
+          <div class="prd-flow">
+            <div class="prd-flow-step"><div class="prd-flow-num">01</div><div><div class="prd-flow-name">트렌드 분석</div><div class="prd-flow-desc">북미 패션 트렌드 수집·분석</div></div></div>
+            <div class="prd-flow-step"><div class="prd-flow-num">02</div><div><div class="prd-flow-name">공장 소싱</div><div class="prd-flow-desc">1688 · Alibaba 자동 탐색·매칭</div></div></div>
+            <div class="prd-flow-step"><div class="prd-flow-num">03</div><div><div class="prd-flow-name">공장 스코어링</div><div class="prd-flow-desc">AI 기반 품질·신뢰도 자동 평가</div></div></div>
+            <div class="prd-flow-step"><div class="prd-flow-num">04</div><div><div class="prd-flow-name">자기학습</div><div class="prd-flow-desc">피드백 기반 모델 자동 개선</div></div></div>
+            <div class="prd-flow-step"><div class="prd-flow-num">05</div><div><div class="prd-flow-name">자동 등록</div><div class="prd-flow-desc">FashionGo ERP 자동 상품 등록</div></div></div>
+          </div>
         </div>
-        <figcaption style="font-size:12px;color:#888;margin-top:10px;text-align:center;line-height:1.5;">팀 인터뷰 · 손주영 · 윤혜련 · 임동빈</figcaption>
-      </figure>
-      <figure style="margin:0;">
-        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;">
-          <img src="images/fg-angels-matching.png" alt="Angel Program — 소싱 매칭 결과 어드민 화면" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div class="prd-callout note">
+          <div class="lbl">Note</div>
+          <p>단순 업무 효율화가 아닌 <b>글로벌 B2B 전 산업으로 확장 가능한 AI 인프라 구조</b>로 설계했습니다. 5단계는 패션·소싱에 국한되지 않고, 다른 도메인의 공급망에도 그대로 응용 가능한 추상화 수준을 유지했습니다.</p>
         </div>
-        <figcaption style="font-size:12px;color:#888;margin-top:10px;text-align:center;line-height:1.5;">소싱 매칭 결과 — 트렌드 상품 ↔ 공장 상품 자동 매칭 점수</figcaption>
-      </figure>
-      <figure style="margin:0;">
-        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;">
-          <img src="images/fg-angels-report.png" alt="Angel Program — 트렌드 리포트 어드민 화면" style="width:100%;height:100%;object-fit:cover;display:block;">
-        </div>
-        <figcaption style="font-size:12px;color:#888;margin-top:10px;text-align:center;line-height:1.5;">트렌드 리포트 — SNS·커머스 트렌드 수집 현황 및 키워드 분석</figcaption>
-      </figure>
-      <figure style="margin:0;">
-        <div style="background:rgba(255,255,255,0.04);border:1px dashed rgba(91,200,247,0.3);border-radius:12px;overflow:hidden;aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;">
-          <!-- TODO: images/fg-angels-extra.png 추가 -->
-          <div style="font-size:32px;opacity:0.4;">🖼️</div>
-          <div style="font-size:12px;color:#666;">images/fg-angels-extra.png</div>
-          <div style="font-size:11px;color:#555;">추가 이미지 자리</div>
-        </div>
-        <figcaption style="font-size:12px;color:#888;margin-top:10px;text-align:center;line-height:1.5;">추가 이미지 (예정)</figcaption>
-      </figure>
-    </div>
-  </div>
+      </div>
+    </section>
 
-  <!-- 링크 모음 -->
-  <div>
-    <h3 class="section-title">LINKS</h3>
-    <div style="display:flex;flex-wrap:wrap;gap:12px;">
-      <a href="https://n.news.naver.com/mnews/article/092/0002418772?sid=105" target="_blank" style="
-        display:flex;align-items:center;gap:8px;
-        background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);
-        color:#ccc;text-decoration:none;padding:10px 18px;border-radius:24px;
-        font-size:13px;transition:all 0.2s;
-      ">
-        <span>📰</span> 뉴스 기사 1
-      </a>
-      <a href="https://n.news.naver.com/mnews/article/018/0006245221?sid=105" target="_blank" style="
-        display:flex;align-items:center;gap:8px;
-        background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);
-        color:#ccc;text-decoration:none;padding:10px 18px;border-radius:24px;
-        font-size:13px;transition:all 0.2s;
-      ">
-        <span>📰</span> 뉴스 기사 2
-      </a>
-      <a href="https://www.youtube.com/live/yk9EnnziWVw" target="_blank" style="
-        display:flex;align-items:center;gap:8px;
-        background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);
-        color:#fca5a5;text-decoration:none;padding:10px 18px;border-radius:24px;
-        font-size:13px;
-      ">
-        <span>▶</span> 스프린톤 1일차
-      </a>
-      <a href="https://www.youtube.com/live/w5h4cxDSTog" target="_blank" style="
-        display:flex;align-items:center;gap:8px;
-        background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);
-        color:#fca5a5;text-decoration:none;padding:10px 18px;border-radius:24px;
-        font-size:13px;
-      ">
-        <span>▶</span> 스프린톤 2일차
-      </a>
-      <a href="https://gamma.app/docs/FG-Angels-ngjjjxo4700hh9s?mode=doc" target="_blank" style="
-        display:flex;align-items:center;gap:8px;
-        background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);
-        color:#ccc;text-decoration:none;padding:10px 18px;border-radius:24px;
-        font-size:13px;
-      ">
-        <span>📊</span> 발표 자료 (Gamma)
-      </a>
-      <a href="https://factory-finder-fashiongo.lovable.app/" target="_blank" style="
-        display:flex;align-items:center;gap:8px;
-        background:rgba(91,200,247,0.18);border:1px solid rgba(91,200,247,0.4);
-        color:#5BC8F7;text-decoration:none;padding:10px 18px;border-radius:24px;
-        font-size:13px;font-weight:600;
-      ">
-        <span>🌐</span> 실제 서비스 (Lovable)
-      </a>
-      <a href="https://youtu.be/_2gPgEb4iJo?si=84M4bINRYJVe8M-W" target="_blank" style="
-        display:flex;align-items:center;gap:8px;
-        background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);
-        color:#fca5a5;text-decoration:none;padding:10px 18px;border-radius:24px;
-        font-size:13px;
-      ">
-        <span>▶</span> 데모 영상 (YouTube)
-      </a>
-    </div>
+    <!-- 04 AI-Native 워크플로우 -->
+    <section class="prd-section" id="angels-workflow">
+      <div class="prd-section-inner">
+        <div class="prd-section-tag"></div>
+        <div class="prd-section-head">
+          <h2><span class="num-prefix">04</span>AI-Native 워크플로우</h2>
+          <p class="prd-lede">비개발자 기획자 · 도메인 전문가 · 개발자, 3인이 <b>Lovable · Claude Code · Git을 결합해 동시다발적으로 커밋·배포</b>한 AI 네이티브 협업 구조입니다. 기획자가 Git 워크플로우에 직접 참여한 것이 가장 큰 차별점입니다.</p>
+        </div>
+
+        <div class="prd-block">
+          <div class="prd-block-head"><h3>3-Tool Stack</h3></div>
+          <div class="prd-tool-stack">
+            <div class="prd-tool-card">
+              <div class="tool-role">UI · 프로토타이핑</div>
+              <div class="tool-name">Lovable</div>
+              <p>자연어 프롬프트로 React 화면을 즉시 생성·수정. 기획자가 직접 UI를 만들어 빠르게 검증.</p>
+            </div>
+            <div class="prd-tool-card">
+              <div class="tool-role">로직 · 리팩토링 · 디버깅</div>
+              <div class="tool-name">Claude Code</div>
+              <p>Lovable이 다루기 어려운 복잡 로직 · API 연동 · 머지 충돌을 CLI 기반으로 처리. 코드 품질 보강.</p>
+            </div>
+            <div class="prd-tool-card">
+              <div class="tool-role">동시 커밋 · 배포</div>
+              <div class="tool-name">Git · GitHub</div>
+              <p>Lovable 프로젝트를 GitHub에 연결. 3명이 각자 브랜치에서 동시 작업, 머지 후 자동 배포까지.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="prd-block">
+          <div class="prd-block-head"><h3>3인 동시다발 커밋</h3></div>
+          <div class="prd-insight-list">
+            <div class="prd-insight-row">
+              <div class="prd-insight-num">1</div>
+              <div class="prd-insight-body">
+                <div class="prd-insight-title">기획자(본인) — UI · 사용자 플로우</div>
+                <p>Lovable로 화면 생성 → Claude Code로 디테일 수정 → git commit · push. 비개발자도 Git 워크플로우에 직접 참여.</p>
+              </div>
+            </div>
+            <div class="prd-insight-row">
+              <div class="prd-insight-num">2</div>
+              <div class="prd-insight-body">
+                <div class="prd-insight-title">개발자 — AI 파이프라인 · API</div>
+                <p>Vertex AI · Gemini 연동 → Claude Code로 리팩토링 → git commit · push.</p>
+              </div>
+            </div>
+            <div class="prd-insight-row">
+              <div class="prd-insight-num">3</div>
+              <div class="prd-insight-body">
+                <div class="prd-insight-title">도메인 전문가 — 데이터 · 매칭 로직</div>
+                <p>공장 스코어링 룰 설계 → Claude Code로 코드화 → git commit · push.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="prd-block">
+          <div class="prd-block-head"><h3>머지 → 동기화 → 배포</h3></div>
+          <div class="prd-flow">
+            <div class="prd-flow-step"><div class="prd-flow-num">01</div><div><div class="prd-flow-name">GitHub 머지</div><div class="prd-flow-desc">Claude Code가 충돌 해결 · 리뷰 보조</div></div></div>
+            <div class="prd-flow-step"><div class="prd-flow-num">02</div><div><div class="prd-flow-name">Lovable 동기화</div><div class="prd-flow-desc">main 브랜치 변경 자동 반영</div></div></div>
+            <div class="prd-flow-step"><div class="prd-flow-num">03</div><div><div class="prd-flow-name">자동 배포</div><div class="prd-flow-desc">factory-finder-fashiongo.lovable.app</div></div></div>
+          </div>
+        </div>
+
+        <div class="prd-block">
+          <div class="prd-block-head"><h3>레퍼런스 자료</h3></div>
+          <div class="prd-gallery" style="grid-template-columns: repeat(2, 1fr);">
+            <figure>
+              <div class="img-frame empty">
+                <div style="font-size:24px;opacity:0.4;">🖼️</div>
+                <div style="font-size:12px;">images/fg-angels-workflow.png</div>
+                <div style="font-size:11px;color:#999;">워크플로우 다이어그램 자리</div>
+              </div>
+              <figcaption>Lovable × Claude Code × Git 협업 구조도</figcaption>
+            </figure>
+            <figure>
+              <div class="img-frame empty">
+                <div style="font-size:24px;opacity:0.4;">🖼️</div>
+                <div style="font-size:12px;">images/fg-angels-git-history.png</div>
+                <div style="font-size:11px;color:#999;">Git 커밋 히스토리 자리</div>
+              </div>
+              <figcaption>3인 동시 커밋이 보이는 GitHub 히스토리</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="prd-callout">
+          <div class="lbl">Highlight</div>
+          <p>결과적으로 <b>비개발자 기획자도 Git 워크플로우에 직접 참여</b>해 코드를 커밋·배포할 수 있었고, AI가 충돌 해결·코드 품질을 보조하면서 3인 팀의 개발 속도를 크게 단축시켰습니다. 기획자가 Service Launcher가 될 수 있다는 가설을 실제 출시로 증명한 사례입니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 갤러리 -->
+    <section class="prd-section" id="angels-gallery">
+      <div class="prd-section-inner">
+        <div class="prd-section-tag"></div>
+        <div class="prd-section-head">
+          <h2><span class="num-prefix">05</span>갤러리</h2>
+          <p class="prd-lede">서비스 UI · 어드민 대시보드 · 팀 활동을 한 자리에 모았습니다. 6번째 슬롯에 추후 이미지를 추가할 예정입니다.</p>
+        </div>
+        <div class="prd-gallery">
+          <figure>
+            <div class="img-frame"><img src="images/fg-angels-service.png" alt="FG Angels 트렌드 상품 탐색 화면"></div>
+            <figcaption>실제 서비스 UI · 트렌드 상품 탐색</figcaption>
+          </figure>
+          <figure>
+            <div class="img-frame"><img src="images/fg-angels-presentation.png" alt="NHN 1st AI 스프린톤 발표 슬라이드"></div>
+            <figcaption>발표 슬라이드 · 미녀삼총사 팀</figcaption>
+          </figure>
+          <figure>
+            <div class="img-frame"><img src="images/fg-angels-team.png" alt="FG Angels 팀 인터뷰"></div>
+            <figcaption>팀 인터뷰 · 손주영 · 윤혜련 · 임동빈</figcaption>
+          </figure>
+          <figure>
+            <div class="img-frame"><img src="images/fg-angels-matching.png" alt="소싱 매칭 결과 어드민"></div>
+            <figcaption>소싱 매칭 결과 — 트렌드 ↔ 공장 자동 매칭</figcaption>
+          </figure>
+          <figure>
+            <div class="img-frame"><img src="images/fg-angels-report.png" alt="트렌드 리포트 어드민"></div>
+            <figcaption>트렌드 리포트 — SNS·커머스 트렌드 키워드 분석</figcaption>
+          </figure>
+          <figure>
+            <div class="img-frame empty">
+              <div style="font-size:24px;opacity:0.4;">🖼️</div>
+              <div style="font-size:12px;">images/fg-angels-extra.png</div>
+              <div style="font-size:11px;color:#999;">추가 이미지 자리</div>
+            </div>
+            <figcaption>추가 이미지 (예정)</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 학습과 회고 -->
+    <section class="prd-section" id="angels-learning">
+      <div class="prd-section-inner">
+        <div class="prd-section-tag"></div>
+        <div class="prd-section-head">
+          <h2><span class="num-prefix">06</span>학습과 회고</h2>
+          <p class="prd-lede">이번 프로젝트가 남긴 가장 큰 자산은 결과물 자체가 아니라, <b>"기획자가 직접 서비스를 런칭할 수 있다"는 가설을 스스로 검증했다는 점</b>입니다.</p>
+        </div>
+        <div class="prd-insight-list">
+          <div class="prd-insight-row">
+            <div class="prd-insight-num">1</div>
+            <div class="prd-insight-body">
+              <div class="prd-insight-title">3인 크로스펑셔널 협업의 가능성</div>
+              <p>도메인 전문가 · 개발자와 함께 아이디어부터 실제 동작하는 AI 에이전트까지 단기간에 구현. 각 역할의 언어를 이해하고 조율하는 기획자의 역할을 체득.</p>
+            </div>
+          </div>
+          <div class="prd-insight-row">
+            <div class="prd-insight-num">2</div>
+            <div class="prd-insight-body">
+              <div class="prd-insight-title">기획자 → Service Launcher 전환</div>
+              <p>AI 툴(Lovable · Claude Code 등)을 직접 다루어 기획서를 넘어 실제 동작하는 프로토타입을 구현. 기획자도 서비스를 직접 런칭할 수 있음을 스스로 증명.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 자료 -->
+    <section class="prd-section" id="angels-links">
+      <div class="prd-section-inner">
+        <div class="prd-section-tag"></div>
+        <div class="prd-section-head">
+          <h2><span class="num-prefix">07</span>자료</h2>
+          <p class="prd-lede">실제 서비스 · 발표 자료 · 데모 영상 · 뉴스 보도를 모두 모았습니다.</p>
+        </div>
+        <div class="prd-links">
+          <a href="https://factory-finder-fashiongo.lovable.app/" target="_blank" class="prd-link-card primary">🌐 실제 서비스 (Lovable)</a>
+          <a href="https://gamma.app/docs/FG-Angels-ngjjjxo4700hh9s?mode=doc" target="_blank" class="prd-link-card">📊 발표 자료 (Gamma)</a>
+          <a href="https://youtu.be/_2gPgEb4iJo?si=84M4bINRYJVe8M-W" target="_blank" class="prd-link-card video">▶ 데모 영상</a>
+          <a href="https://www.youtube.com/live/yk9EnnziWVw" target="_blank" class="prd-link-card video">▶ 스프린톤 1일차</a>
+          <a href="https://www.youtube.com/live/w5h4cxDSTog" target="_blank" class="prd-link-card video">▶ 스프린톤 2일차</a>
+          <a href="https://n.news.naver.com/mnews/article/092/0002418772?sid=105" target="_blank" class="prd-link-card">📰 뉴스 기사 1</a>
+          <a href="https://n.news.naver.com/mnews/article/018/0006245221?sid=105" target="_blank" class="prd-link-card">📰 뉴스 기사 2</a>
+        </div>
+      </div>
+    </section>
+
   </div>
 </section>
 
@@ -1918,6 +2240,44 @@
     });
 
     showPage(location.hash);
+  })();
+
+  // PRD 사이드 nav: 클릭 시 해당 섹션으로 부드럽게 스크롤 + 스크롤 위치에 따라 active 갱신
+  (function () {
+    var sideNavs = document.querySelectorAll('.prd-page .prd-side-nav');
+    if (!sideNavs.length) return;
+
+    sideNavs.forEach(function (nav) {
+      var links = nav.querySelectorAll('a[data-scroll]');
+      links.forEach(function (a) {
+        a.addEventListener('click', function (e) {
+          e.preventDefault();
+          var el = document.getElementById(a.dataset.scroll);
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+    });
+
+    function updateActive() {
+      sideNavs.forEach(function (nav) {
+        var page = nav.closest('.prd-page');
+        if (!page || !page.classList.contains('page-active')) return;
+        var links = Array.prototype.slice.call(nav.querySelectorAll('a[data-scroll]'));
+        var targets = links.map(function (a) {
+          return { link: a, el: document.getElementById(a.dataset.scroll) };
+        }).filter(function (t) { return t.el; });
+        if (!targets.length) return;
+        var y = window.scrollY + window.innerHeight * 0.3;
+        var active = targets[0];
+        targets.forEach(function (t) { if (t.el.offsetTop <= y) active = t; });
+        links.forEach(function (a) { a.classList.remove('active'); });
+        active.link.classList.add('active');
+      });
+    }
+    window.addEventListener('scroll', updateActive, { passive: true });
+    window.addEventListener('resize', updateActive);
+    window.addEventListener('hashchange', function () { setTimeout(updateActive, 50); });
+    updateActive();
   })();
 </script>
 
