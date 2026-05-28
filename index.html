@@ -16,20 +16,33 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: "Pretendard", system-ui, -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; background: var(--dark); -webkit-font-smoothing: antialiased; word-break: keep-all; overflow-wrap: break-word; }
 
-    /* ── NAV ── */
+    /* ── NAV (Kakao-style: white, tall, centered) ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 999;
-      background: rgba(20,20,20,0.96); backdrop-filter: blur(8px);
-      display: flex; align-items: center; gap: 6px;
-      padding: 10px 32px; flex-wrap: wrap;
+      background: #fff;
+      display: flex; align-items: center; justify-content: center;
+      gap: 32px; padding: 0 32px; height: 68px;
+      border-bottom: 1px solid #ececec;
+      font-family: "Pretendard", system-ui, sans-serif;
     }
     nav a {
-      color: #aaa; text-decoration: none; font-size: 12px;
-      padding: 4px 10px; border-radius: 20px; transition: all 0.2s;
+      color: #191919; text-decoration: none;
+      font-size: 15px; font-weight: 500;
+      padding: 10px 6px; border-radius: 0;
+      transition: color 200ms ease;
+      position: relative;
     }
-    nav a:hover { background: rgba(255,255,255,0.1); color: white; }
-    nav a.active { background: rgba(255,255,255,0.15); color: white; }
-    nav .nav-logo { color: white; font-weight: 700; font-size: 14px; margin-right: 16px; }
+    nav a:hover { color: #000; }
+    nav a.active { color: #000; font-weight: 700; }
+    nav a.active::after {
+      content: ""; position: absolute;
+      left: 6px; right: 6px; bottom: 0;
+      height: 2px; background: #191919;
+    }
+    @media (max-width: 760px) {
+      nav { gap: 16px; padding: 0 16px; height: 56px; }
+      nav a { font-size: 14px; }
+    }
 
     /* ── BADGE ── */
     .badge {
