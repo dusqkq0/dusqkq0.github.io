@@ -1070,17 +1070,15 @@
       display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
     }
     .prd-page .prd-chart {
-      background: var(--prd-surface);
-      border: 1px solid var(--prd-line-soft);
-      border-radius: 8px;
-      padding: 20px;
+      padding: 12px 0;
     }
     .prd-page .prd-chart .chart-caption {
-      font-size: 13px; font-weight: 600; color: var(--prd-ink-2);
-      margin-bottom: 12px; line-height: 1.4;
+      font-size: 14px; font-weight: 700; color: var(--prd-ink);
+      margin-bottom: 16px; line-height: 1.4;
+      text-align: center;
     }
     .prd-page .prd-chart .chart-canvas-wrap {
-      position: relative; height: 220px;
+      position: relative; height: 240px;
     }
     .prd-page .prd-chart.full .chart-canvas-wrap { height: 280px; }
     @media (max-width: 760px) {
@@ -1476,7 +1474,7 @@
             legend: {
               display: legend !== false,
               position: 'bottom',
-              align: 'start',
+              align: 'center',
               labels: {
                 color: '#545454', font: FONT,
                 boxWidth: 10, boxHeight: 10, padding: 14,
