@@ -93,13 +93,11 @@
     .cover-left h1 strong { font-weight: 700; }
     .cover-name { font-size: 28px; font-weight: 700; margin-bottom: 28px; }
     .contact-list { display: flex; flex-direction: column; gap: 10px; }
-    .contact-item {
-      display: flex; align-items: center; gap: 10px;
-      font-size: 14px; color: #bbb;
+    .contact-link {
+      font-size: 14px; color: var(--accent); text-decoration: none;
+      align-self: flex-start;
     }
-    .contact-item .icon { font-size: 16px; }
-    .contact-item a { color: #fff; text-decoration: none; }
-    .contact-item { color: #fff; }
+    .contact-link:hover { text-decoration: underline; }
 
     .cover-right {
       background: white;
@@ -1168,7 +1166,47 @@
 <!-- ═══════════════════════════════════════ -->
 <!-- 1. COVER                               -->
 <!-- ═══════════════════════════════════════ -->
-<section id="cover"> <div class="cover-left"> <p style="font-size:14px;color:#888;margin-bottom:16px;">Service Product Manager</p> <h1>사용자 데이터와 행동을 기반으로<br><strong>참여 구조와 혜택 경험을</strong><br>설계하는 서비스 기획자</h1> <div class="cover-name">윤혜련</div> <div class="contact-list"> <div class="contact-item"> <span class="icon"></span> <a href="mailto:dusqkq0@naver.com">dusqkq0@naver.com</a> </div> <div class="contact-item"> <span class="icon"></span> <a href="https://www.linkedin.com/in/hyeryeon/" target="_blank">linkedin.com/in/hyeryeon</a> </div> </div> </div> <div class="cover-right" style="padding-top:100px;"> <a href="#angels" class="toc-item"> <span>1. FG Angels — AI Agent for FashionGo</span> <span style="display:flex;gap:6px;align-items:center;flex-shrink:0;"> <span class="toc-tag">2026.3 ~ 2026.6 NHNCommerce</span> <span class="toc-tag" style="background:#f5f5f5;color:#555;font-weight:700;">NHN 1st AI 스프린톤 업무생산성 트랙 1위</span> </span> </a> <a href="#gift" class="toc-item"> <span>2. 선물하기 시스템</span> <span class="toc-tag">2025.7 ~ 2026.3 NHNCommerce</span> </a> <a href="#vip" class="toc-item"> <span>3. VIP 프로그램 (멤버십 구조 시스템)</span> <span class="toc-tag">2024.3 ~ 2025.3 NHNFashionGo(Global)</span> </a> <a href="#review" class="toc-item"> <span>4. 리뷰 리워드 시스템 (사용자 참여형 설계)</span> <span class="toc-tag">2024.9 ~ 2025.3 NHNFashionGo(Global)</span> </a> <a href="#yanolja" class="toc-item"> <span>5. 통합예약 UX 개선</span> <span class="toc-tag">2021.6 ~ 2022.1 야놀자</span> </a> <a href="#cashwalk" class="toc-item"> <span>6. 캐시워크 (리워드 참여 구조 설계)</span> <span class="toc-tag">2016.9 ~ 2019.5 캐시워크</span> </a> </div>
+<section id="cover">
+  <div class="cover-left">
+    <p style="font-size:14px;color:#888;margin-bottom:16px;">Service Product Manager</p>
+    <h1>사용자 데이터와 행동을 기반으로<br><strong>참여 구조와 혜택 경험을</strong><br>설계하는 서비스 기획자</h1>
+    <div class="cover-name">윤혜련</div>
+
+    <div class="contact-list">
+      <a href="mailto:dusqkq0@naver.com" class="contact-link">dusqkq0@naver.com</a>
+      <a href="https://www.linkedin.com/in/hyeryeon/" target="_blank" class="contact-link">linkedin.com/in/hyeryeon</a>
+    </div>
+  </div>
+
+  <div class="cover-right" style="padding-top:100px;">
+    <a href="#angels" class="toc-item">
+      <span>1. FG Angels — AI Agent for FashionGo</span>
+      <span style="display:flex;gap:6px;align-items:center;flex-shrink:0;">
+        <span class="toc-tag">2026.3 ~ 2026.6 NHNCommerce</span>
+        <span class="toc-tag" style="background:#f5f5f5;color:#555;font-weight:700;">NHN 1st AI 스프린톤 업무생산성 트랙 1위</span>
+      </span>
+    </a>
+    <a href="#gift" class="toc-item">
+      <span>2. 선물하기 시스템</span>
+      <span class="toc-tag">2025.7 ~ 2026.3 NHNCommerce</span>
+    </a>
+    <a href="#vip" class="toc-item">
+      <span>3. VIP 프로그램 (멤버십 구조 시스템)</span>
+      <span class="toc-tag">2024.3 ~ 2025.3 NHNFashionGo(Global)</span>
+    </a>
+    <a href="#review" class="toc-item">
+      <span>4. 리뷰 리워드 시스템 (사용자 참여형 설계)</span>
+      <span class="toc-tag">2024.9 ~ 2025.3 NHNFashionGo(Global)</span>
+    </a>
+    <a href="#yanolja" class="toc-item">
+      <span>5. 통합예약 UX 개선</span>
+      <span class="toc-tag">2021.6 ~ 2022.1 야놀자</span>
+    </a>
+    <a href="#cashwalk" class="toc-item">
+      <span>6. 캐시워크 (리워드 참여 구조 설계)</span>
+      <span class="toc-tag">2016.9 ~ 2019.5 캐시워크</span>
+    </a>
+  </div>
 </section>
 
 
