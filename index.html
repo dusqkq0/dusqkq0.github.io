@@ -436,6 +436,142 @@
     }
 
     /* ════════════════════════════════════════ */
+    /* FEATURED PROJECTS CAROUSEL (landing)      */
+    /* ════════════════════════════════════════ */
+    #featured {
+      background: #1a1a1a; color: #fff;
+      padding: 100px 0;
+      font-family: "Pretendard", system-ui, sans-serif;
+    }
+    .featured-head {
+      max-width: 1400px; margin: 0 auto 40px;
+      padding: 0 48px;
+      display: flex; justify-content: space-between; align-items: baseline;
+      gap: 24px; flex-wrap: wrap;
+    }
+    .featured-head h2 {
+      font-size: 36px; font-weight: 800;
+      letter-spacing: -0.02em; line-height: 1.2;
+    }
+    .featured-head .featured-link {
+      font-size: 14px; color: rgba(255,255,255,0.7);
+      text-decoration: none; transition: color 200ms;
+    }
+    .featured-head .featured-link:hover { color: #fff; }
+    .featured-carousel {
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -ms-overflow-style: none; scrollbar-width: none;
+    }
+    .featured-carousel::-webkit-scrollbar { display: none; }
+    .featured-track {
+      display: flex; gap: 20px;
+      padding: 0 48px 8px;
+    }
+    .featured-card {
+      flex-shrink: 0; width: 340px;
+      scroll-snap-align: start;
+      text-decoration: none; color: inherit;
+      display: flex; flex-direction: column;
+      transition: opacity 200ms;
+    }
+    .featured-card:hover { opacity: 0.92; }
+    .featured-card.hero { width: 720px; }
+    .featured-card-image {
+      position: relative;
+      aspect-ratio: 4/3;
+      background: #2a2a2a;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    .featured-card.hero .featured-card-image { aspect-ratio: 16/10; margin-bottom: 0; }
+    .featured-card-image img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform 500ms ease;
+    }
+    .featured-card:hover .featured-card-image img { transform: scale(1.04); }
+    .featured-card-image.placeholder {
+      background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.4); font-size: 13px; font-weight: 600;
+      letter-spacing: 0.5px; text-transform: uppercase;
+    }
+    .featured-card.hero .featured-card-image::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.85));
+      pointer-events: none;
+    }
+    .featured-card.hero .featured-card-overlay {
+      position: absolute; left: 28px; right: 28px; bottom: 28px;
+      z-index: 1; color: #fff;
+    }
+    .featured-card.hero .featured-card-body { display: none; }
+    .featured-card.hero .featured-card-overlay .meta {
+      font-size: 12px; color: rgba(255,255,255,0.75);
+      margin: 0 0 8px;
+      display: flex; gap: 12px;
+    }
+    .featured-card.hero .featured-card-overlay h3 {
+      font-size: 28px; font-weight: 800;
+      color: #fff; margin: 0 0 14px;
+      letter-spacing: -0.01em;
+    }
+    .featured-card.hero .featured-card-overlay .tags {
+      display: flex; flex-wrap: wrap; gap: 6px;
+    }
+    .featured-card-overlay { display: none; }
+    .featured-card-body .meta {
+      font-size: 12px; color: rgba(255,255,255,0.6);
+      margin: 0 0 8px;
+      display: flex; gap: 12px;
+    }
+    .featured-card-body .meta .company { color: #fff; font-weight: 700; }
+    .featured-card-body h3 {
+      font-size: 18px; font-weight: 700;
+      color: #fff; line-height: 1.4;
+      margin: 0 0 12px;
+    }
+    .featured-card-body .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .featured-tag {
+      font-size: 11px; font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      background: rgba(255,255,255,0.10);
+      padding: 4px 9px; border-radius: 4px;
+      letter-spacing: 0.3px; text-transform: uppercase;
+    }
+    .featured-nav {
+      max-width: 1400px; margin: 24px auto 0;
+      padding: 0 48px;
+      display: flex; justify-content: flex-end; gap: 8px;
+    }
+    .featured-nav button {
+      width: 44px; height: 44px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 50%;
+      background: transparent;
+      color: #fff; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 200ms, border-color 200ms;
+      font-size: 18px; line-height: 1;
+    }
+    .featured-nav button:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.4);
+    }
+    @media (max-width: 760px) {
+      #featured { padding: 64px 0; }
+      .featured-head { padding: 0 24px; }
+      .featured-head h2 { font-size: 28px; }
+      .featured-track { padding: 0 24px 8px; }
+      .featured-card { width: 260px; }
+      .featured-card.hero { width: 320px; }
+      .featured-card.hero .featured-card-overlay h3 { font-size: 22px; }
+      .featured-nav { padding: 0 24px; }
+    }
+
+    /* ════════════════════════════════════════ */
     /* PORTFOLIO LIST PAGE                       */
     /* ════════════════════════════════════════ */
     #portfolio {
@@ -1261,6 +1397,8 @@
         글로벌 팀 커뮤니케이션 경험도 쌓았습니다.
       </p> <div class="tag-row" style="margin-top:24px;"> <span class="tag">참여 구조 설계</span> <span class="tag">리워드 시스템</span> <span class="tag">데이터 기반 기획</span> <span class="tag">B2B/B2C</span> <span class="tag">글로벌 협업 (LA)</span> </div> </div> <div> <p class="section-subtitle" style="margin-bottom:20px;">KEY NUMBERS</p> <div class="stat-grid"> <div class="stat-card"> <div class="stat-num">500만</div> <div class="stat-label">캐시워크 서비스 출시 이후<br>달성한 MAU</div> </div> <div class="stat-card"> <div class="stat-num">16.5%</div> <div class="stat-label">리뷰 리워드 시스템 적용 후<br>실질 참여율 (Heap 측정)</div> </div> <div class="stat-card"> <div class="stat-num">+10%</div> <div class="stat-label">VIP 프로그램 출시 후<br>전체 주문액 YoY 증가</div> </div> <div class="stat-card"> <div class="stat-num">9년+</div> <div class="stat-label">B2C/B2B 서비스 기획<br>전 과정 수행 경험</div> </div> </div> </div> </div>
 </section>
+<section id="featured"><div class="featured-head"><h2>PROJECTS</h2><a href="#portfolio" class="featured-link">전체 보기 →</a></div><div class="featured-carousel" id="featuredCarousel"><div class="featured-track"><a href="#angels" class="featured-card hero"><div class="featured-card-image"><img src="images/fg-angels-service.png" alt="FG Angels"><div class="featured-card-overlay"><p class="meta"><span class="company">NHN Commerce</span><span class="period">2026.03 – 2026.06</span></p><h3>FG Angels</h3><div class="tags"><span class="featured-tag">AI Agent</span><span class="featured-tag">Award</span></div></div></div></a><a href="#gift" class="featured-card"><div class="featured-card-image"><img src="images/gift-system.png" alt="선물하기 시스템"></div><div class="featured-card-body"><p class="meta"><span class="company">NHN Commerce</span><span class="period">2025.07 – 2026.03</span></p><h3>선물하기 시스템</h3><div class="tags"><span class="featured-tag">B2B</span><span class="featured-tag">System Design</span></div></div></a><a href="#vip" class="featured-card"><div class="featured-card-image"><img src="images/vip-welcome.png" alt="VIP 프로그램"></div><div class="featured-card-body"><p class="meta"><span class="company">NHN FashionGo</span><span class="period">2024.03 – 2025.03</span></p><h3>VIP 프로그램</h3><div class="tags"><span class="featured-tag">Membership</span><span class="featured-tag">Data-driven</span></div></div></a><a href="#review" class="featured-card"><div class="featured-card-image"><img src="images/review-ui.png" alt="리뷰 리워드 시스템"></div><div class="featured-card-body"><p class="meta"><span class="company">NHN FashionGo</span><span class="period">2024.09 – 2025.03</span></p><h3>리뷰 리워드 시스템</h3><div class="tags"><span class="featured-tag">Engagement</span><span class="featured-tag">Research</span></div></div></a><a href="#onboarding" class="featured-card"><div class="featured-card-image placeholder">05 · Onboarding</div><div class="featured-card-body"><p class="meta"><span class="company">NHN FashionGo</span><span class="period">2022.06 – 2023.06</span></p><h3>B2B 온보딩 프로세스 고도화</h3><div class="tags"><span class="featured-tag">Conversion</span><span class="featured-tag">Mobile</span></div></div></a><a href="#email" class="featured-card"><div class="featured-card-image placeholder">06 · Email CRM</div><div class="featured-card-body"><p class="meta"><span class="company">NHN FashionGo</span><span class="period">2024.01 – 2024.11</span></p><h3>B2B CRM 이메일 마케팅</h3><div class="tags"><span class="featured-tag">CRM</span><span class="featured-tag">Segmentation</span></div></div></a><a href="#chat" class="featured-card"><div class="featured-card-image placeholder">07 · Chat</div><div class="featured-card-body"><p class="meta"><span class="company">NHN FashionGo</span><span class="period">2023.06 – 2023.12</span></p><h3>B2B 채팅 상담 시스템</h3><div class="tags"><span class="featured-tag">CRM</span><span class="featured-tag">LLM</span></div></div></a><a href="#yanolja" class="featured-card"><div class="featured-card-image"><img src="images/yanolja-booking.png" alt="통합예약 UX 개선"></div><div class="featured-card-body"><p class="meta"><span class="company">야놀자</span><span class="period">2021.06 – 2022.01</span></p><h3>통합예약 UX 개선</h3><div class="tags"><span class="featured-tag">UX Design</span><span class="featured-tag">UT-driven</span></div></div></a><a href="#prepaid" class="featured-card"><div class="featured-card-image placeholder">09 · Prepaid</div><div class="featured-card-body"><p class="meta"><span class="company">야놀자</span><span class="period">2020.01 – 2020.12</span></p><h3>선불지급수단 발행</h3><div class="tags"><span class="featured-tag">Payment</span><span class="featured-tag">New Service</span></div></div></a><a href="#cashwalk" class="featured-card"><div class="featured-card-image"><img src="images/cashwalk-lockscreen.png" alt="캐시워크"></div><div class="featured-card-body"><p class="meta"><span class="company">캐시워크</span><span class="period">2016.09 – 2019.05</span></p><h3>캐시워크</h3><div class="tags"><span class="featured-tag">Reward</span><span class="featured-tag">Two-sided</span></div></div></a></div></div><div class="featured-nav"><button type="button" id="featuredPrev" aria-label="이전">‹</button><button type="button" id="featuredNext" aria-label="다음">›</button></div></section>
+
 
 
 <!-- ═══════════════════════════════════════ -->
@@ -1353,7 +1491,7 @@
     var sections = document.querySelectorAll('body > section[id]');
     var navLinks = document.querySelectorAll('nav a[href^="#"]');
     // 표지 그룹: 표지·소개·경력사항을 같은 페이지로 묶어서 함께 노출
-    var COVER_GROUP = ['cover', 'about', 'career'];
+    var COVER_GROUP = ['cover', 'about', 'featured', 'career'];
 
     function showPage(hash) {
       var target = (hash || '#cover').replace(/^#/, '');
@@ -1467,6 +1605,21 @@
         items.forEach(function (item) { item.style.display = ''; });
         if (empty) empty.classList.remove('visible');
       }
+    });
+  })();
+
+  // Featured 캐러셀: 좌우 화살표로 가로 스크롤
+  (function () {
+    var carousel = document.getElementById('featuredCarousel');
+    var prev = document.getElementById('featuredPrev');
+    var next = document.getElementById('featuredNext');
+    if (!carousel || !prev || !next) return;
+    function step() { return Math.min(720, carousel.clientWidth * 0.8); }
+    prev.addEventListener('click', function () {
+      carousel.scrollBy({ left: -step(), behavior: 'smooth' });
+    });
+    next.addEventListener('click', function () {
+      carousel.scrollBy({ left: step(), behavior: 'smooth' });
     });
   })();
 
