@@ -937,8 +937,9 @@
     /* PRD-STYLE PROJECT PAGE (scope: .prd-page) */
     /* ════════════════════════════════════════ */
     .prd-page {
-      /* paint/layout 격리 → 화면 밖 페이지가 다른 페이지의 reflow/repaint를 일으키지 않음 */
-      contain: layout paint;
+      /* 화면 밖 prd-page는 렌더 트리에서 완전히 제외 → 첫 스크롤 paint storm 방지 */
+      content-visibility: auto;
+      contain-intrinsic-size: 1px 5000px;
       --prd-ink: #191919;
       --prd-ink-2: #2e2e2e;
       --prd-ink-3: #545454;
