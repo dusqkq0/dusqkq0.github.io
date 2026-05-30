@@ -1968,7 +1968,8 @@
         var nav = page.querySelector('.prd-side-nav');
         var main = page.querySelector('.prd-main');
         if (!nav || !main) return;
-        nav.style.top = PIN_TOP + 'px';
+        var mainTop = main.getBoundingClientRect().top;
+        nav.style.top = Math.max(PIN_TOP, mainTop) + 'px';
       });
     }
 
