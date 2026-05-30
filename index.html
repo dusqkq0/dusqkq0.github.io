@@ -1718,8 +1718,8 @@
   (function () {
     var sections = document.querySelectorAll('body > section[id]');
     var navLinks = document.querySelectorAll('nav a[href^="#"]');
-    // 표지 그룹: 표지·소개·경력사항을 같은 페이지로 묶어서 함께 노출
-    var COVER_GROUP = ['cover', 'about', 'featured', 'career'];
+    // 표지 그룹: 표지·소개를 같은 페이지로 묶어 함께 노출 (경력사항은 별도 페이지로 분리)
+    var COVER_GROUP = ['cover', 'about', 'featured'];
 
     function showPage(hash) {
       var target = (hash || '#cover').replace(/^#/, '');
@@ -1787,7 +1787,9 @@
       });
     });
 
+    var rafActive = null;
     function updateActive() {
+      rafActive = null;
       sideNavs.forEach(function (nav) {
         var page = nav.closest('.prd-page');
         if (!page || !page.classList.contains('page-active')) return;
@@ -1803,8 +1805,12 @@
         active.link.classList.add('active');
       });
     }
-    window.addEventListener('scroll', updateActive, { passive: true });
-    window.addEventListener('resize', updateActive);
+    function scheduleActive() {
+      if (rafActive !== null) return;
+      rafActive = window.requestAnimationFrame(updateActive);
+    }
+    window.addEventListener('scroll', scheduleActive, { passive: true });
+    window.addEventListener('resize', scheduleActive);
     window.addEventListener('hashchange', function () { setTimeout(updateActive, 50); });
     updateActive();
   })();
@@ -2346,35 +2352,6 @@
     });
   })();
 
-  // ── SPA-style section routing ─────────────────────────────
-  // GNB 메뉴(소개/경력사항/포트폴리오)와 각 프로젝트 페이지를 그룹으로 묶어
-  // 현재 hash 그룹의 섹션만 표시하고 나머지는 숨김 처리한다.
-  (function () {
-    var INTRO     = ['cover','about'];
-    var CAREER    = ['career'];
-    var PORTFOLIO = ['portfolio','angels','gift','vip','review','yanolja','cashwalk','onboarding','email','chat','prepaid'];
-    var EXCLUDE   = ['lightbox']; // 모달/오버레이 등 라우팅 영향을 받지 않을 섹션
-
-    function groupOf(id) {
-      if (CAREER.indexOf(id) >= 0)    return CAREER;
-      if (PORTFOLIO.indexOf(id) >= 0) return PORTFOLIO;
-      return INTRO; // 기본값: 소개 그룹
-    }
-
-    function applyRoute() {
-      var id = (location.hash || '').replace('#','') || 'cover';
-      var group = groupOf(id);
-      document.querySelectorAll('section[id]').forEach(function (s) {
-        if (EXCLUDE.indexOf(s.id) >= 0) return;
-        s.style.display = (group.indexOf(s.id) >= 0) ? '' : 'none';
-      });
-    }
-
-    window.addEventListener('hashchange', applyRoute);
-    window.addEventListener('DOMContentLoaded', applyRoute);
-    // 즉시 한 번 실행 (DOMContentLoaded 이전 인라인일 수도 있음)
-    applyRoute();
-  })();
 </script>
 
 </body>
