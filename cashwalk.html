@@ -1468,7 +1468,7 @@
       rafActive = null;
       sideNavs.forEach(function (nav) {
         var page = nav.closest('.prd-page');
-        if (!page || !page.classList.contains('page-active')) return;
+        if (!page) return;
         var links = Array.prototype.slice.call(nav.querySelectorAll('a[data-scroll]'));
         var targets = links.map(function (a) {
           return { link: a, el: document.getElementById(a.dataset.scroll) };
@@ -1968,8 +1968,7 @@
         var nav = page.querySelector('.prd-side-nav');
         var main = page.querySelector('.prd-main');
         if (!nav || !main) return;
-        var mainTop = main.getBoundingClientRect().top;
-        nav.style.top = Math.max(PIN_TOP, mainTop) + 'px';
+        nav.style.top = PIN_TOP + 'px';
       });
     }
 
