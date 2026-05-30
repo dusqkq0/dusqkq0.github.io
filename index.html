@@ -2273,10 +2273,16 @@
   })();
 
   // 사이드 nav 위치: 본문(.prd-main) 상단에 정렬, 스크롤 시 viewport 120px에서 sticky 고정
+  // rAF로 throttle, SPA로 숨겨진 페이지는 skip — 스크롤 jank 방지
   (function () {
     var PIN_TOP = 120;
+    var rafId = null;
+
     function pinSideNavs() {
+      rafId = null;
       document.querySelectorAll('.prd-page').forEach(function (page) {
+        // SPA 라우팅으로 숨겨진 페이지는 측정/스타일 변경 비용을 회피
+        if (page.style.display === 'none') return;
         var nav = page.querySelector('.prd-side-nav');
         var main = page.querySelector('.prd-main');
         if (!nav || !main) return;
@@ -2284,8 +2290,15 @@
         nav.style.top = Math.max(PIN_TOP, mainTop) + 'px';
       });
     }
-    window.addEventListener('scroll', pinSideNavs, { passive: true });
-    window.addEventListener('resize', pinSideNavs);
+
+    function schedule() {
+      // 이미 다음 프레임에 예약돼 있으면 중복 예약 안 함
+      if (rafId !== null) return;
+      rafId = window.requestAnimationFrame(pinSideNavs);
+    }
+
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
     window.addEventListener('hashchange', function () { setTimeout(pinSideNavs, 50); });
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(pinSideNavs);
     pinSideNavs();
