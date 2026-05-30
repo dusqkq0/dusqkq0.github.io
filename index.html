@@ -330,12 +330,7 @@
 
     /* ── PAGE ROUTING (hash-based SPA) ── */
     body > section[id]:not(.page-active) { display: none !important; }
-    body > section[id].page-active { animation: pageFadeIn 0.35s ease both; }
-    /* opacity-only fade — transform would create a containing block for position:fixed descendants */
-    @keyframes pageFadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
+    /* fade-in animation 제거: 첫 스크롤과 충돌해 jank를 유발하던 합성 레이어를 만들지 않음 */
 
     /* ── LIGHTBOX (image zoom) ── */
     .lightbox {
