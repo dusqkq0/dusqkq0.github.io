@@ -82,12 +82,12 @@
 
     /* ── COVER ── */
     #cover { min-height: 100vh; display: block; background: #fff; }
-    .cover-left { display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 80px 0; max-width: 1100px; margin: 0 auto; color: white; text-align: center; }
+    .cover-left { display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 80px 0; max-width: 1100px; margin: 0 auto; color: #191919; text-align: center; }
     .cover-left h1 { font-size: 36px; line-height: 1.4; font-weight: 300; margin-bottom: 32px; }
     .cover-left h1 strong { font-weight: 700; }
     .cover-name { font-size: 28px; font-weight: 700; margin-bottom: 28px; }
     .contact-list { display: flex; flex-direction: column; gap: 10px; align-items: center; }
-    .contact-link { font-size: 14px; color: #fff; text-decoration: none; }
+    .contact-link { font-size: 14px; color: #333; text-decoration: none; }
     .contact-link:hover { text-decoration: underline; }
 
     .cover-right {
@@ -118,8 +118,8 @@
     /* ── ABOUT ── */
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
     .about-headline { font-size: 32px; font-weight: 300; line-height: 1.5; margin-bottom: 24px; }
-    .about-headline strong { font-weight: 700; color: #fff; }
-    .about-body { font-size: 15px; line-height: 1.9; color: #ccc; }
+    .about-headline strong { font-weight: 700; color: #191919; }
+    .about-body { font-size: 15px; line-height: 1.9; color: #555; }
     .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
     .stat-card {
       background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
@@ -278,10 +278,7 @@
 
     /* ── TAGS ── */
     .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; justify-content: center; }
-    .tag {
-      font-size: 12px; padding: 4px 10px; border-radius: 20px;
-      background: rgba(255,255,255,0.08); color: #aaa;
-    }
+    .tag { font-size: 12px; padding: 4px 10px; border-radius: 20px; background: #f0f0f0; color: #555; }
     .tag.light { background: #f0f0f0; color: #666; }
 
     /* ── ANNOT ── */
@@ -1409,7 +1406,7 @@
 <!-- ═══════════════════════════════════════ -->
 <!-- 2. ABOUT                               -->
 <!-- ═══════════════════════════════════════ -->
-<section id="about" class="section-dark" style="padding-top:120px;">
+<section id="about" style="padding-top:120px;color:#191919;">
   <div style="max-width:1100px;margin:0 auto;text-align:center;">
     <p class="section-subtitle">ABOUT ME</p>
     <h2 class="about-headline">
