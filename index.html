@@ -811,6 +811,100 @@
     }
     .career-kpi b { color: #333; font-weight: 700; }
 
+    /* ── KAKAO-STYLE MILESTONES ── */
+    .milestone-head {
+      max-width: 1100px; margin: 0 auto 72px;
+    }
+    .milestone-head h1 {
+      font-size: 56px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; color: #191919;
+    }
+    .milestone-head p {
+      font-size: 16px; color: #666; margin-top: 16px;
+    }
+    .milestone-wrap {
+      max-width: 1100px; margin: 0 auto;
+    }
+    .milestone-row {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 56px;
+      padding: 56px 0;
+      border-top: 1px solid #ededed;
+    }
+    .milestone-row:last-of-type { border-bottom: 1px solid #ededed; }
+    .milestone-year {
+      font-size: 64px; font-weight: 700; line-height: 1;
+      color: #191919; letter-spacing: -0.02em;
+      position: sticky; top: 88px;
+      align-self: start;
+    }
+    .milestone-items {
+      display: flex; flex-direction: column; gap: 36px;
+    }
+    .milestone-item .m-head {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 13px; color: #999; margin-bottom: 6px;
+      flex-wrap: wrap;
+    }
+    .milestone-item .m-month { font-weight: 600; color: #666; }
+    .milestone-tag {
+      display: inline-flex; align-items: center;
+      font-size: 11px; font-weight: 600;
+      padding: 3px 10px; border-radius: 10px;
+      letter-spacing: 0.2px;
+    }
+    .milestone-tag.work    { background: #e8f1ff; color: #1a4cb8; }
+    .milestone-tag.award   { background: #fff3cd; color: #856404; }
+    .milestone-tag.edu     { background: #d5f5e3; color: #1a7a45; }
+    .milestone-tag.cert    { background: #cfe7ff; color: #0d4a8a; }
+    .milestone-tag.lecture { background: #ede9fe; color: #6d28d9; }
+    .milestone-item h3 {
+      font-size: 22px; font-weight: 700; color: #191919;
+      letter-spacing: -0.01em; line-height: 1.4; margin: 0 0 8px;
+    }
+    .milestone-item .m-role {
+      font-size: 14px; color: #444; margin: 0 0 8px;
+    }
+    .milestone-item .m-desc {
+      font-size: 14px; color: #555; line-height: 1.7; margin: 0;
+    }
+    .milestone-item ul { margin: 10px 0 0; padding-left: 18px; }
+    .milestone-item li { font-size: 14px; color: #555; line-height: 1.8; }
+    .milestone-item li a { color: #1a4cb8; text-decoration: none; }
+    .milestone-item li a:hover { text-decoration: underline; }
+    .milestone-kpis {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px;
+    }
+    .milestone-kpi {
+      font-size: 12px; padding: 6px 12px;
+      background: #f5f7fa; color: #444;
+      border-radius: 14px; border: 1px solid #e3e7ed;
+    }
+    .milestone-kpi b { color: #191919; font-weight: 700; margin-right: 4px; }
+    .milestone-skills {
+      max-width: 1100px; margin: 80px auto 0;
+      padding-top: 56px; border-top: 1px solid #ededed;
+    }
+    .milestone-skills h2 {
+      font-size: 28px; font-weight: 700; color: #191919; margin-bottom: 32px;
+    }
+    .milestone-skills-grid {
+      display: grid; grid-template-columns: 200px 1fr; gap: 24px 56px;
+      align-items: baseline;
+    }
+    .milestone-skills-grid dt {
+      font-size: 14px; font-weight: 700; color: #191919;
+    }
+    .milestone-skills-grid dd {
+      font-size: 14px; color: #555; margin: 0; line-height: 1.7;
+    }
+    @media (max-width: 720px) {
+      .milestone-row { grid-template-columns: 1fr; gap: 16px; }
+      .milestone-year { position: static; font-size: 44px; }
+      .milestone-skills-grid { grid-template-columns: 1fr; gap: 4px 0; }
+      .milestone-skills-grid dd { margin-bottom: 16px; }
+    }
+
     .career-skills-table {
       max-width: 1100px; margin-top: 8px;
       border-top: 1px solid #191919;
@@ -1362,7 +1456,183 @@
 <!-- ═══════════════════════════════════════ -->
 <!-- CAREER                                 -->
 <!-- ═══════════════════════════════════════ -->
-<section id="career" style="background:#fff; color:#222; padding:100px 48px 80px;"> <h2 style="font-size:40px;font-weight:700;letter-spacing:-0.02em;line-height:1.2;margin-bottom:40px;text-align:center;">경력사항</h2> <!-- 탭 --> <nav class="career-tabs" role="tablist" aria-label="경력사항 탭"> <button type="button" class="career-tab active" role="tab" aria-selected="true" data-career-tab="experience">경력</button> <button type="button" class="career-tab" role="tab" aria-selected="false" data-career-tab="awards">수상</button> <button type="button" class="career-tab" role="tab" aria-selected="false" data-career-tab="education">교육 · 자격</button> <button type="button" class="career-tab" role="tab" aria-selected="false" data-career-tab="lectures">강의</button> <button type="button" class="career-tab" role="tab" aria-selected="false" data-career-tab="skills">스킬</button> </nav> <div class="career-panels" style="max-width:1100px;margin:0 auto;"> <!-- ── 경력 ── --> <div class="career-panel active" data-career-panel="experience" role="tabpanel"> <div class="career-row"> <div class="career-year"><span class="year-num">2025</span><span class="year-range">– 현재</span></div> <div class="career-body"> <div class="career-head"> <h3 class="career-title">NHN Commerce</h3> <span class="career-tag now">현재 재직 중</span> </div> <p class="career-role">서비스/플랫폼 기획자 · 2025.04 – 현재 · <span data-career-start="2025-04">약 1년+</span></p> <p class="career-desc">고도몰 솔루션 기반 B2C/B2B 서비스 기획. 선물하기 시스템 재설계 및 SNS 로그인 서비스 기획 담당.</p> <ul class="career-projects"> <li><a href="#gift">선물하기 시스템</a> — B2C 단건 → B2B 다수 수신 구조 재설계</li> <li>SNS 로그인 서비스 기획</li> <li><span class="trophy"></span> <a href="#angels">FG Angels</a> — NHN AI 스프린톤 업무생산성 트랙 1위</li> </ul> </div> </div> <div class="career-row"> <div class="career-year"><span class="year-num">2022</span><span class="year-range">– 2025</span></div> <div class="career-body"> <div class="career-head"> <h3 class="career-title">NHN FashionGo Korea</h3> </div> <p class="career-role">서비스 기획자 · UX 기획 · 2022.04 – 2025.03 · 약 3년</p> <p class="career-desc">북미 1위 B2B 패션 플랫폼 FashionGo의 플랫폼 UX 기획 전반 담당. LA 본사(NHN Global)와 협업하여 영어 기획서 작성 및 글로벌 팀 커뮤니케이션 수행.</p> <ul class="career-projects"> <li><a href="#vip">VIP 프로그램(The Premier)</a> — 멤버십 구조 설계 및 출시</li> <li><a href="#review">리뷰 리워드 시스템</a> — 참여형 리뷰 구조 설계</li> <li><a href="#onboarding">Vendor Onboarding 프로세스 고도화</a> — 가입 자동화·전환율 개선</li> <li><a href="#email">B2B CRM 이메일 마케팅 시스템</a> — 자체 마케팅 툴 · 판매자 세그먼트 설계</li> <li><a href="#chat">B2B 채팅 상담 시스템</a> — LLM 기반 자동 응답 + 상담원 연동</li> <li>Curation, Live System UX 기획</li> <li>NHN Global(LA) 본사와 B2B/B2C 서비스 협업</li> </ul> <div class="career-kpis"> <span class="career-kpi"><b>+10%</b> VIP 출시 후 YoY 주문액</span> <span class="career-kpi"><b>16.5%</b> 리뷰 실질 참여율</span> </div> </div> </div> <div class="career-row"> <div class="career-year"><span class="year-num">2022</span></div> <div class="career-body"> <div class="career-head"> <h3 class="career-title">NHN</h3> </div> <p class="career-role">서비스 기획자 · 2022.01 – 2022.03 · 약 3개월 (FashionGo Korea 법인 분리 이전)</p> <ul class="career-projects"> <li>패션고 B2B/B2C 서비스 기획</li> <li>NHN Global(LA) 본사와 협업</li> </ul> </div> </div> <div class="career-row"> <div class="career-year"><span class="year-num">2019</span><span class="year-range">– 2022</span></div> <div class="career-body"> <div class="career-head"> <h3 class="career-title">야놀자</h3> </div> <p class="career-role">UX/UI 기획자 · 2019.05 – 2022.01 · 약 2년 8개월</p> <p class="career-desc">야놀자 앱서비스 전반의 UX/UI 기획. 사용성 테스트(UT) 설계·운영 및 경쟁사 리서치 수행.</p> <ul class="career-projects"> <li><a href="#prepaid">선불지급수단 발행 시스템</a> — 야놀자 신규 결제 수단 설계 (포인트·상품권·기프티콘·충전금 통합)</li> <li>앱 서비스 PDP(상품 상세) UX/UI 기획</li> <li><a href="#yanolja">통합예약 플로우 재설계</a> (전환율 개선)</li> <li>로그인/회원가입 UX 기획</li> <li>UT 설계·운영 및 경쟁사 리서치 (에어비앤비, 부킹닷컴 등)</li> </ul> </div> </div> <div class="career-row"> <div class="career-year"><span class="year-num">2016</span><span class="year-range">– 2019</span></div> <div class="career-body"> <div class="career-head"> <h3 class="career-title">캐시워크</h3> </div> <p class="career-role">UX/UI 기획 및 디자인 · 2016.09 – 2019.05 · 약 2년 8개월</p> <p class="career-desc">만보기 리워드 앱 캐시워크 창업 초기 합류. UX/UI 기획부터 디자인까지 직접 수행. 서비스 출시 후 MAU 500만 달성.</p> <ul class="career-projects"> <li><a href="#cashwalk">캐시워크 앱 서비스 출시</a> — 리워드 참여 구조 기획</li> <li>UX/UI 기획 및 디자인 직접 수행</li> <li>서비스 운영 관리 기능 기획</li> </ul> <div class="career-kpis"> <span class="career-kpi"><b>500만</b> MAU 달성</span> </div> </div> </div> </div> <!-- ── 수상 ── --> <div class="career-panel" data-career-panel="awards" role="tabpanel" hidden> <div class="career-row"> <div class="career-year"><span class="year-num">2026</span><span class="year-range">06월</span></div> <div class="career-body"> <div class="career-head"> <h3 class="career-title"><a href="#angels">NHN AI 스프린톤 — 업무생산성 트랙 1위</a></h3> <span class="career-tag award"> 1st Prize</span> </div> <p class="career-role">FG Angels — AI Agent for FashionGo · NHN Commerce</p> <p class="career-desc">북미 1위 B2B 패션 플랫폼 FashionGo의 아시아 공장 소싱 전 과정을 AI 에이전트로 자동화한 PoC. 12팀 중 1위로 선정, 상금 1,000만원 수상. 도메인 전문가 · 기획자(본인) · 개발자 3인 크로스펑셔널 팀.</p> <ul class="career-projects"> <li>1위 · 12팀 中</li> <li>업무생산성 트랙</li> <li>상금 1,000만원</li> </ul> </div> </div> </div> <!-- ── 교육 · 자격 ── --> <div class="career-panel" data-career-panel="education" role="tabpanel" hidden> <div class="career-row"> <div class="career-year"><span class="year-num">2016</span><span class="year-range">02 – 06월</span></div> <div class="career-body"> <div class="career-head"> <h3 class="career-title">UX/UI디자이너 전문양성과정</h3> <span class="career-tag edu">교육</span> </div> <p class="career-role">한국소프트웨어기술진흥협회 (KOSTA)</p> <p class="career-desc">UX/UI 디자이너 양성 과정 수료. 사용자 경험 설계와 UI 디자인 실무 트레이닝.</p> </div> </div> <div class="career-row"> <div class="career-year"><span class="year-num">2015</span><span class="year-range">10월</span></div> <div class="career-body"> <div class="career-head"> <h3 class="career-title">정보처리기사</h3> <span class="career-tag cert">자격증</span> </div> <p class="career-role">한국산업인력공단</p> <p class="career-desc">자격번호 15203120052V</p> </div> </div> <div class="career-row"> <div class="career-year"><span class="year-num">2015</span><span class="year-range">06 – 08월</span></div> <div class="career-body"> <div class="career-head"> <h3 class="career-title">UX/UI디자이너 전문가과정</h3> <span class="career-tag edu">교육</span> </div> <p class="career-role">T아카데미 (SK플래닛) · 창조경제혁신센터</p> </div> </div> </div> <!-- ── 강의 ── --> <div class="career-panel" data-career-panel="lectures" role="tabpanel" hidden> <div class="career-row"> <div class="career-year"><span class="year-num">2026</span><span class="year-range">06월 29일</span></div> <div class="career-body"> <div class="career-head"> <h3 class="career-title">IT직무프리뷰 — UI/UX 디자이너편 강의</h3> <span class="career-tag lecture">강의</span> </div> <p class="career-role">강사 · 2시간 세션</p> <p class="career-desc">UI/UX 디자이너 직무를 처음 접하는 분들을 위한 IT직무프리뷰 강의. 실무 흐름과 PM과의 협업 관점을 공유.</p> <p style="margin-top:8px;font-size:13px;"><a href="https://www.checkin-gwanak.or.kr/core/?cid=58&role=programvopn&pSeq=1204&tab=" target="_blank" rel="noopener" style="color:#1a4cb8;text-decoration:underline;">강의 상세 페이지 →</a></p> </div> </div> <div class="career-row"> <div class="career-year"><span class="year-num">2023</span><span class="year-range">08월 21일</span></div> <div class="career-body"> <div class="career-head"> <h3 class="career-title">원데이실무톡 5기 — UI/UX 디자인 직무편</h3> <span class="career-tag lecture">강의</span> </div> <p class="career-role">강사 · 2시간 세션</p> <p class="career-desc">UI/UX 디자인 실무자 양성을 위한 원데이실무톡 5기 강의. 현업 사례를 중심으로 한 실무 톡 세션.</p> </div> </div> </div> <!-- ── 스킬 ── --> <div class="career-panel" data-career-panel="skills" role="tabpanel" hidden> <div class="career-skills-table"> <table> <thead><tr><th>분류</th><th>도구</th></tr></thead> <tbody> <tr><td class="cat">기획 · 디자인</td><td>Figma · Sketch · Jira</td></tr> <tr><td class="cat">데이터 분석</td><td>Heap · Google Analytics · Superset · Tableau</td></tr> <tr><td class="cat">리서치 · 협업</td><td>Beusable · Slack · Google Workspace</td></tr> <tr><td class="cat">AI 도구 <span class="muted">(최근)</span></td><td>Lovable · Claude Code · Gemini 2.5 Flash · Vertex AI</td></tr> </tbody> </table> </div> </div> </div>
+<section id="career" style="background:#fff; color:#222; padding:120px 48px 100px;">
+  <header class="milestone-head">
+    <h1>경력사항</h1>
+    <p>9년+ B2C/B2B 서비스 기획 · UX/UI 경험을 연도별로 정리했습니다.</p>
+  </header>
+
+  <div class="milestone-wrap">
+
+    <!-- 2026 -->
+    <div class="milestone-row">
+      <div class="milestone-year">2026</div>
+      <div class="milestone-items">
+        <div class="milestone-item">
+          <div class="m-head"><span class="m-month">06월</span><span class="milestone-tag award">수상</span></div>
+          <h3><a href="#angels" style="color:inherit;text-decoration:none;">NHN AI 스프린톤 — 업무생산성 트랙 1위</a></h3>
+          <p class="m-role">FG Angels — AI Agent for FashionGo · NHN Commerce</p>
+          <p class="m-desc">북미 1위 B2B 패션 플랫폼 FashionGo의 아시아 공장 소싱 전 과정을 AI 에이전트로 자동화한 PoC. 도메인 전문가 · 기획자(본인) · 개발자 3인 크로스펑셔널 팀.</p>
+          <div class="milestone-kpis">
+            <span class="milestone-kpi"><b>1위</b>12팀 中</span>
+            <span class="milestone-kpi"><b>업무생산성</b>트랙</span>
+            <span class="milestone-kpi"><b>1,000만원</b>상금</span>
+          </div>
+        </div>
+        <div class="milestone-item">
+          <div class="m-head"><span class="m-month">06월 29일</span><span class="milestone-tag lecture">강의</span></div>
+          <h3>IT직무프리뷰 — UI/UX 디자이너편</h3>
+          <p class="m-role">강사 · 2시간 세션</p>
+          <p class="m-desc">UI/UX 디자이너 직무를 처음 접하는 분들을 위한 IT직무프리뷰 강의. 실무 흐름과 PM과의 협업 관점을 공유.</p>
+          <p style="margin-top:8px;font-size:13px;"><a href="https://www.checkin-gwanak.or.kr/core/?cid=58&role=programvopn&pSeq=1204&tab=" target="_blank" rel="noopener" style="color:#1a4cb8;text-decoration:underline;">강의 상세 페이지 →</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2025 -->
+    <div class="milestone-row">
+      <div class="milestone-year">2025</div>
+      <div class="milestone-items">
+        <div class="milestone-item">
+          <div class="m-head"><span class="m-month">04월 – 현재</span><span class="milestone-tag work">경력</span></div>
+          <h3>NHN Commerce — 서비스/플랫폼 기획자</h3>
+          <p class="m-role">2025.04 – 현재 · <span data-career-start="2025-04">약 1년+</span></p>
+          <p class="m-desc">고도몰 솔루션 기반 B2C/B2B 서비스 기획. 선물하기 시스템 재설계 및 SNS 로그인 서비스 기획 담당.</p>
+          <ul>
+            <li><a href="#gift">선물하기 시스템</a> — B2C 단건 → B2B 다수 수신 구조 재설계</li>
+            <li>SNS 로그인 서비스 기획</li>
+            <li><a href="#angels">FG Angels</a> — NHN AI 스프린톤 업무생산성 트랙 1위</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2023 -->
+    <div class="milestone-row">
+      <div class="milestone-year">2023</div>
+      <div class="milestone-items">
+        <div class="milestone-item">
+          <div class="m-head"><span class="m-month">08월 21일</span><span class="milestone-tag lecture">강의</span></div>
+          <h3>원데이실무톡 5기 — UI/UX 디자인 직무편</h3>
+          <p class="m-role">강사 · 2시간 세션</p>
+          <p class="m-desc">UI/UX 디자인 실무자 양성을 위한 원데이실무톡 5기 강의. 현업 사례를 중심으로 한 실무 톡 세션.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2022 -->
+    <div class="milestone-row">
+      <div class="milestone-year">2022</div>
+      <div class="milestone-items">
+        <div class="milestone-item">
+          <div class="m-head"><span class="m-month">04월 – 2025.03</span><span class="milestone-tag work">경력</span></div>
+          <h3>NHN FashionGo Korea — 서비스 기획자 · UX 기획</h3>
+          <p class="m-role">2022.04 – 2025.03 · 약 3년</p>
+          <p class="m-desc">북미 1위 B2B 패션 플랫폼 FashionGo의 플랫폼 UX 기획 전반 담당. LA 본사(NHN Global)와 협업하여 영어 기획서 작성 및 글로벌 팀 커뮤니케이션 수행.</p>
+          <ul>
+            <li><a href="#vip">VIP 프로그램(The Premier)</a> — 멤버십 구조 설계 및 출시</li>
+            <li><a href="#review">리뷰 리워드 시스템</a> — 참여형 리뷰 구조 설계</li>
+            <li><a href="#onboarding">Vendor Onboarding 프로세스 고도화</a> — 가입 자동화·전환율 개선</li>
+            <li><a href="#email">B2B CRM 이메일 마케팅 시스템</a> — 자체 마케팅 툴 · 판매자 세그먼트 설계</li>
+            <li><a href="#chat">B2B 채팅 상담 시스템</a> — LLM 기반 자동 응답 + 상담원 연동</li>
+            <li>Curation, Live System UX 기획</li>
+            <li>NHN Global(LA) 본사와 B2B/B2C 서비스 협업</li>
+          </ul>
+          <div class="milestone-kpis">
+            <span class="milestone-kpi"><b>+10%</b>VIP YoY 주문액</span>
+            <span class="milestone-kpi"><b>16.5%</b>리뷰 실질 참여율</span>
+          </div>
+        </div>
+        <div class="milestone-item">
+          <div class="m-head"><span class="m-month">01월 – 03월</span><span class="milestone-tag work">경력</span></div>
+          <h3>NHN — 서비스 기획자</h3>
+          <p class="m-role">2022.01 – 2022.03 · 약 3개월 (FashionGo Korea 법인 분리 이전)</p>
+          <ul>
+            <li>패션고 B2B/B2C 서비스 기획</li>
+            <li>NHN Global(LA) 본사와 협업</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2019 -->
+    <div class="milestone-row">
+      <div class="milestone-year">2019</div>
+      <div class="milestone-items">
+        <div class="milestone-item">
+          <div class="m-head"><span class="m-month">05월 – 2022.01</span><span class="milestone-tag work">경력</span></div>
+          <h3>야놀자 — UX/UI 기획자</h3>
+          <p class="m-role">2019.05 – 2022.01 · 약 2년 8개월</p>
+          <p class="m-desc">야놀자 앱서비스 전반의 UX/UI 기획. 사용성 테스트(UT) 설계·운영 및 경쟁사 리서치 수행.</p>
+          <ul>
+            <li><a href="#prepaid">선불지급수단 발행 시스템</a> — 야놀자 신규 결제 수단 설계 (포인트·상품권·기프티콘·충전금 통합)</li>
+            <li>앱 서비스 PDP(상품 상세) UX/UI 기획</li>
+            <li><a href="#yanolja">통합예약 플로우 재설계</a> (전환율 개선)</li>
+            <li>로그인/회원가입 UX 기획</li>
+            <li>UT 설계·운영 및 경쟁사 리서치 (에어비앤비, 부킹닷컴 등)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2016 -->
+    <div class="milestone-row">
+      <div class="milestone-year">2016</div>
+      <div class="milestone-items">
+        <div class="milestone-item">
+          <div class="m-head"><span class="m-month">09월 – 2019.05</span><span class="milestone-tag work">경력</span></div>
+          <h3>캐시워크 — UX/UI 기획 및 디자인</h3>
+          <p class="m-role">2016.09 – 2019.05 · 약 2년 8개월</p>
+          <p class="m-desc">만보기 리워드 앱 캐시워크 창업 초기 합류. UX/UI 기획부터 디자인까지 직접 수행. 서비스 출시 후 MAU 500만 달성.</p>
+          <ul>
+            <li><a href="#cashwalk">캐시워크 앱 서비스 출시</a> — 리워드 참여 구조 기획</li>
+            <li>UX/UI 기획 및 디자인 직접 수행</li>
+            <li>서비스 운영 관리 기능 기획</li>
+          </ul>
+          <div class="milestone-kpis">
+            <span class="milestone-kpi"><b>500만</b>MAU 달성</span>
+          </div>
+        </div>
+        <div class="milestone-item">
+          <div class="m-head"><span class="m-month">02월 – 06월</span><span class="milestone-tag edu">교육</span></div>
+          <h3>UX/UI디자이너 전문양성과정</h3>
+          <p class="m-role">한국소프트웨어기술진흥협회 (KOSTA)</p>
+          <p class="m-desc">UX/UI 디자이너 양성 과정 수료. 사용자 경험 설계와 UI 디자인 실무 트레이닝.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2015 -->
+    <div class="milestone-row">
+      <div class="milestone-year">2015</div>
+      <div class="milestone-items">
+        <div class="milestone-item">
+          <div class="m-head"><span class="m-month">10월</span><span class="milestone-tag cert">자격증</span></div>
+          <h3>정보처리기사</h3>
+          <p class="m-role">한국산업인력공단</p>
+          <p class="m-desc">자격번호 15203120052V</p>
+        </div>
+        <div class="milestone-item">
+          <div class="m-head"><span class="m-month">06월 – 08월</span><span class="milestone-tag edu">교육</span></div>
+          <h3>UX/UI디자이너 전문가과정</h3>
+          <p class="m-role">T아카데미 (SK플래닛) · 창조경제혁신센터</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 스킬 (별도 영역) -->
+  <div class="milestone-skills">
+    <h2>스킬</h2>
+    <dl class="milestone-skills-grid">
+      <dt>기획 · 디자인</dt><dd>Figma · Sketch · Jira</dd>
+      <dt>데이터 분석</dt><dd>Heap · Google Analytics · Superset · Tableau</dd>
+      <dt>리서치 · 협업</dt><dd>Beusable · Slack · Google Workspace</dd>
+      <dt>AI 도구 <span style="color:#999;font-weight:400;">(최근)</span></dt><dd>Lovable · Claude Code · Gemini 2.5 Flash · Vertex AI</dd>
+    </dl>
+  </div>
+</section>
 
 <footer class="landing-footer"><div class="landing-footer-inner"><div class="landing-footer-row"><div class="landing-footer-left"><div class="landing-footer-title">윤혜련 · Service Product Manager</div><div class="landing-footer-sub">데이터로 문제를 정의하고, 구조로 행동을 설계합니다.</div></div><div class="landing-footer-contact"><a href="mailto:dusqkq0@naver.com">dusqkq0@naver.com</a><a href="https://www.linkedin.com/in/hyeryeon/" target="_blank" rel="noopener">linkedin.com/in/hyeryeon</a></div></div><div class="landing-footer-copyright">© 2026 윤혜련. All rights reserved.</div></div></footer> </section>
 
