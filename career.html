@@ -660,15 +660,25 @@
     .landing-footer-contact a:hover { color: #000; }
     .landing-footer-copyright { font-size: 12px; color: #999; margin-top: 24px; padding-top: 16px; border-top: 1px solid #eee;
     }
-    .footer-portfolio-toggle { display: flex; align-items: center; gap: 10px; margin-top: 20px; }
-    .fpt-label { font-size: 12px; color: #888; }
-    .fpt-switch { width: 40px; height: 22px; border-radius: 11px; border: none; background: #ccc; position: relative; cursor: pointer; padding: 0; transition: background 200ms ease; flex: none; }
-    .fpt-switch[aria-checked="true"] { background: #191919; }
-    .fpt-knob { position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 50%; background: #fff; transition: left 200ms ease; }
-    .fpt-switch[aria-checked="true"] .fpt-knob { left: 20px; }
-    .fpt-state { font-size: 11px; font-weight: 700; color: #888; letter-spacing: 0.04em; }
-    /* 포트폴리오 비공개(OFF): 경력사항 프로젝트 링크 비활성화 */
-    body.portfolio-off .milestone-item ul li a { pointer-events: none; color: inherit; text-decoration: none; cursor: default; }
+    /* 푸터 포트폴리오 공개 설정 */
+    .footer-settings-btn { margin-top: 20px; align-self: flex-start; background: none; border: 1px solid #ddd; border-radius: 8px; padding: 8px 14px; font-family: inherit; font-size: 12px; color: #555; cursor: pointer; transition: border-color 200ms ease, color 200ms ease; }
+    .footer-settings-btn:hover { border-color: #191919; color: #191919; }
+    .pf-off { display: none !important; }
+    .pf-settings-overlay { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.45); align-items: center; justify-content: center; padding: 24px; }
+    .pf-settings-overlay.open { display: flex; }
+    .pf-settings-modal { background: #fff; border-radius: 14px; width: 100%; max-width: 420px; max-height: 80vh; overflow-y: auto; padding: 24px; box-shadow: 0 20px 60px rgba(0,0,0,0.25); }
+    .pf-settings-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+    .pf-settings-head h3 { font-size: 18px; font-weight: 700; color: #191919; margin: 0; }
+    .pf-settings-close { background: none; border: none; font-size: 24px; line-height: 1; color: #888; cursor: pointer; padding: 0 4px; }
+    .pf-settings-close:hover { color: #191919; }
+    .pf-settings-desc { font-size: 12px; color: #888; margin: 0 0 16px; line-height: 1.6; }
+    .pf-settings-actions { display: flex; gap: 8px; margin-bottom: 12px; }
+    .pf-settings-actions button { flex: 1; background: #f5f5f5; border: none; border-radius: 8px; padding: 8px; font-family: inherit; font-size: 12px; font-weight: 600; color: #444; cursor: pointer; }
+    .pf-settings-actions button:hover { background: #ececec; }
+    .pf-settings-list { list-style: none; margin: 0; padding: 0; }
+    .pf-settings-list li { border-top: 1px solid #f0f0f0; }
+    .pf-settings-list label { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 2px; font-size: 14px; color: #222; cursor: pointer; }
+    .pf-settings-list input { width: 18px; height: 18px; cursor: pointer; flex: none; }
     @media (max-width: 760px) {
       .landing-footer { padding: 32px 24px; }
       .landing-footer-contact { align-items: flex-start; }
@@ -1272,7 +1282,7 @@
   </style>
 </head>
 <body>
-<script>if(localStorage.getItem('portfolioEnabled')==='off')document.body.classList.add('portfolio-off');</script>
+<script>(function(){try{var v=JSON.parse(localStorage.getItem('projectVisibility')||'{}');var off=Object.keys(v).filter(function(k){return v[k]===false;});if(off.length){var s=document.createElement('style');s.id='pfEarlyHide';s.textContent=off.map(function(k){return '[data-project="'+k+'"]{display:none!important}';}).join('');document.head.appendChild(s);}}catch(e){}})();</script>
 
 <!-- NAV -->
 <nav> <a href="index.html">소개</a> <a href="career.html">경력사항</a> <a href="portfolio.html">포트폴리오</a>
@@ -1325,9 +1335,9 @@
           <div class="m-head"><span class="m-month">2025.04.01 – 현재 · <span data-career-start="2025-04">약 1년+</span></span><span class="milestone-tag work">경력</span></div>
           <h3>NHN Commerce — 서비스/플랫폼 기획자</h3>
           <ul>
-            <li><a href="payco.html">페이코 복합결제 시스템 도입</a> <span class="m-proj-period">2026.05 – 진행중</span></li>
-            <li><a href="#angels">FG Angels</a> <span class="m-proj-period">2026.03 – 2026.06</span> — NHN AI 스프린톤 업무생산성 트랙 1위</li>
-            <li><a href="#gift">선물하기 시스템</a> <span class="m-proj-period">2025.07 – 2026.03</span> — B2C 단건 → B2B 다수 수신 구조 재설계</li>
+            <li data-project="payco"><a href="payco.html">페이코 복합결제 시스템 도입</a> <span class="m-proj-period">2026.05 – 진행중</span></li>
+            <li data-project="angels"><a href="#angels">FG Angels</a> <span class="m-proj-period">2026.03 – 2026.06</span> — NHN AI 스프린톤 업무생산성 트랙 1위</li>
+            <li data-project="gift"><a href="#gift">선물하기 시스템</a> <span class="m-proj-period">2025.07 – 2026.03</span> — B2C 단건 → B2B 다수 수신 구조 재설계</li>
           </ul>
         </div>
       </div>
@@ -1354,11 +1364,11 @@
           <div class="m-head"><span class="m-month">2022.04.01 – 2025.03.31 · 약 3년</span><span class="milestone-tag work">경력</span></div>
           <h3>NHN FashionGo Korea — 서비스 기획자 · UX 기획</h3>
           <ul>
-            <li><a href="#review">리뷰 리워드 시스템</a> <span class="m-proj-period">2024.09 – 2025.03</span> — 참여형 리뷰 구조 설계</li>
-            <li><a href="#vip">VIP 프로그램(The Premier)</a> <span class="m-proj-period">2024.03 – 2025.03</span> — 멤버십 구조 설계 및 출시</li>
-            <li><a href="#email">B2B CRM 이메일 마케팅 시스템</a> <span class="m-proj-period">2024.01 – 2024.11</span> — 자체 마케팅 툴 · 판매자 세그먼트 설계</li>
-            <li><a href="#chat">B2B 채팅 상담 시스템</a> <span class="m-proj-period">2023.06 – 2023.12</span> — LLM 기반 자동 응답 + 상담원 연동</li>
-            <li><a href="#onboarding">Vendor Onboarding 프로세스 고도화</a> <span class="m-proj-period">2022.06 – 2023.06</span> — 가입 자동화·전환율 개선</li>
+            <li data-project="review"><a href="#review">리뷰 리워드 시스템</a> <span class="m-proj-period">2024.09 – 2025.03</span> — 참여형 리뷰 구조 설계</li>
+            <li data-project="vip"><a href="#vip">VIP 프로그램(The Premier)</a> <span class="m-proj-period">2024.03 – 2025.03</span> — 멤버십 구조 설계 및 출시</li>
+            <li data-project="email"><a href="#email">B2B CRM 이메일 마케팅 시스템</a> <span class="m-proj-period">2024.01 – 2024.11</span> — 자체 마케팅 툴 · 판매자 세그먼트 설계</li>
+            <li data-project="chat"><a href="#chat">B2B 채팅 상담 시스템</a> <span class="m-proj-period">2023.06 – 2023.12</span> — LLM 기반 자동 응답 + 상담원 연동</li>
+            <li data-project="onboarding"><a href="#onboarding">Vendor Onboarding 프로세스 고도화</a> <span class="m-proj-period">2022.06 – 2023.06</span> — 가입 자동화·전환율 개선</li>
           </ul>
           <div class="milestone-kpis">
             <span class="milestone-kpi"><b>+10%</b>VIP YoY 주문액</span>
@@ -1384,8 +1394,8 @@
           <div class="m-head"><span class="m-month">2019.05.13 – 2022.01.14 · 약 2년 8개월</span><span class="milestone-tag work">경력</span></div>
           <h3>야놀자 — UX/UI 기획자</h3>
           <ul>
-            <li><a href="#yanolja">통합예약 플로우 재설계</a> <span class="m-proj-period">2021.06 – 2022.01</span> (전환율 개선)</li>
-            <li><a href="#prepaid">선불지급수단 발행 시스템</a> <span class="m-proj-period">2020.01 – 2020.12</span> — 야놀자 신규 결제 수단 설계 (포인트·상품권·기프티콘·충전금 통합)</li>
+            <li data-project="yanolja"><a href="#yanolja">통합예약 플로우 재설계</a> <span class="m-proj-period">2021.06 – 2022.01</span> (전환율 개선)</li>
+            <li data-project="prepaid"><a href="#prepaid">선불지급수단 발행 시스템</a> <span class="m-proj-period">2020.01 – 2020.12</span> — 야놀자 신규 결제 수단 설계 (포인트·상품권·기프티콘·충전금 통합)</li>
             <li>앱 서비스 PDP(상품 상세) UX/UI 기획</li>
             <li>로그인/회원가입 UX 기획</li>
           </ul>
@@ -1401,7 +1411,7 @@
           <div class="m-head"><span class="m-month">2016.09.19 – 2019.05.10 · 약 2년 8개월</span><span class="milestone-tag work">경력</span></div>
           <h3>캐시워크 — UX/UI 기획 및 디자인</h3>
           <ul>
-            <li><a href="#cashwalk">캐시워크 앱 서비스 출시</a> <span class="m-proj-period">2016.09 – 2019.05</span> — 리워드 참여 구조 기획</li>
+            <li data-project="cashwalk"><a href="#cashwalk">캐시워크 앱 서비스 출시</a> <span class="m-proj-period">2016.09 – 2019.05</span> — 리워드 참여 구조 기획</li>
           </ul>
         </div>
         <div class="milestone-item" data-years="2016">
@@ -1447,7 +1457,7 @@
   </div>
 </section>
 
-<footer class="landing-footer"><div class="landing-footer-inner"><div class="landing-footer-row"><div class="landing-footer-left"><div class="landing-footer-title">윤혜련 · Service Product Manager</div><div class="landing-footer-sub">데이터로 문제를 정의하고, 구조로 행동을 설계합니다.</div></div><div class="landing-footer-contact"><a href="mailto:dusqkq0@naver.com">dusqkq0@naver.com</a><a href="https://www.linkedin.com/in/hyeryeon/" target="_blank" rel="noopener">linkedin.com/in/hyeryeon</a></div></div><div class="footer-portfolio-toggle"><span class="fpt-label">포트폴리오 공개</span><button type="button" class="fpt-switch" id="portfolioToggle" role="switch" aria-checked="true" aria-label="포트폴리오 공개 설정"><span class="fpt-knob"></span></button><span class="fpt-state" id="portfolioToggleState">ON</span></div><div class="landing-footer-copyright">© 2026 윤혜련. All rights reserved.</div></div></footer> </section>
+<footer class="landing-footer"><div class="landing-footer-inner"><div class="landing-footer-row"><div class="landing-footer-left"><div class="landing-footer-title">윤혜련 · Service Product Manager</div><div class="landing-footer-sub">데이터로 문제를 정의하고, 구조로 행동을 설계합니다.</div></div><div class="landing-footer-contact"><a href="mailto:dusqkq0@naver.com">dusqkq0@naver.com</a><a href="https://www.linkedin.com/in/hyeryeon/" target="_blank" rel="noopener">linkedin.com/in/hyeryeon</a></div></div><button type="button" class="footer-settings-btn" id="portfolioSettingsBtn">⚙ 포트폴리오 공개 설정</button><div class="landing-footer-copyright">© 2026 윤혜련. All rights reserved.</div></div></footer> </section>
 <!-- Lightbox (image zoom) -->
 <div class="lightbox" id="lightbox" role="dialog" aria-hidden="true" aria-label="이미지 확대 보기"> <button class="lightbox-close" type="button" aria-label="닫기"></button> <img class="lightbox-img" alt=""> <div class="lightbox-caption"></div>
 </div>
@@ -2050,25 +2060,82 @@
 
 </script>
 
+<div class="pf-settings-overlay" id="pfSettingsOverlay" aria-hidden="true"><div class="pf-settings-modal" role="dialog" aria-modal="true" aria-label="포트폴리오 공개 설정"><div class="pf-settings-head"><h3>포트폴리오 공개 설정</h3><button type="button" class="pf-settings-close" id="pfSettingsClose" aria-label="닫기">×</button></div><p class="pf-settings-desc">프로젝트별 노출 여부를 설정합니다. 이 설정은 현재 브라우저에만 적용됩니다.</p><div class="pf-settings-actions"><button type="button" data-all="on">전체 켜기</button><button type="button" data-all="off">전체 끄기</button></div><ul class="pf-settings-list" id="pfSettingsList"></ul></div></div>
+
 <script>
-  // 포트폴리오 공개 on/off (footer 토글, localStorage 'portfolioEnabled'로 페이지 간 동기화)
+  // 프로젝트별 공개 on/off (footer 설정 팝업, localStorage 'projectVisibility'로 페이지 간 동기화)
   (function () {
-    var KEY = 'portfolioEnabled';
-    function isOn() { return localStorage.getItem(KEY) !== 'off'; } // 기본값 ON
-    function apply(on) {
-      document.body.classList.toggle('portfolio-off', !on);
-      var btn = document.getElementById('portfolioToggle');
-      var st = document.getElementById('portfolioToggleState');
-      if (btn) btn.setAttribute('aria-checked', on ? 'true' : 'false');
-      if (st) st.textContent = on ? 'ON' : 'OFF';
+    var KEY = 'projectVisibility';
+    var PROJECTS = [
+      { key: 'payco',      label: '페이코 복합결제 시스템 도입' },
+      { key: 'angels',     label: 'FG Angels' },
+      { key: 'gift',       label: '선물하기 시스템' },
+      { key: 'review',     label: '리뷰 리워드 시스템' },
+      { key: 'vip',        label: 'VIP 프로그램' },
+      { key: 'email',      label: 'B2B CRM 이메일 마케팅 시스템' },
+      { key: 'chat',       label: 'B2B 채팅 상담 시스템' },
+      { key: 'onboarding', label: 'B2B 온보딩 프로세스 고도화' },
+      { key: 'yanolja',    label: '통합예약 UX 개선' },
+      { key: 'prepaid',    label: '선불지급수단 발행 시스템' },
+      { key: 'cashwalk',   label: '캐시워크' }
+    ];
+    function getState() { try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { return {}; } }
+    var state = getState();
+    function isOn(key) { return state[key] !== false; }
+    function save() { localStorage.setItem(KEY, JSON.stringify(state)); }
+
+    function applyVisibility() {
+      document.querySelectorAll('[data-project]').forEach(function (el) {
+        el.classList.toggle('pf-off', !isOn(el.getAttribute('data-project')));
+      });
+      var early = document.getElementById('pfEarlyHide');
+      if (early && early.parentNode) early.parentNode.removeChild(early);
     }
-    apply(isOn());
-    var btn = document.getElementById('portfolioToggle');
-    if (btn) btn.addEventListener('click', function () {
-      var next = !isOn();
-      localStorage.setItem(KEY, next ? 'on' : 'off');
-      apply(next);
+
+    var overlay = document.getElementById('pfSettingsOverlay');
+    var listEl = document.getElementById('pfSettingsList');
+    function buildList() {
+      if (!listEl) return;
+      listEl.innerHTML = '';
+      PROJECTS.forEach(function (p) {
+        var li = document.createElement('li');
+        var label = document.createElement('label');
+        var span = document.createElement('span');
+        span.textContent = p.label;
+        var input = document.createElement('input');
+        input.type = 'checkbox';
+        input.checked = isOn(p.key);
+        input.addEventListener('change', function () {
+          state[p.key] = input.checked;
+          save();
+          applyVisibility();
+        });
+        label.appendChild(span);
+        label.appendChild(input);
+        li.appendChild(label);
+        listEl.appendChild(li);
+      });
+    }
+    function openModal() { if (overlay) { buildList(); overlay.classList.add('open'); overlay.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden'; } }
+    function closeModal() { if (overlay) { overlay.classList.remove('open'); overlay.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; } }
+
+    var openBtn = document.getElementById('portfolioSettingsBtn');
+    if (openBtn) openBtn.addEventListener('click', openModal);
+    var closeBtn = document.getElementById('pfSettingsClose');
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (overlay) overlay.addEventListener('click', function (e) { if (e.target === overlay) closeModal(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+    document.querySelectorAll('[data-all]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var on = b.getAttribute('data-all') === 'on';
+        PROJECTS.forEach(function (p) { state[p.key] = on; });
+        save();
+        applyVisibility();
+        buildList();
+      });
     });
+
+    applyVisibility();
   })();
 </script>
 
