@@ -658,6 +658,13 @@
     .landing-footer-contact a:hover { color: #000; }
     .landing-footer-copyright { font-size: 12px; color: #999; margin-top: 24px; padding-top: 16px; border-top: 1px solid #eee;
     }
+    .footer-portfolio-toggle { display: flex; align-items: center; gap: 10px; margin-top: 20px; }
+    .fpt-label { font-size: 12px; color: #888; }
+    .fpt-switch { width: 40px; height: 22px; border-radius: 11px; border: none; background: #ccc; position: relative; cursor: pointer; padding: 0; transition: background 200ms ease; flex: none; }
+    .fpt-switch[aria-checked="true"] { background: #191919; }
+    .fpt-knob { position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 50%; background: #fff; transition: left 200ms ease; }
+    .fpt-switch[aria-checked="true"] .fpt-knob { left: 20px; }
+    .fpt-state { font-size: 11px; font-weight: 700; color: #888; letter-spacing: 0.04em; }
     @media (max-width: 760px) {
       .landing-footer { padding: 32px 24px; }
       .landing-footer-contact { align-items: flex-start; }
@@ -1379,6 +1386,7 @@
   </style>
 </head>
 <body>
+<script>if(localStorage.getItem('portfolioEnabled')==='off')document.body.classList.add('portfolio-off');</script>
 
 <!-- NAV -->
 <nav> <a href="index.html">소개</a> <a href="career.html">경력사항</a> <a href="portfolio.html">포트폴리오</a>
@@ -1412,7 +1420,7 @@
 <!-- ═══════════════════════════════════════ -->
 <!-- CAREER                                 -->
 <!-- ═══════════════════════════════════════ -->
-<footer class="landing-footer"><div class="landing-footer-inner"><div class="landing-footer-row"><div class="landing-footer-left"><div class="landing-footer-title">윤혜련 · Service Product Manager</div><div class="landing-footer-sub">데이터로 문제를 정의하고, 구조로 행동을 설계합니다.</div></div><div class="landing-footer-contact"><a href="mailto:dusqkq0@naver.com">dusqkq0@naver.com</a><a href="https://www.linkedin.com/in/hyeryeon/" target="_blank" rel="noopener">linkedin.com/in/hyeryeon</a></div></div><div class="landing-footer-copyright">© 2026 윤혜련. All rights reserved.</div></div></footer>
+<footer class="landing-footer"><div class="landing-footer-inner"><div class="landing-footer-row"><div class="landing-footer-left"><div class="landing-footer-title">윤혜련 · Service Product Manager</div><div class="landing-footer-sub">데이터로 문제를 정의하고, 구조로 행동을 설계합니다.</div></div><div class="landing-footer-contact"><a href="mailto:dusqkq0@naver.com">dusqkq0@naver.com</a><a href="https://www.linkedin.com/in/hyeryeon/" target="_blank" rel="noopener">linkedin.com/in/hyeryeon</a></div></div><div class="footer-portfolio-toggle"><span class="fpt-label">포트폴리오 공개</span><button type="button" class="fpt-switch" id="portfolioToggle" role="switch" aria-checked="true" aria-label="포트폴리오 공개 설정"><span class="fpt-knob"></span></button><span class="fpt-state" id="portfolioToggleState">ON</span></div><div class="landing-footer-copyright">© 2026 윤혜련. All rights reserved.</div></div></footer>
 <!-- Lightbox (image zoom) -->
 <div class="lightbox" id="lightbox" role="dialog" aria-hidden="true" aria-label="이미지 확대 보기"> <button class="lightbox-close" type="button" aria-label="닫기"></button> <img class="lightbox-img" alt=""> <div class="lightbox-caption"></div>
 </div>
@@ -2019,6 +2027,28 @@
     });
   })();
 
+</script>
+
+<script>
+  // 포트폴리오 공개 on/off (footer 토글, localStorage 'portfolioEnabled'로 페이지 간 동기화)
+  (function () {
+    var KEY = 'portfolioEnabled';
+    function isOn() { return localStorage.getItem(KEY) !== 'off'; } // 기본값 ON
+    function apply(on) {
+      document.body.classList.toggle('portfolio-off', !on);
+      var btn = document.getElementById('portfolioToggle');
+      var st = document.getElementById('portfolioToggleState');
+      if (btn) btn.setAttribute('aria-checked', on ? 'true' : 'false');
+      if (st) st.textContent = on ? 'ON' : 'OFF';
+    }
+    apply(isOn());
+    var btn = document.getElementById('portfolioToggle');
+    if (btn) btn.addEventListener('click', function () {
+      var next = !isOn();
+      localStorage.setItem(KEY, next ? 'on' : 'off');
+      apply(next);
+    });
+  })();
 </script>
 
 </body>
