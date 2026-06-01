@@ -578,39 +578,46 @@
       display: none;
     }
     #portfolio .portfolio-empty.visible { display: block; }
-    #portfolio .portfolio-list {
-      display: flex; flex-direction: column;
-      border-top: 1px solid #ececec;
+    #portfolio .portfolio-list { width: 100%; }
+    #portfolio .portfolio-table {
+      width: 100%;
+      border-collapse: collapse;
+      border-top: 2px solid #191919;
+      border-bottom: 1px solid #191919;
     }
-    #portfolio .portfolio-item {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 8px;
-      align-items: center;
-      padding: 20px 4px;
-      border-bottom: 1px solid #ececec;
-      text-decoration: none; color: inherit;
-      transition: background 180ms ease;
+    #portfolio .portfolio-table thead th {
+      text-align: left; padding: 14px 16px;
+      background: #f7f7f7; color: #191919;
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      border-bottom: 1px solid #191919; white-space: nowrap;
     }
-    #portfolio .portfolio-item:hover { background: #fafafa; }
-    #portfolio .portfolio-body {
-      display: flex; flex-direction: row; align-items: baseline;
-      gap: 16px; flex-wrap: wrap; min-width: 0;
+    #portfolio .portfolio-table tbody td {
+      padding: 18px 16px;
+      border-bottom: 1px solid #ededed;
+      font-size: 14px; color: #2e2e2e;
+      vertical-align: middle;
     }
-    #portfolio .portfolio-body .period { font-size: 13px; color: #888; }
-    #portfolio .portfolio-body .company { font-size: 13px; font-weight: 400; color: #888; margin-left: auto; }
-    #portfolio .portfolio-item h2 {
-      font-size: 20px; font-weight: 700;
-      color: #191919; line-height: 1.4;
-      margin: 0;
+    #portfolio .portfolio-table tbody tr:last-child td { border-bottom: none; }
+    #portfolio .portfolio-table tbody tr:hover td { background: #fafafa; }
+    #portfolio .portfolio-table td.pf-name { font-weight: 700; min-width: 200px; }
+    #portfolio .portfolio-table td.pf-name a {
+      color: #191919; text-decoration: none;
+      background-image: linear-gradient(#191919, #191919);
+      background-size: 0 1px; background-position: 0 100%; background-repeat: no-repeat;
+      transition: background-size 200ms ease;
     }
+    #portfolio .portfolio-table td.pf-name a:hover { background-size: 100% 1px; }
+    #portfolio .portfolio-table td.pf-period,
+    #portfolio .portfolio-table td.pf-role,
+    #portfolio .portfolio-table td.pf-company { color: #545454; white-space: nowrap; }
+
     @media (max-width: 720px) {
       #portfolio { padding: 80px 24px 56px; }
       #portfolio .portfolio-title { font-size: 32px; }
-      #portfolio .portfolio-item {
-        padding: 16px 0;
-      }
-      #portfolio .portfolio-item h2 { font-size: 16px; }
+      #portfolio .portfolio-table thead th,
+      #portfolio .portfolio-table tbody td { padding: 12px 10px; font-size: 12px; }
+      #portfolio .portfolio-table td.pf-name { min-width: 0; }
     }
 
     /* ════════════════════════════════════════ */
@@ -1394,7 +1401,7 @@
 <!-- ═══════════════════════════════════════ -->
 <!-- FG ANGELS (AI 프로젝트 — 신규)          -->
 <!-- ═══════════════════════════════════════ -->
-<section id="portfolio"><div class="portfolio-inner"><h1 class="portfolio-title">포트폴리오</h1><div class="portfolio-filters"><label class="portfolio-filter"><span class="portfolio-filter-label">연도</span><select id="portfolioYear" class="portfolio-select"><option value="">전체</option><option value="2026">2026</option><option value="2025">2025</option><option value="2024">2024</option><option value="2023">2023</option><option value="2022">2022</option><option value="2021">2021</option><option value="2020">2020</option><option value="2019">2019</option><option value="2018">2018</option><option value="2017">2017</option><option value="2016">2016</option></select></label><label class="portfolio-filter"><span class="portfolio-filter-label">회사</span><select id="portfolioCompany" class="portfolio-select"><option value="">전체</option><option value="NHN Commerce">NHN Commerce</option><option value="NHN FashionGo Korea">NHN FashionGo Korea</option><option value="야놀자">야놀자</option><option value="캐시워크">캐시워크</option></select></label></div><div class="portfolio-list"><a href="payco.html" class="portfolio-item" data-project="payco" data-company="NHN Commerce" data-years="2026"><div class="portfolio-body"><h2>페이코 복합결제 시스템 도입</h2><span class="period">2026.05 – 진행중</span><span class="company">NHN Commerce</span></div></a><a href="angels.html" class="portfolio-item" data-project="angels" data-company="NHN Commerce" data-years="2026"><div class="portfolio-body"><h2>FG Angels</h2><span class="period">2026.03 – 2026.06</span><span class="company">NHN Commerce</span></div></a><a href="gift.html" class="portfolio-item" data-project="gift" data-company="NHN Commerce" data-years="2025 2026"><div class="portfolio-body"><h2>선물하기 시스템</h2><span class="period">2025.07 – 2026.03</span><span class="company">NHN Commerce</span></div></a><a href="review.html" class="portfolio-item" data-project="review" data-company="NHN FashionGo Korea" data-years="2024 2025"><div class="portfolio-body"><h2>리뷰 리워드 시스템</h2><span class="period">2024.09 – 2025.03</span><span class="company">NHN FashionGo Korea</span></div></a><a href="vip.html" class="portfolio-item" data-project="vip" data-company="NHN FashionGo Korea" data-years="2024 2025"><div class="portfolio-body"><h2>VIP 프로그램</h2><span class="period">2024.03 – 2025.03</span><span class="company">NHN FashionGo Korea</span></div></a><a href="email.html" class="portfolio-item" data-project="email" data-company="NHN FashionGo Korea" data-years="2024"><div class="portfolio-body"><h2>B2B CRM 이메일 마케팅 시스템</h2><span class="period">2024.01 – 2024.11</span><span class="company">NHN FashionGo Korea</span></div></a><a href="chat.html" class="portfolio-item" data-project="chat" data-company="NHN FashionGo Korea" data-years="2023"><div class="portfolio-body"><h2>B2B 채팅 상담 시스템</h2><span class="period">2023.06 – 2023.12</span><span class="company">NHN FashionGo Korea</span></div></a><a href="onboarding.html" class="portfolio-item" data-project="onboarding" data-company="NHN FashionGo Korea" data-years="2022 2023"><div class="portfolio-body"><h2>B2B 온보딩 프로세스 고도화</h2><span class="period">2022.06 – 2023.06</span><span class="company">NHN FashionGo Korea</span></div></a><a href="yanolja.html" class="portfolio-item" data-project="yanolja" data-company="야놀자" data-years="2021 2022"><div class="portfolio-body"><h2>통합 예약 시스템</h2><span class="period">2021.06 – 2022.01</span><span class="company">야놀자</span></div></a><a href="prepaid.html" class="portfolio-item" data-project="prepaid" data-company="야놀자" data-years="2020"><div class="portfolio-body"><h2>선불지급수단 발행 시스템</h2><span class="period">2020.01 – 2020.12</span><span class="company">야놀자</span></div></a><a href="cashwalk.html" class="portfolio-item" data-project="cashwalk" data-company="캐시워크" data-years="2016 2017 2018 2019"><div class="portfolio-body"><h2>캐시워크</h2><span class="period">2016.09 – 2019.05</span><span class="company">캐시워크</span></div></a></div><p class="portfolio-empty" id="portfolioEmpty">해당 조건에 맞는 프로젝트가 없습니다.</p></div></section> <footer class="landing-footer"><div class="landing-footer-inner"><div class="landing-footer-row"><div class="landing-footer-left"><div class="landing-footer-title">윤혜련 · Service Product Manager</div><div class="landing-footer-sub">데이터로 문제를 정의하고, 구조로 행동을 설계합니다.</div></div><div class="landing-footer-contact"><a href="mailto:dusqkq0@naver.com">dusqkq0@naver.com</a><a href="https://www.linkedin.com/in/hyeryeon/" target="_blank" rel="noopener">linkedin.com/in/hyeryeon</a></div></div><button type="button" class="footer-settings-btn" id="portfolioSettingsBtn">⚙ 포트폴리오 공개 설정</button><div class="landing-footer-copyright">© 2026 윤혜련. All rights reserved.</div></div></footer>
+<section id="portfolio"><div class="portfolio-inner"><h1 class="portfolio-title">포트폴리오</h1><div class="portfolio-filters"><label class="portfolio-filter"><span class="portfolio-filter-label">연도</span><select id="portfolioYear" class="portfolio-select"><option value="">전체</option><option value="2026">2026</option><option value="2025">2025</option><option value="2024">2024</option><option value="2023">2023</option><option value="2022">2022</option><option value="2021">2021</option><option value="2020">2020</option><option value="2019">2019</option><option value="2018">2018</option><option value="2017">2017</option><option value="2016">2016</option></select></label><label class="portfolio-filter"><span class="portfolio-filter-label">회사</span><select id="portfolioCompany" class="portfolio-select"><option value="">전체</option><option value="NHN Commerce">NHN Commerce</option><option value="NHN FashionGo Korea">NHN FashionGo Korea</option><option value="야놀자">야놀자</option><option value="캐시워크">캐시워크</option></select></label></div><div class="portfolio-list"><table class="portfolio-table"><thead><tr><th>프로젝트 이름</th><th>기간</th><th>역할</th><th>회사</th></tr></thead><tbody><tr class="portfolio-item" data-project="payco" data-company="NHN Commerce" data-years="2026"><td class="pf-name"><a href="payco.html">페이코 복합결제 시스템 도입</a></td><td class="pf-period">2026.05 – 진행중</td><td class="pf-role">서비스기획</td><td class="pf-company">NHN Commerce</td></tr><tr class="portfolio-item" data-project="angels" data-company="NHN Commerce" data-years="2026"><td class="pf-name"><a href="angels.html">FG Angels</a></td><td class="pf-period">2026.03 – 2026.06</td><td class="pf-role">서비스기획</td><td class="pf-company">NHN Commerce</td></tr><tr class="portfolio-item" data-project="gift" data-company="NHN Commerce" data-years="2025 2026"><td class="pf-name"><a href="gift.html">선물하기 시스템</a></td><td class="pf-period">2025.07 – 2026.03</td><td class="pf-role">서비스기획</td><td class="pf-company">NHN Commerce</td></tr><tr class="portfolio-item" data-project="review" data-company="NHN FashionGo Korea" data-years="2024 2025"><td class="pf-name"><a href="review.html">리뷰 리워드 시스템</a></td><td class="pf-period">2024.09 – 2025.03</td><td class="pf-role">서비스기획</td><td class="pf-company">NHN FashionGo Korea</td></tr><tr class="portfolio-item" data-project="vip" data-company="NHN FashionGo Korea" data-years="2024 2025"><td class="pf-name"><a href="vip.html">VIP 프로그램</a></td><td class="pf-period">2024.03 – 2025.03</td><td class="pf-role">서비스기획</td><td class="pf-company">NHN FashionGo Korea</td></tr><tr class="portfolio-item" data-project="email" data-company="NHN FashionGo Korea" data-years="2024"><td class="pf-name"><a href="email.html">B2B CRM 이메일 마케팅 시스템</a></td><td class="pf-period">2024.01 – 2024.11</td><td class="pf-role">서비스기획</td><td class="pf-company">NHN FashionGo Korea</td></tr><tr class="portfolio-item" data-project="chat" data-company="NHN FashionGo Korea" data-years="2023"><td class="pf-name"><a href="chat.html">B2B 채팅 상담 시스템</a></td><td class="pf-period">2023.06 – 2023.12</td><td class="pf-role">서비스기획</td><td class="pf-company">NHN FashionGo Korea</td></tr><tr class="portfolio-item" data-project="onboarding" data-company="NHN FashionGo Korea" data-years="2022 2023"><td class="pf-name"><a href="onboarding.html">B2B 온보딩 프로세스 고도화</a></td><td class="pf-period">2022.06 – 2023.06</td><td class="pf-role">서비스기획</td><td class="pf-company">NHN FashionGo Korea</td></tr><tr class="portfolio-item" data-project="yanolja" data-company="야놀자" data-years="2021 2022"><td class="pf-name"><a href="yanolja.html">통합 예약 시스템</a></td><td class="pf-period">2021.06 – 2022.01</td><td class="pf-role">Product Design</td><td class="pf-company">야놀자</td></tr><tr class="portfolio-item" data-project="prepaid" data-company="야놀자" data-years="2020"><td class="pf-name"><a href="prepaid.html">선불지급수단 발행 시스템</a></td><td class="pf-period">2020.01 – 2020.12</td><td class="pf-role">Product Design</td><td class="pf-company">야놀자</td></tr><tr class="portfolio-item" data-project="cashwalk" data-company="캐시워크" data-years="2016 2017 2018 2019"><td class="pf-name"><a href="cashwalk.html">캐시워크</a></td><td class="pf-period">2016.09 – 2019.05</td><td class="pf-role">UX/UI 기획 및 디자인</td><td class="pf-company">캐시워크</td></tr></tbody></table></div><p class="portfolio-empty" id="portfolioEmpty">해당 조건에 맞는 프로젝트가 없습니다.</p></div></section> <footer class="landing-footer"><div class="landing-footer-inner"><div class="landing-footer-row"><div class="landing-footer-left"><div class="landing-footer-title">윤혜련 · Service Product Manager</div><div class="landing-footer-sub">데이터로 문제를 정의하고, 구조로 행동을 설계합니다.</div></div><div class="landing-footer-contact"><a href="mailto:dusqkq0@naver.com">dusqkq0@naver.com</a><a href="https://www.linkedin.com/in/hyeryeon/" target="_blank" rel="noopener">linkedin.com/in/hyeryeon</a></div></div><button type="button" class="footer-settings-btn" id="portfolioSettingsBtn">⚙ 포트폴리오 공개 설정</button><div class="landing-footer-copyright">© 2026 윤혜련. All rights reserved.</div></div></footer>
 
 <div class="lightbox" id="lightbox" role="dialog" aria-hidden="true" aria-label="이미지 확대 보기"> <button class="lightbox-close" type="button" aria-label="닫기"></button> <img class="lightbox-img" alt=""> <div class="lightbox-caption"></div>
 </div>
