@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>포트폴리오 개선 예시 – 윤혜련</title> <link rel="icon" type="image/svg+xml" href="favicon.svg" /> <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" /> <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer></script> <style> :root{
+<head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>포트폴리오 개선 예시 – 윤혜련</title> <link rel="icon" type="image/svg+xml" href="favicon.svg" /> <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" /> <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer></script> <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script> <style> :root{
       --dark: #1e1e1e;
       --dark2: #2a2a2a;
       --white: #ffffff;
@@ -174,12 +174,69 @@
     #portfolio .portfolio-table td.pf-name a:hover{ background-size: 100% 1px; }
     #portfolio .portfolio-table td.pf-type, #portfolio .portfolio-table td.pf-period, #portfolio .portfolio-table td.pf-role, #portfolio .portfolio-table td.pf-company{ color: #545454; white-space: nowrap; }
 
+    /* ── checkbox column + selection state ── */
+    #portfolio .portfolio-table th.pf-check-col,
+    #portfolio .portfolio-table td.pf-check{
+      width: 36px; padding-left: 16px; padding-right: 8px; text-align: center;
+    }
+    #portfolio .portfolio-table input[type="checkbox"]{
+      width: 16px; height: 16px; cursor: pointer; accent-color: #1a4cb8;
+      margin: 0; vertical-align: middle;
+    }
+    #portfolio .portfolio-table tbody tr.row-selected td{ background: #f3f6fc; }
+    #portfolio .portfolio-table tbody tr.row-selected:hover td{ background: #ebf0fa; }
+
+    /* ── floating download action bar ── */
+    .pf-action-bar{
+      position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 120%);
+      display: flex; align-items: center; gap: 16px;
+      background: #191919; color: #fff;
+      padding: 14px 22px; border-radius: 999px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.28);
+      font-family: "Pretendard", system-ui, sans-serif;
+      font-size: 14px;
+      transition: transform 260ms cubic-bezier(.2,.8,.2,1), opacity 200ms ease;
+      opacity: 0; pointer-events: none;
+      z-index: 200;
+    }
+    .pf-action-bar.visible{
+      transform: translate(-50%, 0); opacity: 1; pointer-events: auto;
+    }
+    .pf-action-bar .pf-selected-count{
+      letter-spacing: 0.02em;
+    }
+    .pf-action-bar .pf-selected-count strong{
+      color: #fff; font-weight: 700; font-size: 15px; margin: 0 2px;
+    }
+    .pf-action-bar .pf-divider{
+      width: 1px; height: 18px; background: rgba(255,255,255,0.18);
+    }
+    .pf-download-btn{
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #fff; color: #191919;
+      border: none; border-radius: 999px;
+      padding: 10px 18px;
+      font-family: inherit; font-size: 13px; font-weight: 700;
+      cursor: pointer;
+      transition: background 180ms ease, transform 180ms ease;
+    }
+    .pf-download-btn:not(:disabled):hover{ background: #f0f0f0; transform: translateY(-1px); }
+    .pf-download-btn:disabled{ background: #6e6e6e; color: #ccc; cursor: not-allowed; }
+    .pf-download-btn svg{ width: 14px; height: 14px; flex-shrink: 0; }
+    .pf-download-btn.loading{ background: #f7f7f7; color: #555; cursor: progress; }
+    .pf-download-btn.loading svg{ animation: pfSpin 900ms linear infinite; }
+    @keyframes pfSpin{ from{ transform: rotate(0); } to{ transform: rotate(360deg); } }
+
     @media (max-width: 720px){
       #portfolio { padding: 80px 24px 56px; }
       #portfolio .portfolio-title { font-size: 32px; }
       #portfolio .portfolio-table thead th,
       #portfolio .portfolio-table tbody td { padding: 12px 10px; font-size: 12px; }
+      #portfolio .portfolio-table th.pf-check-col,
+      #portfolio .portfolio-table td.pf-check { width: 28px; padding-left: 10px; padding-right: 4px; }
       #portfolio .portfolio-table td.pf-name { min-width: 0; }
+      .pf-action-bar { left: 16px; right: 16px; transform: translateY(120%); width: auto; justify-content: space-between; padding: 12px 16px; }
+      .pf-action-bar.visible { transform: translateY(0); }
     }
 
     /* ════════════════════════════════════════ */
@@ -250,7 +307,7 @@
 <!-- ═══════════════════════════════════════ -->
 <!-- FG ANGELS (AI 프로젝트 — 신규)          -->
 <!-- ═══════════════════════════════════════ -->
-<section id="portfolio"><div class="portfolio-inner"><h1 class="portfolio-title">포트폴리오</h1><div class="portfolio-filters"><label class="portfolio-filter"><span class="portfolio-filter-label">연도</span><select id="portfolioYear" class="portfolio-select"><option value="">전체</option><option value="2026">2026</option><option value="2025">2025</option><option value="2024">2024</option><option value="2023">2023</option><option value="2022">2022</option><option value="2021">2021</option><option value="2020">2020</option><option value="2019">2019</option><option value="2018">2018</option><option value="2017">2017</option><option value="2016">2016</option></select></label><label class="portfolio-filter"><span class="portfolio-filter-label">회사</span><select id="portfolioCompany" class="portfolio-select"><option value="">전체</option><option value="NHN Commerce">NHN Commerce</option><option value="NHN FashionGo Korea">NHN FashionGo Korea</option><option value="야놀자">야놀자</option><option value="캐시워크">캐시워크</option></select></label><label class="portfolio-filter"><span class="portfolio-filter-label">구분</span><select id="portfolioType" class="portfolio-select"><option value="">전체</option><option value="신규 시스템">신규 시스템</option><option value="시스템 고도화">시스템 고도화</option><option value="마케팅 시스템">마케팅 시스템</option><option value="채팅 시스템">채팅 시스템</option><option value="AI Agent 프로그램">AI Agent 프로그램</option><option value="고객 관리 프로그램">고객 관리 프로그램</option><option value="PG API 연동">PG API 연동</option><option value="신규 서비스">신규 서비스</option></select></label></div><div class="portfolio-list"><table class="portfolio-table"><thead><tr><th>구분</th><th>프로젝트 이름</th><th>기간</th><th>역할</th><th>회사</th></tr></thead><tbody><tr class="portfolio-item" data-project="payco" data-company="NHN Commerce" data-years="2026"><td class="pf-type">PG API 연동</td><td class="pf-name"><a href="payco.html">페이코 복합결제 시스템 도입</a></td><td class="pf-period">2026.05 – 진행중</td><td class="pf-role">서비스기획</td><td class="pf-company">NHN Commerce</td></tr><tr class="portfolio-item" data-project="angels" data-company="NHN Commerce" data-years="2026"><td class="pf-type">AI Agent 프로그램</td><td class="pf-name"><a href="angels.html">FG Angels</a></td><td class="pf-period">2026.03 – 2026.06</td><td class="pf-role">서비스기획</td><td class="pf-company">NHN Commerce</td></tr><tr class="portfolio-item" data-project="gift" data-company="NHN Commerce" data-years="2025 2026"><td class="pf-type">신규 시스템</td><td class="pf-name"><a href="gift.html">선물하기 시스템</a></td><td class="pf-period">2025.07 – 2026.03</td><td class="pf-role">서비스기획</td><td class="pf-company">NHN Commerce</td></tr><tr class="portfolio-item" data-project="review" data-company="NHN FashionGo Korea" data-years="2024 2025"><td class="pf-type">시스템 고도화</td><td class="pf-name"><a href="review.html">리뷰 리워드 시스템</a></td><td class="pf-period">2024.09 – 2025.03</td><td class="pf-role">서비스기획</td><td class="pf-company">NHN FashionGo Korea</td></tr><tr class="portfolio-item" data-project="vip" data-company="NHN FashionGo Korea" data-years="2024 2025"><td class="pf-type">고객 관리 프로그램</td><td class="pf-name"><a href="vip.html">VIP 프로그램</a></td><td class="pf-period">2024.03 – 2025.03</td><td class="pf-role">서비스기획</td><td class="pf-company">NHN FashionGo Korea</td></tr><tr class="portfolio-item" data-project="email" data-company="NHN FashionGo Korea" data-years="2024"><td class="pf-type">마케팅 시스템</td><td class="pf-name"><a href="email.html">B2B CRM 이메일 마케팅 시스템</a></td><td class="pf-period">2024.01 – 2024.11</td><td class="pf-role">서비스기획</td><td class="pf-company">NHN FashionGo Korea</td></tr><tr class="portfolio-item" data-project="chat" data-company="NHN FashionGo Korea" data-years="2023"><td class="pf-type">채팅 시스템</td><td class="pf-name"><a href="chat.html">B2B 채팅 상담 시스템</a></td><td class="pf-period">2023.06 – 2023.12</td><td class="pf-role">서비스기획</td><td class="pf-company">NHN FashionGo Korea</td></tr><tr class="portfolio-item" data-project="onboarding" data-company="NHN FashionGo Korea" data-years="2022 2023"><td class="pf-type">시스템 고도화</td><td class="pf-name"><a href="onboarding.html">B2B 온보딩 프로세스 고도화</a></td><td class="pf-period">2022.06 – 2023.06</td><td class="pf-role">서비스기획</td><td class="pf-company">NHN FashionGo Korea</td></tr><tr class="portfolio-item" data-project="yanolja" data-company="야놀자" data-years="2021 2022"><td class="pf-type">시스템 고도화</td><td class="pf-name"><a href="yanolja.html">통합 예약 시스템</a></td><td class="pf-period">2021.06 – 2022.01</td><td class="pf-role">Product Design</td><td class="pf-company">야놀자</td></tr><tr class="portfolio-item" data-project="prepaid" data-company="야놀자" data-years="2020"><td class="pf-type">신규 시스템</td><td class="pf-name"><a href="prepaid.html">선불지급수단 발행 시스템</a></td><td class="pf-period">2020.01 – 2020.12</td><td class="pf-role">Product Design</td><td class="pf-company">야놀자</td></tr><tr class="portfolio-item" data-project="cashwalk" data-company="캐시워크" data-years="2016 2017 2018 2019"><td class="pf-type">신규 서비스</td><td class="pf-name"><a href="cashwalk.html">캐시워크</a></td><td class="pf-period">2016.09 – 2019.05</td><td class="pf-role">UX/UI 기획 및 디자인</td><td class="pf-company">캐시워크</td></tr></tbody></table></div><p class="portfolio-empty" id="portfolioEmpty">해당 조건에 맞는 프로젝트가 없습니다.</p></div></section> <footer class="landing-footer"><div class="landing-footer-inner"><div class="landing-footer-row"><div class="landing-footer-left"><div class="landing-footer-title">윤혜련 · Service Product Manager</div><div class="landing-footer-sub">데이터로 문제를 정의하고, 구조로 행동을 설계합니다.</div></div><div class="landing-footer-contact"><a href="mailto:dusqkq0@naver.com">dusqkq0@naver.com</a><a href="https://www.linkedin.com/in/hyeryeon/" target="_blank" rel="noopener">linkedin.com/in/hyeryeon</a></div></div><button type="button" class="footer-settings-btn" id="portfolioSettingsBtn">⚙ 포트폴리오 공개 설정</button><div class="landing-footer-copyright">© 2026 윤혜련. All rights reserved.</div></div></footer>
+<section id="portfolio"><div class="portfolio-inner"><h1 class="portfolio-title">포트폴리오</h1><div class="portfolio-filters"><label class="portfolio-filter"><span class="portfolio-filter-label">연도</span><select id="portfolioYear" class="portfolio-select"><option value="">전체</option><option value="2026">2026</option><option value="2025">2025</option><option value="2024">2024</option><option value="2023">2023</option><option value="2022">2022</option><option value="2021">2021</option><option value="2020">2020</option><option value="2019">2019</option><option value="2018">2018</option><option value="2017">2017</option><option value="2016">2016</option></select></label><label class="portfolio-filter"><span class="portfolio-filter-label">회사</span><select id="portfolioCompany" class="portfolio-select"><option value="">전체</option><option value="NHN Commerce">NHN Commerce</option><option value="NHN FashionGo Korea">NHN FashionGo Korea</option><option value="야놀자">야놀자</option><option value="캐시워크">캐시워크</option></select></label><label class="portfolio-filter"><span class="portfolio-filter-label">구분</span><select id="portfolioType" class="portfolio-select"><option value="">전체</option><option value="신규 시스템">신규 시스템</option><option value="시스템 고도화">시스템 고도화</option><option value="마케팅 시스템">마케팅 시스템</option><option value="채팅 시스템">채팅 시스템</option><option value="AI Agent 프로그램">AI Agent 프로그램</option><option value="고객 관리 프로그램">고객 관리 프로그램</option><option value="PG API 연동">PG API 연동</option><option value="신규 서비스">신규 서비스</option></select></label></div><div class="portfolio-list"><table class="portfolio-table"><thead><tr><th class="pf-check-col"><input type="checkbox" id="pfCheckAll" aria-label="전체 선택"></th><th>구분</th><th>프로젝트 이름</th><th>기간</th><th>역할</th><th>회사</th></tr></thead><tbody><tr class="portfolio-item" data-project="payco" data-company="NHN Commerce" data-years="2026"><td class="pf-check"><input type="checkbox" class="pf-row-check" data-project="payco" aria-label="선택"></td><td class="pf-type">PG API 연동</td><td class="pf-name"><a href="payco.html">페이코 복합결제 시스템 도입</a></td><td class="pf-period">2026.05 – 진행중</td><td class="pf-role">서비스기획</td><td class="pf-company">NHN Commerce</td></tr><tr class="portfolio-item" data-project="angels" data-company="NHN Commerce" data-years="2026"><td class="pf-check"><input type="checkbox" class="pf-row-check" data-project="angels" aria-label="선택"></td><td class="pf-type">AI Agent 프로그램</td><td class="pf-name"><a href="angels.html">FG Angels</a></td><td class="pf-period">2026.03 – 2026.06</td><td class="pf-role">서비스기획</td><td class="pf-company">NHN Commerce</td></tr><tr class="portfolio-item" data-project="gift" data-company="NHN Commerce" data-years="2025 2026"><td class="pf-check"><input type="checkbox" class="pf-row-check" data-project="gift" aria-label="선택"></td><td class="pf-type">신규 시스템</td><td class="pf-name"><a href="gift.html">선물하기 시스템</a></td><td class="pf-period">2025.07 – 2026.03</td><td class="pf-role">서비스기획</td><td class="pf-company">NHN Commerce</td></tr><tr class="portfolio-item" data-project="review" data-company="NHN FashionGo Korea" data-years="2024 2025"><td class="pf-check"><input type="checkbox" class="pf-row-check" data-project="review" aria-label="선택"></td><td class="pf-type">시스템 고도화</td><td class="pf-name"><a href="review.html">리뷰 리워드 시스템</a></td><td class="pf-period">2024.09 – 2025.03</td><td class="pf-role">서비스기획</td><td class="pf-company">NHN FashionGo Korea</td></tr><tr class="portfolio-item" data-project="vip" data-company="NHN FashionGo Korea" data-years="2024 2025"><td class="pf-check"><input type="checkbox" class="pf-row-check" data-project="vip" aria-label="선택"></td><td class="pf-type">고객 관리 프로그램</td><td class="pf-name"><a href="vip.html">VIP 프로그램</a></td><td class="pf-period">2024.03 – 2025.03</td><td class="pf-role">서비스기획</td><td class="pf-company">NHN FashionGo Korea</td></tr><tr class="portfolio-item" data-project="email" data-company="NHN FashionGo Korea" data-years="2024"><td class="pf-check"><input type="checkbox" class="pf-row-check" data-project="email" aria-label="선택"></td><td class="pf-type">마케팅 시스템</td><td class="pf-name"><a href="email.html">B2B CRM 이메일 마케팅 시스템</a></td><td class="pf-period">2024.01 – 2024.11</td><td class="pf-role">서비스기획</td><td class="pf-company">NHN FashionGo Korea</td></tr><tr class="portfolio-item" data-project="chat" data-company="NHN FashionGo Korea" data-years="2023"><td class="pf-check"><input type="checkbox" class="pf-row-check" data-project="chat" aria-label="선택"></td><td class="pf-type">채팅 시스템</td><td class="pf-name"><a href="chat.html">B2B 채팅 상담 시스템</a></td><td class="pf-period">2023.06 – 2023.12</td><td class="pf-role">서비스기획</td><td class="pf-company">NHN FashionGo Korea</td></tr><tr class="portfolio-item" data-project="onboarding" data-company="NHN FashionGo Korea" data-years="2022 2023"><td class="pf-check"><input type="checkbox" class="pf-row-check" data-project="onboarding" aria-label="선택"></td><td class="pf-type">시스템 고도화</td><td class="pf-name"><a href="onboarding.html">B2B 온보딩 프로세스 고도화</a></td><td class="pf-period">2022.06 – 2023.06</td><td class="pf-role">서비스기획</td><td class="pf-company">NHN FashionGo Korea</td></tr><tr class="portfolio-item" data-project="yanolja" data-company="야놀자" data-years="2021 2022"><td class="pf-check"><input type="checkbox" class="pf-row-check" data-project="yanolja" aria-label="선택"></td><td class="pf-type">시스템 고도화</td><td class="pf-name"><a href="yanolja.html">통합 예약 시스템</a></td><td class="pf-period">2021.06 – 2022.01</td><td class="pf-role">Product Design</td><td class="pf-company">야놀자</td></tr><tr class="portfolio-item" data-project="prepaid" data-company="야놀자" data-years="2020"><td class="pf-check"><input type="checkbox" class="pf-row-check" data-project="prepaid" aria-label="선택"></td><td class="pf-type">신규 시스템</td><td class="pf-name"><a href="prepaid.html">선불지급수단 발행 시스템</a></td><td class="pf-period">2020.01 – 2020.12</td><td class="pf-role">Product Design</td><td class="pf-company">야놀자</td></tr><tr class="portfolio-item" data-project="cashwalk" data-company="캐시워크" data-years="2016 2017 2018 2019"><td class="pf-check"><input type="checkbox" class="pf-row-check" data-project="cashwalk" aria-label="선택"></td><td class="pf-type">신규 서비스</td><td class="pf-name"><a href="cashwalk.html">캐시워크</a></td><td class="pf-period">2016.09 – 2019.05</td><td class="pf-role">UX/UI 기획 및 디자인</td><td class="pf-company">캐시워크</td></tr></tbody></table></div><p class="portfolio-empty" id="portfolioEmpty">해당 조건에 맞는 프로젝트가 없습니다.</p></div><div class="pf-action-bar" id="pfActionBar" role="region" aria-label="선택한 프로젝트 다운로드"><span class="pf-selected-count">선택 <strong id="pfSelectedNum">0</strong> / <span id="pfVisibleNum">11</span></span><span class="pf-divider"></span><button type="button" class="pf-download-btn" id="pfDownloadBtn" disabled><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v9M4 7l4 4 4-4M2.5 13.5h11"/></svg><span class="pf-btn-label">PDF 다운로드</span></button></div></section> <footer class="landing-footer"><div class="landing-footer-inner"><div class="landing-footer-row"><div class="landing-footer-left"><div class="landing-footer-title">윤혜련 · Service Product Manager</div><div class="landing-footer-sub">데이터로 문제를 정의하고, 구조로 행동을 설계합니다.</div></div><div class="landing-footer-contact"><a href="mailto:dusqkq0@naver.com">dusqkq0@naver.com</a><a href="https://www.linkedin.com/in/hyeryeon/" target="_blank" rel="noopener">linkedin.com/in/hyeryeon</a></div></div><button type="button" class="footer-settings-btn" id="portfolioSettingsBtn">⚙ 포트폴리오 공개 설정</button><div class="landing-footer-copyright">© 2026 윤혜련. All rights reserved.</div></div></footer>
 
 <div class="lightbox" id="lightbox" role="dialog" aria-hidden="true" aria-label="이미지 확대 보기"> <button class="lightbox-close" type="button" aria-label="닫기"></button> <img class="lightbox-img" alt=""> <div class="lightbox-caption"></div>
 </div>
@@ -282,9 +339,175 @@
       });
       if (empty) empty.classList.toggle('visible', visible === 0);
     }
-    if (yearSel) yearSel.addEventListener('change', apply);
-    if (companySel) companySel.addEventListener('change', apply);
-    if (typeSel) typeSel.addEventListener('change', apply);
+    function applyAndNotify() {
+      apply();
+      if (typeof window.__pfRefreshSelection === 'function') window.__pfRefreshSelection();
+    }
+    if (yearSel) yearSel.addEventListener('change', applyAndNotify);
+    if (companySel) companySel.addEventListener('change', applyAndNotify);
+    if (typeSel) typeSel.addEventListener('change', applyAndNotify);
+  })();
+
+  // 포트폴리오 선택 + PDF 묶음 다운로드
+  (function () {
+    var checkAll = document.getElementById('pfCheckAll');
+    var rowChecks = document.querySelectorAll('.pf-row-check');
+    var countEl = document.getElementById('pfSelectedNum');
+    var visEl   = document.getElementById('pfVisibleNum');
+    var bar     = document.getElementById('pfActionBar');
+    var btn     = document.getElementById('pfDownloadBtn');
+    var label   = btn ? btn.querySelector('.pf-btn-label') : null;
+    if (!checkAll || !rowChecks.length || !btn) return;
+
+    // Project name lookup (from cells)
+    function rowOf(cb) { return cb.closest('tr'); }
+    function isVisible(tr) { return tr && tr.style.display !== 'none' && !tr.classList.contains('pf-off'); }
+    function projectMeta(cb) {
+      var tr = rowOf(cb);
+      var link = tr ? tr.querySelector('.pf-name a') : null;
+      return {
+        url:  link ? link.getAttribute('href') : '',
+        name: link ? link.textContent.trim() : '',
+        slug: cb.dataset.project || ''
+      };
+    }
+
+    function refresh() {
+      var visibleChecks = [], selectedChecks = [];
+      rowChecks.forEach(function (cb) {
+        var tr = rowOf(cb);
+        if (!isVisible(tr)) {
+          // 숨겨진 행의 선택은 풀어둠 (필터 후 의도치 않은 포함 방지)
+          if (cb.checked) cb.checked = false;
+          return;
+        }
+        visibleChecks.push(cb);
+        if (cb.checked) {
+          selectedChecks.push(cb);
+          tr.classList.add('row-selected');
+        } else {
+          tr.classList.remove('row-selected');
+        }
+      });
+      countEl.textContent = selectedChecks.length;
+      visEl.textContent   = visibleChecks.length;
+      btn.disabled = selectedChecks.length === 0 || btn.classList.contains('loading');
+      bar.classList.toggle('visible', selectedChecks.length > 0);
+      checkAll.checked = visibleChecks.length > 0 && selectedChecks.length === visibleChecks.length;
+      checkAll.indeterminate = selectedChecks.length > 0 && selectedChecks.length < visibleChecks.length;
+    }
+    window.__pfRefreshSelection = refresh;
+
+    checkAll.addEventListener('change', function () {
+      rowChecks.forEach(function (cb) {
+        if (isVisible(rowOf(cb))) cb.checked = checkAll.checked;
+      });
+      refresh();
+    });
+    rowChecks.forEach(function (cb) {
+      cb.addEventListener('change', refresh);
+    });
+
+    function loadHtml2pdf() {
+      if (typeof window.html2pdf !== 'undefined') return Promise.resolve();
+      // CDN script is loaded via <script defer>; wait if it hasn't fired yet
+      return new Promise(function (resolve, reject) {
+        var tries = 0;
+        (function check() {
+          if (typeof window.html2pdf !== 'undefined') return resolve();
+          if (++tries > 100) return reject(new Error('html2pdf 로드 실패'));
+          setTimeout(check, 100);
+        })();
+      });
+    }
+
+    async function capturePageToCanvas(url) {
+      // 숨겨진 iframe에 페이지 로드 → 차트/이미지 렌더 대기 → 본문 캡처
+      var iframe = document.createElement('iframe');
+      iframe.style.cssText = 'position:fixed;left:-99999px;top:0;width:1100px;height:768px;border:0;visibility:hidden;';
+      iframe.src = url;
+      document.body.appendChild(iframe);
+      await new Promise(function (r) { iframe.addEventListener('load', r, { once: true }); });
+      // Charts/lazy images 렌더 대기 (1.6초)
+      await new Promise(function (r) { setTimeout(r, 1600); });
+      var idoc = iframe.contentDocument;
+      // 캡처 제외 요소 숨김
+      var hideSelectors = ['nav', '.landing-footer', '.lightbox', '.go-to-top', '.pf-action-bar', '.pdf-download-btn', '.footer-settings-btn', '.pf-settings-overlay'];
+      idoc.querySelectorAll(hideSelectors.join(',')).forEach(function (el) { el.style.display = 'none'; });
+      var docHeight = Math.max(idoc.body.scrollHeight, idoc.documentElement.scrollHeight);
+      iframe.style.height = docHeight + 'px';
+      // 이미지 로드 대기
+      var imgs = Array.prototype.slice.call(idoc.images);
+      await Promise.all(imgs.map(function (img) {
+        if (img.complete) return Promise.resolve();
+        return new Promise(function (r) { img.addEventListener('load', r, { once: true }); img.addEventListener('error', r, { once: true }); });
+      }));
+      var canvas = await window.html2canvas(idoc.body, {
+        scale: 1.3,
+        useCORS: true,
+        allowTaint: false,
+        backgroundColor: '#ffffff',
+        windowWidth: 1100,
+        windowHeight: docHeight,
+        width: 1100,
+        height: docHeight,
+        logging: false
+      });
+      iframe.remove();
+      return canvas;
+    }
+
+    function addCanvasToPDF(pdf, canvas) {
+      var pageWidth  = pdf.internal.pageSize.getWidth();
+      var pageHeight = pdf.internal.pageSize.getHeight();
+      var imgWidth   = pageWidth;
+      var imgHeight  = canvas.height * imgWidth / canvas.width;
+      var imgData    = canvas.toDataURL('image/jpeg', 0.92);
+      if (imgHeight <= pageHeight) {
+        pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight, '', 'FAST');
+      } else {
+        var pages = Math.ceil(imgHeight / pageHeight);
+        for (var p = 0; p < pages; p++) {
+          if (p > 0) pdf.addPage();
+          pdf.addImage(imgData, 'JPEG', 0, -p * pageHeight, imgWidth, imgHeight, '', 'FAST');
+        }
+      }
+    }
+
+    btn.addEventListener('click', async function () {
+      var selected = Array.prototype.filter.call(rowChecks, function (cb) { return cb.checked && isVisible(rowOf(cb)); });
+      if (!selected.length) return;
+      var origLabel = label.textContent;
+      btn.classList.add('loading');
+      btn.disabled = true;
+      try {
+        await loadHtml2pdf();
+        var jsPDFCtor = (window.jspdf && window.jspdf.jsPDF) || window.jsPDF;
+        if (!jsPDFCtor) throw new Error('jsPDF 미로드');
+        var pdf = new jsPDFCtor({ unit: 'mm', format: 'a4', orientation: 'portrait' });
+        for (var i = 0; i < selected.length; i++) {
+          var meta = projectMeta(selected[i]);
+          label.textContent = '생성 중 ' + (i + 1) + '/' + selected.length + ' · ' + meta.name;
+          var canvas = await capturePageToCanvas(meta.url);
+          if (i > 0) pdf.addPage();
+          addCanvasToPDF(pdf, canvas);
+        }
+        var stamp = new Date().toISOString().slice(0, 10);
+        var fname = selected.length === 1
+          ? 'portfolio-' + (projectMeta(selected[0]).slug || 'project') + '-' + stamp + '.pdf'
+          : 'portfolio-' + selected.length + 'projects-' + stamp + '.pdf';
+        pdf.save(fname);
+      } catch (e) {
+        console.error(e);
+        alert('PDF 생성 중 오류가 발생했습니다.\n' + (e && e.message ? e.message : ''));
+      } finally {
+        label.textContent = origLabel;
+        btn.classList.remove('loading');
+        refresh();
+      }
+    });
+
+    refresh();
   })();
 
   // Go to top: 프로젝트 페이지에서만, 일정 스크롤 이후 노출
