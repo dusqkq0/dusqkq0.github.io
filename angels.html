@@ -2087,8 +2087,7 @@
         }).save();
       } catch (e) {
         console.error(e);
-        alert('PDF 생성 중 오류가 발생했습니다.
-' + (e && e.message ? e.message : ''));
+        alert('PDF 생성 중 오류가 발생했습니다.\n' + (e && e.message ? e.message : ''));
       } finally {
         hidden.forEach(function (h) { h.el.style.display = h.prev; });
         if (label) label.textContent = orig;
