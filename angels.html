@@ -2082,7 +2082,7 @@
           windowWidth: 1100,
           logging: false,
           onclone: function (clonedDoc) {
-            var removeSels = ['nav', '.landing-footer', '.lightbox', '.go-to-top', '.pdf-download-btn', 'iframe', '.prd-side-nav', '.footer-settings-btn', '.pf-settings-overlay'];
+            var removeSels = ['nav', '.landing-footer', '.prd-footer', '.prd-back-list-wrap', '.lightbox', '.go-to-top', '.pdf-download-btn', 'iframe', '.prd-side-nav', '.footer-settings-btn', '.pf-settings-overlay'];
             clonedDoc.querySelectorAll(removeSels.join(',')).forEach(function (el) { el.remove(); });
             clonedDoc.querySelectorAll('body, .prd-page').forEach(function (el) {
               el.style.paddingTop = '0'; el.style.marginTop = '0';

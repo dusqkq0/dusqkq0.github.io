@@ -437,7 +437,7 @@
         var idoc = iframe.contentDocument;
         if (!idoc) throw new Error('iframe 문서에 접근할 수 없습니다: ' + url);
         // 캡처 제외 요소 제거 (라이브 DOM이므로 직접 remove)
-        var removeSels = ['nav', '.landing-footer', '.lightbox', '.go-to-top', '.pf-action-bar', '.pdf-download-btn', '.footer-settings-btn', '.pf-settings-overlay', 'iframe'];
+        var removeSels = ['nav', '.landing-footer', '.prd-footer', '.prd-back-list-wrap', '.lightbox', '.go-to-top', '.pf-action-bar', '.pdf-download-btn', '.footer-settings-btn', '.pf-settings-overlay', 'iframe'];
         idoc.querySelectorAll(removeSels.join(',')).forEach(function (el) { el.remove(); });
         // sticky 측면 네비를 숨김 (PDF엔 불필요)
         idoc.querySelectorAll('.prd-side-nav').forEach(function (el) { el.style.display = 'none'; });
