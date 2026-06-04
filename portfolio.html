@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>포트폴리오 개선 예시 – 윤혜련</title> <link rel="icon" type="image/svg+xml" href="favicon.svg" /> <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" /> <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer></script> <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script> <style> :root{
+<head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>포트폴리오 개선 예시 – 윤혜련</title> <link rel="icon" type="image/svg+xml" href="favicon.svg" /> <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" /> <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer></script> <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script> <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script> <style> :root{
       --dark: #1e1e1e;
       --dark2: #2a2a2a;
       --white: #ffffff;
@@ -408,14 +408,17 @@
       cb.addEventListener('change', refresh);
     });
 
-    function loadHtml2pdf() {
-      if (typeof window.html2pdf !== 'undefined') return Promise.resolve();
-      // CDN script is loaded via <script defer>; wait if it hasn't fired yet
+    function loadPdfDeps() {
+      function ready() {
+        var jsPDFCtor = (window.jspdf && window.jspdf.jsPDF) || window.jsPDF;
+        return typeof window.html2canvas === 'function' && typeof jsPDFCtor === 'function';
+      }
+      if (ready()) return Promise.resolve();
       return new Promise(function (resolve, reject) {
         var tries = 0;
         (function check() {
-          if (typeof window.html2pdf !== 'undefined') return resolve();
-          if (++tries > 100) return reject(new Error('html2pdf 로드 실패'));
+          if (ready()) return resolve();
+          if (++tries > 150) return reject(new Error('PDF 라이브러리 로드 실패 (jsPDF/html2canvas)'));
           setTimeout(check, 100);
         })();
       });
@@ -493,7 +496,7 @@
       btn.classList.add('loading');
       btn.disabled = true;
       try {
-        await loadHtml2pdf();
+        await loadPdfDeps();
         var jsPDFCtor = (window.jspdf && window.jspdf.jsPDF) || window.jsPDF;
         if (!jsPDFCtor) throw new Error('jsPDF 미로드');
         var pdf = new jsPDFCtor({ unit: 'mm', format: 'a4', orientation: 'portrait' });
