@@ -424,20 +424,35 @@
       });
     }
 
+    function withTimeout(promise, ms, label) {
+      return Promise.race([
+        promise,
+        new Promise(function (_, reject) { setTimeout(function () { reject(new Error(label + ' 타임아웃 (' + Math.round(ms / 1000) + '초)')); }, ms); })
+      ]);
+    }
+
     async function capturePageToCanvas(url) {
       // 숨겨진 iframe에 페이지 로드 → 차트/이미지 렌더 대기 → 본문 캡처
+      console.log('[PDF] capturing', url);
       var iframe = document.createElement('iframe');
-      iframe.style.cssText = 'position:fixed;left:-99999px;top:0;width:1100px;height:768px;border:0;visibility:hidden;';
-      iframe.src = url;
+      iframe.style.cssText = 'position:fixed;left:-99999px;top:0;width:1100px;height:1200px;border:0;visibility:hidden;';
+      // load listener를 src 설정 전에 등록 (race condition 방지)
+      var loadPromise = new Promise(function (resolve, reject) {
+        var settled = false;
+        iframe.addEventListener('load',  function () { if (!settled) { settled = true; resolve(); } }, { once: true });
+        iframe.addEventListener('error', function () { if (!settled) { settled = true; reject(new Error('iframe load error: ' + url)); } }, { once: true });
+      });
       document.body.appendChild(iframe);
+      iframe.src = url;
       try {
-        await new Promise(function (r) { iframe.addEventListener('load', r, { once: true }); });
+        await withTimeout(loadPromise, 30000, 'iframe 로드');
+        console.log('[PDF] iframe loaded:', url);
         // Charts/lazy images 렌더 대기 (1.6초)
         await new Promise(function (r) { setTimeout(r, 1600); });
         var idoc = iframe.contentDocument;
         if (!idoc) throw new Error('iframe 문서에 접근할 수 없습니다: ' + url);
         // 캡처 제외 요소 제거 (라이브 DOM이므로 직접 remove)
-        var removeSels = ['nav', '.landing-footer', '.prd-footer', '.prd-back-list-wrap', '.lightbox', '.go-to-top', '.pf-action-bar', '.pdf-download-btn', '.footer-settings-btn', '.pf-settings-overlay', 'iframe'];
+        var removeSels = ['nav', '.landing-footer', '.prd-footer', '.prd-back-list-wrap', '.lightbox', '.go-to-top', '.pf-action-bar', '.pdf-download-btn', '.footer-settings-btn', '.pf-settings-overlay', 'iframe', 'script'];
         idoc.querySelectorAll(removeSels.join(',')).forEach(function (el) { el.remove(); });
         // sticky 측면 네비를 숨김 (PDF엔 불필요)
         idoc.querySelectorAll('.prd-side-nav').forEach(function (el) { el.style.display = 'none'; });
@@ -445,18 +460,25 @@
         idoc.querySelectorAll('body, .prd-page').forEach(function (el) {
           el.style.paddingTop = '0'; el.style.marginTop = '0';
         });
-        // 이미지 로드 대기
+        // 이미지 로드 대기 (개별 타임아웃 8초)
         var imgs = Array.prototype.slice.call(idoc.images);
         await Promise.all(imgs.map(function (img) {
-          if (img.complete) return Promise.resolve();
-          return new Promise(function (r) { img.addEventListener('load', r, { once: true }); img.addEventListener('error', r, { once: true }); });
+          if (img.complete && img.naturalWidth > 0) return Promise.resolve();
+          return new Promise(function (r) {
+            var done = false;
+            function fin() { if (done) return; done = true; r(); }
+            img.addEventListener('load', fin, { once: true });
+            img.addEventListener('error', fin, { once: true });
+            setTimeout(fin, 8000);
+          });
         }));
         // 레이아웃 재계산 후 높이 측정
         await new Promise(function (r) { setTimeout(r, 200); });
         var docHeight = Math.max(idoc.body.scrollHeight, idoc.documentElement.scrollHeight, 800);
         iframe.style.height = docHeight + 'px';
-        var canvas = await window.html2canvas(idoc.body, {
-          scale: 1.2,
+        console.log('[PDF] running html2canvas, height=' + docHeight);
+        var canvas = await withTimeout(window.html2canvas(idoc.body, {
+          scale: 1.1,
           useCORS: true,
           allowTaint: true,
           backgroundColor: '#ffffff',
@@ -464,8 +486,10 @@
           windowHeight: docHeight,
           width: 1100,
           height: docHeight,
-          logging: false
-        });
+          logging: false,
+          imageTimeout: 8000
+        }), 90000, 'html2canvas');
+        console.log('[PDF] canvas done:', canvas.width, 'x', canvas.height);
         return canvas;
       } finally {
         iframe.remove();
@@ -473,15 +497,18 @@
     }
 
     btn.addEventListener('click', async function () {
+      console.log('[PDF] download click');
       var selected = Array.prototype.filter.call(rowChecks, function (cb) { return cb.checked && isVisible(rowOf(cb)); });
       if (!selected.length) return;
       var origLabel = label.textContent;
       btn.classList.add('loading');
       btn.disabled = true;
       try {
+        console.log('[PDF] waiting deps... html2canvas=' + typeof window.html2canvas + ' jspdf=' + typeof window.jspdf);
         await loadPdfDeps();
+        console.log('[PDF] deps ready');
         var jsPDFCtor = (window.jspdf && window.jspdf.jsPDF) || window.jsPDF;
-        if (!jsPDFCtor) throw new Error('jsPDF 미로드');
+        if (!jsPDFCtor) throw new Error('jsPDF 미로드 (window.jspdf=' + typeof window.jspdf + ')');
         var pdf = null;
         for (var i = 0; i < selected.length; i++) {
           var meta = projectMeta(selected[i]);
@@ -524,7 +551,9 @@
         var fname = selected.length === 1
           ? 'portfolio-' + (projectMeta(selected[0]).slug || 'project') + '-' + stamp + '.pdf'
           : 'portfolio-' + selected.length + 'projects-' + stamp + '.pdf';
+        console.log('[PDF] saving', fname);
         pdf.save(fname);
+        console.log('[PDF] save() returned');
       } catch (e) {
         console.error('PDF error:', e);
         var msg = (e && e.message) ? e.message : String(e);
