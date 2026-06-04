@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>포트폴리오 개선 예시 – 윤혜련</title> <link rel="icon" type="image/svg+xml" href="favicon.svg" /> <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" /> <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer></script> <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script> <style> :root {
+<head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>포트폴리오 개선 예시 – 윤혜련</title> <link rel="icon" type="image/svg+xml" href="favicon.svg" /> <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" /> <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer></script> <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script> <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script> <style> :root {
       --dark: #1e1e1e;
       --dark2: #2a2a2a;
       --white: #ffffff;
@@ -2052,19 +2052,23 @@
 
 </script>
 <script>
-  // PDF 다운로드: 현재 프로젝트 페이지를 PDF로 저장
+  // PDF 다운로드: 현재 프로젝트 페이지를 PDF로 저장 (직접 jsPDF+html2canvas)
   (function () {
     var btn = document.getElementById('pdfDownloadBtn');
     if (!btn) return;
     var label = btn.querySelector('.pdf-btn-label');
     var FILENAME = 'portfolio-review-' + new Date().toISOString().slice(0,10) + '.pdf';
-    function loadHtml2pdf() {
-      if (typeof window.html2pdf !== 'undefined') return Promise.resolve();
+    function loadDeps() {
+      function ready() {
+        var jsPDFCtor = (window.jspdf && window.jspdf.jsPDF) || window.jsPDF;
+        return typeof window.html2canvas === 'function' && typeof jsPDFCtor === 'function';
+      }
+      if (ready()) return Promise.resolve();
       return new Promise(function (resolve, reject) {
         var tries = 0;
         (function check() {
-          if (typeof window.html2pdf !== 'undefined') return resolve();
-          if (++tries > 100) return reject(new Error('html2pdf 로드 실패'));
+          if (ready()) return resolve();
+          if (++tries > 150) return reject(new Error('PDF 라이브러리 로드 실패'));
           setTimeout(check, 100);
         })();
       });
@@ -2075,39 +2079,41 @@
       btn.disabled = true;
       if (label) label.textContent = '생성 중...';
       try {
-        await loadHtml2pdf();
-        var opt = {
-          margin: 4,
-          filename: FILENAME,
-          image: { type: 'jpeg', quality: 0.92 },
-          html2canvas: {
-            scale: 1.2,
-            useCORS: true,
-            allowTaint: true,
-            backgroundColor: '#ffffff',
-            logging: false,
-            windowWidth: 1100,
-            onclone: function (clonedDoc) {
-              // 캡처 시 제거할 요소들 (라이브 DOM은 건드리지 않음)
-              var removeSels = ['nav', '.landing-footer', '.lightbox', '.go-to-top', '.pdf-download-btn', 'iframe', 'script', '.footer-settings-btn', '.pf-settings-overlay'];
-              clonedDoc.querySelectorAll(removeSels.join(',')).forEach(function (el) { el.remove(); });
-              // sticky/fixed 측면 네비는 캡처 시 일반 흐름으로 전환
-              clonedDoc.querySelectorAll('.prd-side-nav').forEach(function (el) {
-                el.style.position = 'static';
-                el.style.width = 'auto';
-                el.style.display = 'none';
-              });
-              // 페이지 최상위 패딩 축소 (nav 자리 비워둘 필요 없음)
-              clonedDoc.querySelectorAll('.prd-page, body').forEach(function (el) {
-                el.style.paddingTop = '0';
-                el.style.marginTop = '0';
-              });
-            }
-          },
-          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true },
-          pagebreak: { mode: ['css', 'legacy'] }
-        };
-        await window.html2pdf().set(opt).from(document.body).save();
+        await loadDeps();
+        var canvas = await window.html2canvas(document.body, {
+          scale: 1.1,
+          useCORS: true,
+          allowTaint: true,
+          backgroundColor: '#ffffff',
+          windowWidth: 1100,
+          logging: false,
+          onclone: function (clonedDoc) {
+            var removeSels = ['nav', '.landing-footer', '.lightbox', '.go-to-top', '.pdf-download-btn', 'iframe', '.prd-side-nav', '.footer-settings-btn', '.pf-settings-overlay'];
+            clonedDoc.querySelectorAll(removeSels.join(',')).forEach(function (el) { el.remove(); });
+            clonedDoc.querySelectorAll('body, .prd-page').forEach(function (el) {
+              el.style.paddingTop = '0'; el.style.marginTop = '0';
+            });
+          }
+        });
+        if (!canvas || !canvas.width || !canvas.height) throw new Error('캔버스 캡처 실패');
+        var imgData = canvas.toDataURL('image/jpeg', 0.92);
+        if (!imgData || imgData === 'data:,' || imgData.length < 100) throw new Error('이미지 변환 실패 (페이지가 너무 크거나 비어있음)');
+        var jsPDFCtor = (window.jspdf && window.jspdf.jsPDF) || window.jsPDF;
+        var pdf = new jsPDFCtor({ unit: 'mm', format: 'a4', orientation: 'portrait', compress: true });
+        var pageW = pdf.internal.pageSize.getWidth();
+        var pageH = pdf.internal.pageSize.getHeight();
+        var imgW  = pageW;
+        var imgH  = canvas.height * imgW / canvas.width;
+        if (imgH <= pageH) {
+          pdf.addImage(imgData, 'JPEG', 0, 0, imgW, imgH, '', 'FAST');
+        } else {
+          var pages = Math.ceil(imgH / pageH);
+          for (var p = 0; p < pages; p++) {
+            if (p > 0) pdf.addPage();
+            pdf.addImage(imgData, 'JPEG', 0, -p * pageH, imgW, imgH, '', 'FAST');
+          }
+        }
+        pdf.save(FILENAME);
       } catch (e) {
         console.error('PDF error:', e);
         var msg = (e && e.message) ? e.message : String(e);
