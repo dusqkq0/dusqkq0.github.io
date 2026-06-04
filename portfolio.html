@@ -472,23 +472,6 @@
       }
     }
 
-    function addCanvasToPDF(pdf, canvas) {
-      var pageWidth  = pdf.internal.pageSize.getWidth();
-      var pageHeight = pdf.internal.pageSize.getHeight();
-      var imgWidth   = pageWidth;
-      var imgHeight  = canvas.height * imgWidth / canvas.width;
-      var imgData    = canvas.toDataURL('image/jpeg', 0.92);
-      if (imgHeight <= pageHeight) {
-        pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight, '', 'FAST');
-      } else {
-        var pages = Math.ceil(imgHeight / pageHeight);
-        for (var p = 0; p < pages; p++) {
-          if (p > 0) pdf.addPage();
-          pdf.addImage(imgData, 'JPEG', 0, -p * pageHeight, imgWidth, imgHeight, '', 'FAST');
-        }
-      }
-    }
-
     btn.addEventListener('click', async function () {
       var selected = Array.prototype.filter.call(rowChecks, function (cb) { return cb.checked && isVisible(rowOf(cb)); });
       if (!selected.length) return;
@@ -499,13 +482,43 @@
         await loadPdfDeps();
         var jsPDFCtor = (window.jspdf && window.jspdf.jsPDF) || window.jsPDF;
         if (!jsPDFCtor) throw new Error('jsPDF 미로드');
-        var pdf = new jsPDFCtor({ unit: 'mm', format: 'a4', orientation: 'portrait' });
+        var pdf = null;
         for (var i = 0; i < selected.length; i++) {
           var meta = projectMeta(selected[i]);
           label.textContent = '생성 중 ' + (i + 1) + '/' + selected.length + ' · ' + meta.name;
           var canvas = await capturePageToCanvas(meta.url);
-          if (i > 0) pdf.addPage();
-          addCanvasToPDF(pdf, canvas);
+          var pageWmm = 210;
+          var pageHmm = canvas.height * pageWmm / canvas.width;
+          var MAX_MM  = 5080;
+          var imgData = canvas.toDataURL('image/jpeg', 0.92);
+          if (!imgData || imgData.length < 100) throw new Error('이미지 변환 실패: ' + meta.name);
+          if (i === 0) {
+            // 첫 캔버스 크기로 PDF 초기화
+            if (pageHmm <= MAX_MM) {
+              pdf = new jsPDFCtor({ unit: 'mm', format: [pageWmm, pageHmm], orientation: 'portrait', compress: true });
+              pdf.addImage(imgData, 'JPEG', 0, 0, pageWmm, pageHmm, '', 'FAST');
+            } else {
+              pdf = new jsPDFCtor({ unit: 'mm', format: 'a4', orientation: 'portrait', compress: true });
+              var a4H = pdf.internal.pageSize.getHeight();
+              var pages = Math.ceil(pageHmm / a4H);
+              for (var pp = 0; pp < pages; pp++) {
+                if (pp > 0) pdf.addPage();
+                pdf.addImage(imgData, 'JPEG', 0, -pp * a4H, pageWmm, pageHmm, '', 'FAST');
+              }
+            }
+          } else {
+            if (pageHmm <= MAX_MM) {
+              pdf.addPage([pageWmm, pageHmm], 'portrait');
+              pdf.addImage(imgData, 'JPEG', 0, 0, pageWmm, pageHmm, '', 'FAST');
+            } else {
+              var a4H2 = 297;
+              var pages2 = Math.ceil(pageHmm / a4H2);
+              for (var pp2 = 0; pp2 < pages2; pp2++) {
+                pdf.addPage('a4', 'portrait');
+                pdf.addImage(imgData, 'JPEG', 0, -pp2 * a4H2, pageWmm, pageHmm, '', 'FAST');
+              }
+            }
+          }
         }
         var stamp = new Date().toISOString().slice(0, 10);
         var fname = selected.length === 1

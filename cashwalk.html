@@ -2093,22 +2093,27 @@
         if (!canvas || !canvas.width || !canvas.height) throw new Error('캔버스 캡처 실패');
         var imgData = canvas.toDataURL('image/jpeg', 0.92);
         if (!imgData || imgData === 'data:,' || imgData.length < 100) throw new Error('이미지 변환 실패 (페이지가 너무 크거나 비어있음)');
+        // 단일 페이지 PDF: 캔버스 비율에 맞춰 PDF 페이지 크기를 가변 지정 (가로 A4, 세로는 콘텐츠 길이만큼)
+        var pageWmm = 210; // A4 폭
+        var pageHmm = canvas.height * pageWmm / canvas.width;
+        // jsPDF/PDF 사양상 페이지 한 변은 약 14400pt(≈5080mm) 이하여야 안전
+        var MAX_MM = 5080;
         var jsPDFCtor = (window.jspdf && window.jspdf.jsPDF) || window.jsPDF;
-        var pdf = new jsPDFCtor({ unit: 'mm', format: 'a4', orientation: 'portrait', compress: true });
-        var pageW = pdf.internal.pageSize.getWidth();
-        var pageH = pdf.internal.pageSize.getHeight();
-        var imgW  = pageW;
-        var imgH  = canvas.height * imgW / canvas.width;
-        if (imgH <= pageH) {
-          pdf.addImage(imgData, 'JPEG', 0, 0, imgW, imgH, '', 'FAST');
+        if (pageHmm <= MAX_MM) {
+          var pdf = new jsPDFCtor({ unit: 'mm', format: [pageWmm, pageHmm], orientation: 'portrait', compress: true });
+          pdf.addImage(imgData, 'JPEG', 0, 0, pageWmm, pageHmm, '', 'FAST');
+          pdf.save(FILENAME);
         } else {
-          var pages = Math.ceil(imgH / pageH);
+          // 콘텐츠가 5미터를 넘는 극단적 케이스에서만 A4 분할로 폴백
+          var pdfFb = new jsPDFCtor({ unit: 'mm', format: 'a4', orientation: 'portrait', compress: true });
+          var a4H = pdfFb.internal.pageSize.getHeight();
+          var pages = Math.ceil(pageHmm / a4H);
           for (var p = 0; p < pages; p++) {
-            if (p > 0) pdf.addPage();
-            pdf.addImage(imgData, 'JPEG', 0, -p * pageH, imgW, imgH, '', 'FAST');
+            if (p > 0) pdfFb.addPage();
+            pdfFb.addImage(imgData, 'JPEG', 0, -p * a4H, pageWmm, pageHmm, '', 'FAST');
           }
+          pdfFb.save(FILENAME);
         }
-        pdf.save(FILENAME);
       } catch (e) {
         console.error('PDF error:', e);
         var msg = (e && e.message) ? e.message : String(e);
