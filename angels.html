@@ -2082,7 +2082,7 @@
           windowHeight: __H, height: __H, scrollX: 0, scrollY: 0, imageTimeout: 8000,
           logging: false,
           onclone: function (clonedDoc) {
-            var removeSels = ['nav', '.landing-footer', '.prd-footer', '.prd-back-list-wrap', '.lightbox', '.go-to-top', '.pdf-download-btn', 'iframe', '.prd-side-nav', '.footer-settings-btn', '.pf-settings-overlay', '.pres-pdf-btn', '.pres-deck'];
+            if (window.presReplaceYouTubeInClone) window.presReplaceYouTubeInClone(clonedDoc); var removeSels = ['nav', '.landing-footer', '.prd-footer', '.prd-back-list-wrap', '.lightbox', '.go-to-top', '.pdf-download-btn', 'iframe', '.prd-side-nav', '.footer-settings-btn', '.pf-settings-overlay', '.pres-pdf-btn', '.pres-deck'];
             clonedDoc.querySelectorAll(removeSels.join(',')).forEach(function (el) { el.remove(); });
             clonedDoc.querySelectorAll('body, .prd-page').forEach(function (el) {
               el.style.paddingTop = '0'; el.style.marginTop = '0';

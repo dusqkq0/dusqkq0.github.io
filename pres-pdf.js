@@ -593,6 +593,39 @@
     }
   }
 
+  /* ---------- 8. 일반 PDF용: clone 내 유튜브 iframe → 썸네일+링크 치환 ---------- */
+  window.presReplaceYouTubeInClone = function (clonedDoc) {
+    try {
+      var live = Array.prototype.slice.call(document.querySelectorAll('iframe'));
+      Array.prototype.slice.call(clonedDoc.querySelectorAll('iframe')).forEach(function (f, idx) {
+        var src = f.getAttribute('src') || '';
+        var m = src.match(/youtube\.com\/embed\/([\w-]+)/);
+        if (!m) return;
+        var id = m[1];
+        var lv = live[idx];
+        var w = lv ? Math.round(lv.getBoundingClientRect().width) : 480;
+        if (!w || w < 40) w = 480;
+        var h = Math.round(w * 9 / 16);
+        var box = clonedDoc.createElement('div');
+        box.style.cssText = 'position:relative;width:' + w + 'px;height:' + h + 'px;background:#000;overflow:hidden;border:1px solid #e3e3e3;border-radius:8px;';
+        var img = clonedDoc.createElement('img');
+        img.crossOrigin = 'anonymous';
+        img.src = 'https://img.youtube.com/vi/' + id + '/hqdefault.jpg';
+        img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
+        var play = clonedDoc.createElement('div');
+        play.textContent = '▶';
+        play.style.cssText = 'position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:rgba(0,0,0,.55);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;padding-left:3px;box-sizing:border-box;';
+        box.appendChild(img); box.appendChild(play);
+        var link = clonedDoc.createElement('div');
+        link.textContent = '▶ youtu.be/' + id;
+        link.style.cssText = 'font-size:12px;color:#767676;margin-top:6px;text-align:center;';
+        var wrap = clonedDoc.createElement('div');
+        wrap.appendChild(box); wrap.appendChild(link);
+        if (f.parentNode) f.parentNode.replaceChild(wrap, f);
+      });
+    } catch (e) { console.warn('presReplaceYouTubeInClone', e); }
+  };
+
   /* 디버그용 노출 (덱만 생성, PDF 미저장) */
   window.presPdfBuildDeck = buildDeck;
 
