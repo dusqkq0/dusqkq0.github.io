@@ -2127,5 +2127,212 @@
 </script>
 
 
+<!-- ════════ 발표용 PDF (FG Angels 테스트) ════════ -->
+<button type="button" class="pres-pdf-btn" id="presPdfBtn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="12" height="8" rx="1"/><path d="M6 13.5h4M8 11v2.5"/></svg><span class="pres-pdf-label">발표용 PDF</span></button>
+<style>
+  .pres-pdf-btn{ position:fixed; top:132px; right:24px; z-index:90; display:inline-flex; align-items:center; gap:8px; background:#4f46e5; color:#fff; border:none; border-radius:999px; padding:10px 18px; font-family:"Pretendard",system-ui,sans-serif; font-size:13px; font-weight:600; letter-spacing:.01em; cursor:pointer; box-shadow:0 6px 20px rgba(79,70,229,0.30); transition:background 180ms ease, transform 180ms ease, opacity 180ms ease; }
+  .pres-pdf-btn:hover{ background:#4338ca; transform:translateY(-1px); }
+  .pres-pdf-btn:disabled{ opacity:.6; cursor:default; transform:none; }
+  @media (max-width:760px){ .pres-pdf-btn{ top:auto; bottom:84px; right:16px; } }
+  .pres-deck{ position:absolute; left:-10000px; top:0; width:1280px; }
+  .pres-slide{ width:1280px; height:720px; background:#fff; color:#191919; font-family:"Pretendard",system-ui,sans-serif; padding:72px 80px; box-sizing:border-box; position:relative; overflow:hidden; }
+  .pres-slide .ps-eyebrow{ font-size:18px; font-weight:700; letter-spacing:.06em; color:#4f46e5; text-transform:uppercase; margin-bottom:16px; }
+  .pres-slide .ps-title{ font-size:52px; font-weight:800; letter-spacing:-.02em; line-height:1.1; margin-bottom:26px; }
+  .pres-slide .ps-lede{ font-size:23px; line-height:1.6; color:#3a3a3a; margin-bottom:14px; max-width:1060px; }
+  .pres-slide .ps-lede b{ color:#191919; font-weight:700; }
+  .pres-slide .ps-foot{ position:absolute; left:80px; right:80px; bottom:36px; display:flex; justify-content:space-between; font-size:14px; color:#9a9a9a; border-top:1px solid #ececec; padding-top:14px; }
+  .pres-slide .ps-num{ font-weight:600; }
+  .pres-slide .ps-stats{ display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:18px; }
+  .pres-slide .ps-stat{ background:#f6f6fb; border:1px solid #ececf5; border-radius:14px; padding:26px 22px; }
+  .pres-slide .ps-stat .v{ font-size:40px; font-weight:800; color:#4f46e5; line-height:1; }
+  .pres-slide .ps-stat .l{ font-size:15px; color:#555; margin-top:12px; line-height:1.4; }
+  .pres-slide .ps-flow{ display:flex; align-items:stretch; gap:0; margin-top:30px; }
+  .pres-slide .ps-step{ flex:1; background:#f6f6fb; border:1px solid #ececf5; border-radius:14px; padding:24px 14px; text-align:center; }
+  .pres-slide .ps-step .n{ font-size:14px; font-weight:700; color:#4f46e5; }
+  .pres-slide .ps-step .t{ font-size:19px; font-weight:700; margin-top:10px; }
+  .pres-slide .ps-step .d{ font-size:13px; color:#666; margin-top:8px; line-height:1.4; }
+  .pres-slide .ps-arrow{ display:flex; align-items:center; padding:0 6px; color:#c3c3d6; font-size:26px; font-weight:700; }
+  .pres-slide .ps-roles{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:22px; }
+  .pres-slide .ps-role{ background:#fafafa; border:1px solid #ececec; border-radius:14px; padding:26px; }
+  .pres-slide .ps-role .rt{ font-size:21px; font-weight:800; }
+  .pres-slide .ps-role .rs{ font-size:14px; color:#4f46e5; font-weight:600; margin:6px 0 14px; }
+  .pres-slide .ps-role .rd{ font-size:15px; color:#555; line-height:1.55; }
+  .pres-slide .ps-note{ background:#f6f6fb; border-left:4px solid #4f46e5; border-radius:8px; padding:20px 24px; margin-top:26px; }
+  .pres-slide .ps-note .nl{ font-size:13px; font-weight:700; color:#4f46e5; text-transform:uppercase; letter-spacing:.05em; margin-bottom:8px; }
+  .pres-slide .ps-note p{ font-size:18px; line-height:1.6; color:#3a3a3a; }
+  .pres-slide .ps-note p b{ color:#191919; font-weight:700; }
+  .pres-slide .ps-table{ width:100%; border-collapse:collapse; margin-top:24px; font-size:18px; }
+  .pres-slide .ps-table th{ text-align:left; background:#f6f6fb; color:#191919; font-weight:700; padding:14px 18px; border-bottom:2px solid #4f46e5; }
+  .pres-slide .ps-table td{ padding:14px 18px; border-bottom:1px solid #ededed; color:#3a3a3a; }
+  .pres-slide .ps-take{ display:flex; flex-direction:column; gap:16px; margin-top:22px; }
+  .pres-slide .ps-take .item{ background:#fafafa; border:1px solid #ececec; border-radius:14px; padding:24px 28px; }
+  .pres-slide .ps-take .it{ font-size:22px; font-weight:800; }
+  .pres-slide .ps-take .id{ font-size:16px; color:#555; margin-top:8px; line-height:1.55; }
+  .pres-slide .ps-links{ display:flex; flex-direction:column; gap:14px; margin-top:24px; }
+  .pres-slide .ps-links .row{ display:flex; gap:20px; align-items:center; padding:16px 22px; background:#fafafa; border:1px solid #ececec; border-radius:12px; }
+  .pres-slide .ps-links .k{ width:130px; font-weight:700; color:#4f46e5; font-size:17px; }
+  .pres-slide .ps-links .t{ flex:1; font-weight:600; font-size:19px; }
+  .pres-slide .ps-links .u{ color:#888; font-size:16px; }
+  .pres-slide.cover{ background:#111827; color:#fff; }
+  .pres-slide.cover .ps-eyebrow{ color:#a5b4fc; }
+  .pres-slide.cover .cover-badge{ display:inline-block; background:#4f46e5; color:#fff; font-size:18px; font-weight:700; padding:12px 22px; border-radius:999px; margin-bottom:28px; }
+  .pres-slide.cover .cover-title{ font-size:84px; font-weight:800; letter-spacing:-.03em; line-height:1; }
+  .pres-slide.cover .cover-sum{ font-size:24px; color:#cbd5e1; line-height:1.6; margin-top:26px; max-width:980px; }
+  .pres-slide.cover .cover-meta{ display:flex; gap:48px; margin-top:52px; }
+  .pres-slide.cover .cover-meta .ml{ font-size:14px; color:#94a3b8; text-transform:uppercase; letter-spacing:.06em; }
+  .pres-slide.cover .cover-meta .mv{ font-size:22px; font-weight:700; margin-top:8px; }
+  .pres-slide.cover .ps-foot{ color:#64748b; border-top-color:#334155; }
+</style>
+<div class="pres-deck" id="presDeck" aria-hidden="true">
+  <div class="pres-slide cover">
+    <div class="cover-badge">NHN AI 스프린톤 · 업무생산성 트랙 1위</div>
+    <div class="cover-title">FG Angels</div>
+    <div class="cover-sum">북미 1위 B2B 패션 플랫폼 FashionGo의 아시아 공장 소싱 전 과정을 AI 에이전트로 자동화한 PoC</div>
+    <div class="cover-meta">
+      <div class="m"><div class="ml">Period</div><div class="mv">2026.03 – 2026.06</div></div>
+      <div class="m"><div class="ml">Company</div><div class="mv">NHN Commerce</div></div>
+      <div class="m"><div class="ml">Role</div><div class="mv">서비스기획</div></div>
+    </div>
+    <div class="ps-foot"><span>FG Angels</span><span class="ps-num">윤혜련</span></div>
+  </div>
+  <div class="pres-slide">
+    <div class="ps-eyebrow">00 · 개요</div>
+    <div class="ps-title">프로젝트 개요</div>
+    <div class="ps-lede">3년·50번의 출장이 필요하던 <b>수동 소싱 프로세스를 AI 파이프라인으로 대체</b>하는 PoC. 트렌드 분석부터 공장 소싱·등록까지 전 과정을 자동화했습니다.</div>
+    <div class="ps-lede">단 <b>3인 크로스펑셔널 팀</b>(도메인 전문가·기획자·개발자)으로 동작하는 프로토타입까지 완성, <b>NHN AI 스프린톤에서 12팀 중 1위</b>로 선정.</div>
+    <div class="ps-stats">
+      <div class="ps-stat"><div class="v">1위</div><div class="l">AI 스프린톤<br>업무생산성 트랙</div></div>
+      <div class="ps-stat"><div class="v">12팀</div><div class="l">경쟁 팀 수</div></div>
+      <div class="ps-stat"><div class="v">3인</div><div class="l">크로스펑셔널<br>팀 사이즈</div></div>
+      <div class="ps-stat"><div class="v">1,000만원</div><div class="l">수상 상금</div></div>
+    </div>
+    <div class="ps-foot"><span>FG Angels</span><span class="ps-num">02</span></div>
+  </div>
+  <div class="pres-slide">
+    <div class="ps-eyebrow">01 · 문제 정의</div>
+    <div class="ps-title">소싱 단계가 100% 수동</div>
+    <div class="ps-lede">FashionGo는 큰 규모의 플랫폼이지만, 가장 중요한 <b>공급망(소싱) 단계가 100% 수동</b>으로 운영됐습니다. 공급망 디지털화가 서비스 규모를 따라가지 못한 상태가 핵심 문제입니다.</div>
+    <div class="ps-note">
+      <div class="nl">Important</div>
+      <p>3가지 문제는 개별이 아니라 하나의 사슬입니다. 수동 의존이 자동화 부재의 원인이며, 그 결과 디지털화 격차가 누적됩니다. <b>소싱 파이프라인 전체를 자동화·재설계</b>해야 풀리는 문제입니다.</p>
+    </div>
+    <div class="ps-foot"><span>FG Angels</span><span class="ps-num">03</span></div>
+  </div>
+  <div class="pres-slide">
+    <div class="ps-eyebrow">02 · 목표</div>
+    <div class="ps-title">목표와 성과</div>
+    <div class="ps-lede">단기 PoC로 <b>AI 에이전트 기반 소싱 파이프라인의 가능성을 검증</b>. 기획부터 동작하는 프로토타입까지 3개월 안에 End-to-End로 완성하는 것이 1차 목표.</div>
+    <table class="ps-table">
+      <thead><tr><th>지표</th><th>목표</th><th>비고</th></tr></thead>
+      <tbody>
+        <tr><td>PoC 완성도</td><td>동작 프로토타입 End-to-End</td><td>Lovable·Claude Code 기반 개발·배포</td></tr>
+        <tr><td>대외 검증</td><td>스프린톤 1위 · 상금 1,000만원</td><td>업무생산성 트랙 12팀 中</td></tr>
+        <tr><td>대중 노출</td><td>뉴스 기사 2건</td><td>YouTube 데모 영상 공개</td></tr>
+      </tbody>
+    </table>
+    <div class="ps-foot"><span>FG Angels</span><span class="ps-num">04</span></div>
+  </div>
+  <div class="pres-slide">
+    <div class="ps-eyebrow">03 · AI 에이전트 파이프라인</div>
+    <div class="ps-title">5단계 자동화 파이프라인</div>
+    <div class="ps-flow">
+      <div class="ps-step"><div class="n">01</div><div class="t">트렌드 분석</div><div class="d">북미 패션 트렌드 수집·분석</div></div>
+      <div class="ps-arrow">→</div>
+      <div class="ps-step"><div class="n">02</div><div class="t">공장 소싱</div><div class="d">1688·Alibaba 자동 탐색·매칭</div></div>
+      <div class="ps-arrow">→</div>
+      <div class="ps-step"><div class="n">03</div><div class="t">공장 스코어링</div><div class="d">AI 기반 품질·신뢰도 평가</div></div>
+      <div class="ps-arrow">→</div>
+      <div class="ps-step"><div class="n">04</div><div class="t">자기학습</div><div class="d">피드백 기반 모델 개선</div></div>
+      <div class="ps-arrow">→</div>
+      <div class="ps-step"><div class="n">05</div><div class="t">자동 등록</div><div class="d">FashionGo ERP 자동 등록</div></div>
+    </div>
+    <div class="ps-note"><div class="nl">Note</div><p>단순 업무 효율화가 아닌 <b>글로벌 B2B 전 산업으로 확장 가능한 AI 인프라 구조</b>. 5단계는 다른 도메인 공급망에도 응용 가능한 추상화 수준을 유지.</p></div>
+    <div class="ps-foot"><span>FG Angels</span><span class="ps-num">05</span></div>
+  </div>
+  <div class="pres-slide">
+    <div class="ps-eyebrow">04 · 워크플로우</div>
+    <div class="ps-title">AI 네이티브 3인 협업</div>
+    <div class="ps-roles">
+      <div class="ps-role"><div class="rt">기획자 (본인)</div><div class="rs">트렌드 분석 · 매칭 · UI</div><div class="rd">Lovable로 화면, Claude Code로 로직을 다듬어 직접 git commit·push. 트렌드 리포트·상품 자동 매칭 구현.</div></div>
+      <div class="ps-role"><div class="rt">개발자</div><div class="rs">AI 파이프라인 · API</div><div class="rd">Vertex AI·Gemini 연동 → Claude Code 리팩토링 → git commit·push.</div></div>
+      <div class="ps-role"><div class="rt">도메인 전문가</div><div class="rs">스코어링 · 프로세스</div><div class="rd">공장 스코어링 룰 설계와 에이전트 프로세스 정립. Claude Code로 코드화.</div></div>
+    </div>
+    <div class="ps-note"><div class="nl">Highlight</div><p><b>비개발자 기획자도 Git 워크플로우에 직접 참여</b>해 코드를 커밋·배포. 기획자가 Service Launcher가 될 수 있다는 가설을 실제로 입증.</p></div>
+    <div class="ps-foot"><span>FG Angels</span><span class="ps-num">06</span></div>
+  </div>
+  <div class="pres-slide">
+    <div class="ps-eyebrow">06 · 학습과 회고</div>
+    <div class="ps-title">기획자 → Service Launcher</div>
+    <div class="ps-lede">가장 큰 자산은 결과물이 아니라, <b>"기획자가 직접 서비스를 런칭할 수 있다"는 가설을 스스로 검증</b>했다는 점입니다.</div>
+    <div class="ps-take">
+      <div class="item"><div class="it">3인 크로스펑셔널 협업의 가능성</div><div class="id">아이디어부터 동작하는 AI 에이전트까지 단기 구현. 각 역할의 언어를 이해·조율하는 기획자 역할을 체득.</div></div>
+      <div class="item"><div class="it">기획자 → Service Launcher 전환</div><div class="id">AI 툴(Lovable·Claude Code)을 직접 다뤄 기획서를 넘어 동작하는 프로토타입을 구현. 직접 런칭 가능함을 증명.</div></div>
+    </div>
+    <div class="ps-foot"><span>FG Angels</span><span class="ps-num">07</span></div>
+  </div>
+  <div class="pres-slide">
+    <div class="ps-eyebrow">07 · 자료</div>
+    <div class="ps-title">관련 자료</div>
+    <div class="ps-links">
+      <div class="row"><div class="k">실제 서비스</div><div class="t">FG Angels (Lovable)</div><div class="u">factory-finder-fashiongo.lovable.app</div></div>
+      <div class="row"><div class="k">발표 자료</div><div class="t">Gamma 슬라이드</div><div class="u">gamma.app/docs/FG-Angels</div></div>
+      <div class="row"><div class="k">뉴스</div><div class="t">한국경제 (092)</div><div class="u">n.news.naver.com/092/0002418772</div></div>
+      <div class="row"><div class="k">뉴스</div><div class="t">한국경제 (018)</div><div class="u">n.news.naver.com/018/0006245221</div></div>
+    </div>
+    <div class="ps-foot"><span>FG Angels</span><span class="ps-num">08</span></div>
+  </div>
+</div>
+<script>
+  (function () {
+    var btn = document.getElementById('presPdfBtn');
+    if (!btn) return;
+    function depsReady() {
+      var C = (window.jspdf && window.jspdf.jsPDF) || window.jsPDF;
+      return typeof window.html2canvas === 'function' && typeof C === 'function';
+    }
+    function waitDeps() {
+      return new Promise(function (res, rej) {
+        var t = 0;
+        (function chk() {
+          if (depsReady()) return res();
+          t += 100; if (t > 15000) return rej(new Error('jsPDF/html2canvas 미로드'));
+          setTimeout(chk, 100);
+        })();
+      });
+    }
+    btn.addEventListener('click', async function () {
+      var label = btn.querySelector('.pres-pdf-label');
+      var orig = label ? label.textContent : '';
+      btn.disabled = true; if (label) label.textContent = '생성 중…';
+      var deck = document.getElementById('presDeck');
+      try {
+        await waitDeps();
+        var jsPDFCtor = (window.jspdf && window.jspdf.jsPDF) || window.jsPDF;
+        var slides = Array.prototype.slice.call(deck.querySelectorAll('.pres-slide'));
+        var pdf = null;
+        for (var i = 0; i < slides.length; i++) {
+          var canvas = await window.html2canvas(slides[i], {
+            scale: 2, useCORS: true, backgroundColor: '#ffffff', logging: false,
+            width: 1280, height: 720, windowWidth: 1280, windowHeight: 720, scrollX: 0, scrollY: 0
+          });
+          var img = canvas.toDataURL('image/jpeg', 0.92);
+          if (!pdf) { pdf = new jsPDFCtor({ unit: 'mm', format: [297, 167], orientation: 'landscape', compress: true }); }
+          else { pdf.addPage([297, 167], 'landscape'); }
+          var pw = pdf.internal.pageSize.getWidth(), ph = pdf.internal.pageSize.getHeight();
+          pdf.addImage(img, 'JPEG', 0, 0, pw, ph, '', 'FAST');
+        }
+        pdf.save('FG-Angels-발표용-' + new Date().toISOString().slice(0, 10) + '.pdf');
+      } catch (e) {
+        console.error('발표용 PDF error:', e);
+        alert('발표용 PDF 생성 중 오류가 발생했습니다.\n' + ((e && e.message) ? e.message : String(e)));
+      } finally {
+        if (label) label.textContent = orig;
+        btn.disabled = false;
+      }
+    });
+  })();
+</script>
+
+
 </body>
 </html>
