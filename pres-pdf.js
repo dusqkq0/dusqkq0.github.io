@@ -60,6 +60,9 @@
     '.pres-slide .ps-fig.med{height:240px;}',
     '.pres-slide .ps-fig img{max-width:100%;max-height:100%;width:auto;height:auto;display:block;}',
     '.pres-slide .ps-figcap{font-size:14px;color:#767676;margin-top:10px;text-align:center;line-height:1.5;}',
+    '.pres-slide .ps-fig.vid{position:relative;background:#000;height:300px;}',
+    '.pres-slide .ps-figrow .ps-fig.vid{height:230px;}',
+    '.pres-slide .ps-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;background:rgba(0,0,0,.55);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;padding-left:3px;box-sizing:border-box;}',
     '.pres-slide .ps-figrow{display:grid;gap:18px;margin:8px 0 14px;}',
     '.pres-slide .ps-figrow figure{margin:0;}',
     '.pres-slide .ps-figrow .ps-fig{height:265px;}',
@@ -375,23 +378,49 @@
   function mapVideos(b, container) {
     var ifr = arr(container.querySelectorAll('iframe'));
     if (!ifr.length) return;
-    var box = el('div', 'ps-links');
+    var yt = [], other = [];
     ifr.forEach(function (f) {
       var fig = f.closest('figure');
       var cap = fig ? fig.querySelector('figcaption') : null;
       var src = f.getAttribute('src') || '';
-      var url = src;
+      var title = cap ? cap.textContent.split('—')[0].trim() : '영상';
       var m = src.match(/youtube\.com\/embed\/([\w-]+)/);
-      if (m) url = 'youtu.be/' + m[1];
-      else { var vm = src.match(/player\.vimeo\.com\/video\/(\d+)/); if (vm) url = 'vimeo.com/' + vm[1]; }
-      url = url.replace(/^https?:\/\//, '').split('?')[0];
-      var row = el('div', 'row');
-      row.appendChild(el('div', 'k', '영상'));
-      row.appendChild(el('div', 't', cap ? cap.textContent.split('—')[0].trim() : '영상'));
-      row.appendChild(el('div', 'u', url));
-      box.appendChild(row);
+      if (m) { yt.push({ id: m[1], url: 'youtu.be/' + m[1], title: title }); return; }
+      var vm = src.match(/player\.vimeo\.com\/video\/(\d+)/);
+      var url = vm ? 'vimeo.com/' + vm[1] : src.replace(/^https?:\/\//, '').split('?')[0];
+      other.push({ url: url, title: title });
     });
-    b.place(box);
+    if (yt.length) {
+      var cols = Math.min(yt.length, 2) || 1;
+      b.placeGroup('ps-figrow', cols, yt, function (v) {
+        var fig = el('figure');
+        var fr = el('div', 'ps-fig vid');
+        var im = el('img'); im.crossOrigin = 'anonymous';
+        im.src = 'https://img.youtube.com/vi/' + v.id + '/maxresdefault.jpg';
+        im.setAttribute('data-fb', 'https://img.youtube.com/vi/' + v.id + '/hqdefault.jpg');
+        im.addEventListener('error', function () { var fb = this.getAttribute('data-fb'); if (fb && this.src !== fb) this.src = fb; });
+        fr.appendChild(im);
+        fr.appendChild(el('div', 'ps-play', '\u25B6'));
+        fig.appendChild(fr);
+        var capEl = el('div', 'ps-figcap');
+        var t1 = el('div'); t1.style.cssText = 'color:#191919;font-weight:700;'; t1.textContent = v.title;
+        var t2 = el('div'); t2.style.cssText = 'margin-top:4px;'; t2.textContent = '\u25B6 ' + v.url;
+        capEl.appendChild(t1); capEl.appendChild(t2);
+        fig.appendChild(capEl);
+        return fig;
+      });
+    }
+    if (other.length) {
+      var box = el('div', 'ps-links');
+      other.forEach(function (v) {
+        var row = el('div', 'row');
+        row.appendChild(el('div', 'k', '영상'));
+        var t = el('div', 't'); t.textContent = v.title; row.appendChild(t);
+        var u = el('div', 'u'); u.textContent = v.url; row.appendChild(u);
+        box.appendChild(row);
+      });
+      b.place(box);
+    }
   }
 
   // 일반 블록 내부 순회
@@ -527,8 +556,14 @@
       // 이미지 로딩 대기
       var imgs = arr(deck.querySelectorAll('img'));
       await Promise.all(imgs.map(function (im) {
-        if (im.complete && im.naturalWidth > 0) return Promise.resolve();
-        return new Promise(function (r) { im.addEventListener('load', r, { once: true }); im.addEventListener('error', r, { once: true }); setTimeout(r, 8000); });
+        return new Promise(function (res) {
+          var t = 0;
+          (function chk() {
+            if (im.complete && im.naturalWidth > 0) return res();
+            t += 100; if (t > 9000) return res();
+            setTimeout(chk, 100);
+          })();
+        });
       }));
       await new Promise(function (r) { setTimeout(r, 200); });
 
