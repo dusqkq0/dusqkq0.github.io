@@ -2130,58 +2130,63 @@
 <!-- ════════ 발표용 PDF (FG Angels 테스트) ════════ -->
 <button type="button" class="pres-pdf-btn" id="presPdfBtn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="12" height="8" rx="1"/><path d="M6 13.5h4M8 11v2.5"/></svg><span class="pres-pdf-label">발표용 PDF</span></button>
 <style>
-  .pres-pdf-btn{ position:fixed; top:132px; right:24px; z-index:90; display:inline-flex; align-items:center; gap:8px; background:#4f46e5; color:#fff; border:none; border-radius:999px; padding:10px 18px; font-family:"Pretendard",system-ui,sans-serif; font-size:13px; font-weight:600; letter-spacing:.01em; cursor:pointer; box-shadow:0 6px 20px rgba(79,70,229,0.30); transition:background 180ms ease, transform 180ms ease, opacity 180ms ease; }
-  .pres-pdf-btn:hover{ background:#4338ca; transform:translateY(-1px); }
+  .pres-pdf-btn{ position:fixed; top:132px; right:24px; z-index:90; display:inline-flex; align-items:center; gap:8px; background:#191919; color:#fff; border:none; border-radius:999px; padding:10px 18px; font-family:"Pretendard",system-ui,sans-serif; font-size:13px; font-weight:600; letter-spacing:.01em; cursor:pointer; box-shadow:0 6px 20px rgba(0,0,0,0.20); transition:background 180ms ease, transform 180ms ease, opacity 180ms ease; }
+  .pres-pdf-btn:hover{ background:#000; transform:translateY(-1px); }
   .pres-pdf-btn:disabled{ opacity:.6; cursor:default; transform:none; }
   @media (max-width:760px){ .pres-pdf-btn{ top:auto; bottom:84px; right:16px; } }
   .pres-deck{ position:absolute; left:-10000px; top:0; width:1280px; }
   .pres-slide{ width:1280px; height:720px; background:#fff; color:#191919; font-family:"Pretendard",system-ui,sans-serif; padding:72px 80px; box-sizing:border-box; position:relative; overflow:hidden; }
-  .pres-slide .ps-eyebrow{ font-size:18px; font-weight:700; letter-spacing:.06em; color:#4f46e5; text-transform:uppercase; margin-bottom:16px; }
-  .pres-slide .ps-title{ font-size:52px; font-weight:800; letter-spacing:-.02em; line-height:1.1; margin-bottom:26px; }
-  .pres-slide .ps-lede{ font-size:23px; line-height:1.6; color:#3a3a3a; margin-bottom:14px; max-width:1060px; }
+  .pres-slide .ps-eyebrow{ font-size:18px; font-weight:700; letter-spacing:.06em; color:#767676; text-transform:uppercase; margin-bottom:16px; }
+  .pres-slide .ps-title{ font-size:50px; font-weight:700; letter-spacing:-.02em; line-height:1.15; color:#191919; margin-bottom:26px; }
+  .pres-slide .ps-lede{ font-size:23px; line-height:1.65; color:#545454; margin-bottom:14px; max-width:1060px; font-weight:500; }
   .pres-slide .ps-lede b{ color:#191919; font-weight:700; }
-  .pres-slide .ps-foot{ position:absolute; left:80px; right:80px; bottom:36px; display:flex; justify-content:space-between; font-size:14px; color:#9a9a9a; border-top:1px solid #ececec; padding-top:14px; }
+  .pres-slide .ps-foot{ position:absolute; left:80px; right:80px; bottom:36px; display:flex; justify-content:space-between; font-size:14px; color:#a1a1a1; border-top:1px solid #ededed; padding-top:14px; }
   .pres-slide .ps-num{ font-weight:600; }
-  .pres-slide .ps-stats{ display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:18px; }
-  .pres-slide .ps-stat{ background:#f6f6fb; border:1px solid #ececf5; border-radius:14px; padding:26px 22px; }
-  .pres-slide .ps-stat .v{ font-size:40px; font-weight:800; color:#4f46e5; line-height:1; }
-  .pres-slide .ps-stat .l{ font-size:15px; color:#555; margin-top:12px; line-height:1.4; }
+  .pres-slide .ps-stats{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:#e3e3e3; border:1px solid #e3e3e3; margin-top:20px; }
+  .pres-slide .ps-stat{ background:#fff; padding:30px 24px; }
+  .pres-slide .ps-stat .v{ font-size:40px; font-weight:700; color:#191919; line-height:1.1; letter-spacing:-.02em; }
+  .pres-slide .ps-stat .l{ font-size:15px; color:#767676; margin-top:12px; line-height:1.4; }
   .pres-slide .ps-flow{ display:flex; align-items:stretch; gap:0; margin-top:30px; }
-  .pres-slide .ps-step{ flex:1; background:#f6f6fb; border:1px solid #ececf5; border-radius:14px; padding:24px 14px; text-align:center; }
-  .pres-slide .ps-step .n{ font-size:14px; font-weight:700; color:#4f46e5; }
-  .pres-slide .ps-step .t{ font-size:19px; font-weight:700; margin-top:10px; }
-  .pres-slide .ps-step .d{ font-size:13px; color:#666; margin-top:8px; line-height:1.4; }
-  .pres-slide .ps-arrow{ display:flex; align-items:center; padding:0 6px; color:#c3c3d6; font-size:26px; font-weight:700; }
-  .pres-slide .ps-roles{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:22px; }
-  .pres-slide .ps-role{ background:#fafafa; border:1px solid #ececec; border-radius:14px; padding:26px; }
-  .pres-slide .ps-role .rt{ font-size:21px; font-weight:800; }
-  .pres-slide .ps-role .rs{ font-size:14px; color:#4f46e5; font-weight:600; margin:6px 0 14px; }
-  .pres-slide .ps-role .rd{ font-size:15px; color:#555; line-height:1.55; }
-  .pres-slide .ps-note{ background:#f6f6fb; border-left:4px solid #4f46e5; border-radius:8px; padding:20px 24px; margin-top:26px; }
-  .pres-slide .ps-note .nl{ font-size:13px; font-weight:700; color:#4f46e5; text-transform:uppercase; letter-spacing:.05em; margin-bottom:8px; }
-  .pres-slide .ps-note p{ font-size:18px; line-height:1.6; color:#3a3a3a; }
+  .pres-slide .ps-step{ flex:1; background:#f7f7f7; border:1px solid #e3e3e3; padding:24px 14px; text-align:center; }
+  .pres-slide .ps-step .n{ font-size:14px; font-weight:700; color:#767676; }
+  .pres-slide .ps-step .t{ font-size:19px; font-weight:700; color:#191919; margin-top:10px; }
+  .pres-slide .ps-step .d{ font-size:13px; color:#545454; margin-top:8px; line-height:1.4; }
+  .pres-slide .ps-arrow{ display:flex; align-items:center; padding:0 6px; color:#a1a1a1; font-size:26px; font-weight:700; }
+  .pres-slide .ps-roles{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:#e3e3e3; border:1px solid #e3e3e3; margin-top:22px; }
+  .pres-slide .ps-role{ background:#fff; padding:28px 26px; }
+  .pres-slide .ps-role .rt{ font-size:21px; font-weight:700; color:#191919; }
+  .pres-slide .ps-role .rs{ font-size:14px; color:#767676; font-weight:600; margin:6px 0 14px; text-transform:uppercase; letter-spacing:.03em; }
+  .pres-slide .ps-role .rd{ font-size:15px; color:#545454; line-height:1.55; }
+  .pres-slide .ps-note{ padding:24px 28px; margin-top:26px; background:rgba(252,246,131,0.30); }
+  .pres-slide .ps-note.note{ background:rgba(15,128,246,0.08); }
+  .pres-slide .ps-note.important{ background:rgba(235,69,61,0.08); }
+  .pres-slide .ps-note .nl{ font-size:13px; font-weight:600; color:#767676; text-transform:uppercase; letter-spacing:.05em; margin-bottom:10px; }
+  .pres-slide .ps-note p{ font-size:18px; line-height:1.7; color:#191919; }
   .pres-slide .ps-note p b{ color:#191919; font-weight:700; }
-  .pres-slide .ps-table{ width:100%; border-collapse:collapse; margin-top:24px; font-size:18px; }
-  .pres-slide .ps-table th{ text-align:left; background:#f6f6fb; color:#191919; font-weight:700; padding:14px 18px; border-bottom:2px solid #4f46e5; }
-  .pres-slide .ps-table td{ padding:14px 18px; border-bottom:1px solid #ededed; color:#3a3a3a; }
-  .pres-slide .ps-take{ display:flex; flex-direction:column; gap:16px; margin-top:22px; }
-  .pres-slide .ps-take .item{ background:#fafafa; border:1px solid #ececec; border-radius:14px; padding:24px 28px; }
-  .pres-slide .ps-take .it{ font-size:22px; font-weight:800; }
-  .pres-slide .ps-take .id{ font-size:16px; color:#555; margin-top:8px; line-height:1.55; }
-  .pres-slide .ps-links{ display:flex; flex-direction:column; gap:14px; margin-top:24px; }
-  .pres-slide .ps-links .row{ display:flex; gap:20px; align-items:center; padding:16px 22px; background:#fafafa; border:1px solid #ececec; border-radius:12px; }
-  .pres-slide .ps-links .k{ width:130px; font-weight:700; color:#4f46e5; font-size:17px; }
-  .pres-slide .ps-links .t{ flex:1; font-weight:600; font-size:19px; }
-  .pres-slide .ps-links .u{ color:#888; font-size:16px; }
-  .pres-slide.cover{ background:#111827; color:#fff; }
-  .pres-slide.cover .ps-eyebrow{ color:#a5b4fc; }
-  .pres-slide.cover .cover-badge{ display:inline-block; background:#4f46e5; color:#fff; font-size:18px; font-weight:700; padding:12px 22px; border-radius:999px; margin-bottom:28px; }
-  .pres-slide.cover .cover-title{ font-size:84px; font-weight:800; letter-spacing:-.03em; line-height:1; }
-  .pres-slide.cover .cover-sum{ font-size:24px; color:#cbd5e1; line-height:1.6; margin-top:26px; max-width:980px; }
+  .pres-slide .ps-table{ width:100%; border-collapse:collapse; margin-top:24px; font-size:18px; border-top:1px solid #191919; border-bottom:1px solid #191919; }
+  .pres-slide .ps-table thead th{ text-align:left; background:#efefef; color:#191919; font-weight:600; text-transform:uppercase; letter-spacing:.03em; font-size:15px; padding:14px 18px; }
+  .pres-slide .ps-table tbody td{ padding:15px 18px; border-bottom:1px solid #ededed; color:#2e2e2e; line-height:1.5; }
+  .pres-slide .ps-table tbody tr:last-child td{ border-bottom:none; }
+  .pres-slide .ps-table tbody td:first-child{ font-weight:700; color:#191919; white-space:nowrap; }
+  .pres-slide .ps-take{ display:grid; grid-template-columns:1fr; gap:1px; background:#e3e3e3; border:1px solid #e3e3e3; margin-top:22px; }
+  .pres-slide .ps-take .item{ background:#fff; padding:24px 28px; }
+  .pres-slide .ps-take .it{ font-size:22px; font-weight:700; color:#191919; }
+  .pres-slide .ps-take .id{ font-size:16px; color:#545454; margin-top:8px; line-height:1.55; }
+  .pres-slide .ps-links{ margin-top:24px; border-top:1px solid #191919; border-bottom:1px solid #191919; }
+  .pres-slide .ps-links .row{ display:flex; gap:24px; align-items:center; padding:16px 18px; border-bottom:1px solid #ededed; }
+  .pres-slide .ps-links .row:last-child{ border-bottom:none; }
+  .pres-slide .ps-links .k{ width:130px; font-weight:700; color:#191919; font-size:16px; text-transform:uppercase; letter-spacing:.03em; }
+  .pres-slide .ps-links .t{ flex:1; font-weight:600; font-size:19px; color:#191919; }
+  .pres-slide .ps-links .u{ color:#767676; font-size:16px; }
+  .pres-slide.cover{ background:#1e1e1e; color:#fff; }
+  .pres-slide.cover .cover-badge{ display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,0.10); color:#fff; font-size:14px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; padding:12px 22px; border-radius:999px; margin-bottom:30px; }
+  .pres-slide.cover .cover-badge::before{ content:""; width:7px; height:7px; border-radius:50%; background:#fff; display:inline-block; }
+  .pres-slide.cover .cover-title{ font-size:84px; font-weight:700; letter-spacing:-.03em; line-height:1; color:#fff; }
+  .pres-slide.cover .cover-sum{ font-size:24px; color:rgba(255,255,255,0.72); line-height:1.6; margin-top:26px; max-width:980px; }
   .pres-slide.cover .cover-meta{ display:flex; gap:48px; margin-top:52px; }
-  .pres-slide.cover .cover-meta .ml{ font-size:14px; color:#94a3b8; text-transform:uppercase; letter-spacing:.06em; }
-  .pres-slide.cover .cover-meta .mv{ font-size:22px; font-weight:700; margin-top:8px; }
-  .pres-slide.cover .ps-foot{ color:#64748b; border-top-color:#334155; }
+  .pres-slide.cover .cover-meta .ml{ font-size:13px; color:rgba(255,255,255,0.5); text-transform:uppercase; letter-spacing:.08em; }
+  .pres-slide.cover .cover-meta .mv{ font-size:21px; font-weight:600; margin-top:8px; color:rgba(255,255,255,0.92); }
+  .pres-slide.cover .ps-foot{ color:#777; border-top-color:#3a3a3a; }
 </style>
 <div class="pres-deck" id="presDeck" aria-hidden="true">
   <div class="pres-slide cover">
@@ -2212,7 +2217,7 @@
     <div class="ps-eyebrow">01 · 문제 정의</div>
     <div class="ps-title">소싱 단계가 100% 수동</div>
     <div class="ps-lede">FashionGo는 큰 규모의 플랫폼이지만, 가장 중요한 <b>공급망(소싱) 단계가 100% 수동</b>으로 운영됐습니다. 공급망 디지털화가 서비스 규모를 따라가지 못한 상태가 핵심 문제입니다.</div>
-    <div class="ps-note">
+    <div class="ps-note important">
       <div class="nl">Important</div>
       <p>3가지 문제는 개별이 아니라 하나의 사슬입니다. 수동 의존이 자동화 부재의 원인이며, 그 결과 디지털화 격차가 누적됩니다. <b>소싱 파이프라인 전체를 자동화·재설계</b>해야 풀리는 문제입니다.</p>
     </div>
@@ -2246,7 +2251,7 @@
       <div class="ps-arrow">→</div>
       <div class="ps-step"><div class="n">05</div><div class="t">자동 등록</div><div class="d">FashionGo ERP 자동 등록</div></div>
     </div>
-    <div class="ps-note"><div class="nl">Note</div><p>단순 업무 효율화가 아닌 <b>글로벌 B2B 전 산업으로 확장 가능한 AI 인프라 구조</b>. 5단계는 다른 도메인 공급망에도 응용 가능한 추상화 수준을 유지.</p></div>
+    <div class="ps-note note"><div class="nl">Note</div><p>단순 업무 효율화가 아닌 <b>글로벌 B2B 전 산업으로 확장 가능한 AI 인프라 구조</b>. 5단계는 다른 도메인 공급망에도 응용 가능한 추상화 수준을 유지.</p></div>
     <div class="ps-foot"><span>FG Angels</span><span class="ps-num">05</span></div>
   </div>
   <div class="pres-slide">
