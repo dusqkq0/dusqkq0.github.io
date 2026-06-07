@@ -2187,6 +2187,21 @@
   .pres-slide.cover .cover-meta .ml{ font-size:13px; color:rgba(255,255,255,0.5); text-transform:uppercase; letter-spacing:.08em; }
   .pres-slide.cover .cover-meta .mv{ font-size:21px; font-weight:600; margin-top:8px; color:rgba(255,255,255,0.92); }
   .pres-slide.cover .ps-foot{ color:#777; border-top-color:#3a3a3a; }
+  .pres-slide .ps-problems{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:#e3e3e3; border:1px solid #e3e3e3; margin-top:20px; }
+  .pres-slide .ps-prob{ background:#fff; padding:24px 22px; }
+  .pres-slide .ps-prob .pn{ font-size:14px; font-weight:700; color:#767676; }
+  .pres-slide .ps-prob .pt{ font-size:19px; font-weight:700; color:#191919; margin-top:8px; line-height:1.25; }
+  .pres-slide .ps-prob .pd{ font-size:14px; color:#545454; line-height:1.5; margin-top:10px; }
+  .pres-slide .ps-figwrap{ margin-top:22px; }
+  .pres-slide .ps-fig{ background:#f0f0f0; border:1px solid #e3e3e3; display:flex; align-items:center; justify-content:center; overflow:hidden; height:360px; }
+  .pres-slide .ps-fig.big{ height:420px; }
+  .pres-slide .ps-fig.med{ height:300px; }
+  .pres-slide .ps-fig img{ width:100%; height:100%; object-fit:contain; display:block; }
+  .pres-slide .ps-figcap{ font-size:14px; color:#767676; margin-top:12px; text-align:center; }
+  .pres-slide .ps-figrow{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:24px; }
+  .pres-slide .ps-figrow figure{ margin:0; }
+  .pres-slide .ps-figrow .ps-fig{ height:330px; }
+  .pres-slide .ps-figrow .ps-figcap{ margin-top:10px; }
 </style>
 <div class="pres-deck" id="presDeck" aria-hidden="true">
   <div class="pres-slide cover">
@@ -2203,10 +2218,10 @@
   <div class="pres-slide">
     <div class="ps-eyebrow">00 · 개요</div>
     <div class="ps-title">프로젝트 개요</div>
-    <div class="ps-lede">3년·50번의 출장이 필요하던 <b>수동 소싱 프로세스를 AI 파이프라인으로 대체</b>하는 PoC. 트렌드 분석부터 공장 소싱·등록까지 전 과정을 자동화했습니다.</div>
-    <div class="ps-lede">단 <b>3인 크로스펑셔널 팀</b>(도메인 전문가·기획자·개발자)으로 동작하는 프로토타입까지 완성, <b>NHN AI 스프린톤에서 12팀 중 1위</b>로 선정.</div>
+    <div class="ps-lede">FG Angels는 <b>북미 1위 B2B 패션 플랫폼 FashionGo의 아시아 공장 소싱 전 과정을 AI 에이전트로 자동화</b>한 PoC입니다. 3년·50번의 출장이 필요하던 수동 소싱 프로세스를 AI 파이프라인으로 대체하는 것이 목표였습니다.</div>
+    <div class="ps-lede">단 <b>3인 크로스펑셔널 팀</b>(도메인 전문가 · 기획자(본인) · 개발자)으로 기획부터 동작하는 프로토타입까지 단기간에 완성했고, <b>NHN AI 스프린톤 업무생산성 트랙에서 12팀 중 1위</b>로 선정됐습니다.</div>
     <div class="ps-stats">
-      <div class="ps-stat"><div class="v">1위</div><div class="l">AI 스프린톤<br>업무생산성 트랙</div></div>
+      <div class="ps-stat"><div class="v">1위</div><div class="l">NHN AI 스프린톤<br>업무생산성 트랙</div></div>
       <div class="ps-stat"><div class="v">12팀</div><div class="l">경쟁 팀 수</div></div>
       <div class="ps-stat"><div class="v">3인</div><div class="l">크로스펑셔널<br>팀 사이즈</div></div>
       <div class="ps-stat"><div class="v">1,000만원</div><div class="l">수상 상금</div></div>
@@ -2214,66 +2229,106 @@
     <div class="ps-foot"><span>FG Angels</span><span class="ps-num">02</span></div>
   </div>
   <div class="pres-slide">
+    <div class="ps-eyebrow">00 · 핵심 요약</div>
+    <div class="ps-title">Key Takeaway</div>
+    <div class="ps-note"><div class="nl">Key Takeaway</div><p>FG Angels는 단순 업무 효율화 도구가 아니라, <b>글로벌 B2B 공급망 전 산업으로 확장 가능한 AI 인프라 구조</b>로 설계했습니다. <b>비개발자 기획자가 Lovable과 Claude Code를 직접 활용해 프로토타입을 End-to-End로 리딩</b>한 것이 핵심입니다.</p></div>
+    <div class="ps-foot"><span>FG Angels</span><span class="ps-num">03</span></div>
+  </div>
+  <div class="pres-slide">
     <div class="ps-eyebrow">01 · 문제 정의</div>
     <div class="ps-title">소싱 단계가 100% 수동</div>
     <div class="ps-lede">FashionGo는 큰 규모의 플랫폼이지만, 가장 중요한 <b>공급망(소싱) 단계가 100% 수동</b>으로 운영됐습니다. 공급망 디지털화가 서비스 규모를 따라가지 못한 상태가 핵심 문제입니다.</div>
-    <div class="ps-note important">
-      <div class="nl">Important</div>
-      <p>3가지 문제는 개별이 아니라 하나의 사슬입니다. 수동 의존이 자동화 부재의 원인이며, 그 결과 디지털화 격차가 누적됩니다. <b>소싱 파이프라인 전체를 자동화·재설계</b>해야 풀리는 문제입니다.</p>
+    <div class="ps-problems">
+      <div class="ps-prob"><div class="pn">P1</div><div class="pt">수동 소싱 의존</div><div class="pd">아시아 공장 소싱이 3년·50번의 출장이 필요한 100% 수동 방식으로만 운영되어 시간·비용 비효율이 큽니다.</div></div>
+      <div class="ps-prob"><div class="pn">P2</div><div class="pt">공급망 AI 부재</div><div class="pd">중국·한국 공장(1688·Alibaba) → ERP → FashionGo로 이어지는 공급망 전체에 AI 자동화가 적용되지 않았습니다.</div></div>
+      <div class="ps-prob"><div class="pn">P3</div><div class="pt">디지털화 격차</div><div class="pd">서비스 규모에 비해 공급망 디지털화는 크게 뒤처져 성장 한계를 만들고 있습니다.</div></div>
     </div>
-    <div class="ps-foot"><span>FG Angels</span><span class="ps-num">03</span></div>
+    <div class="ps-note important"><div class="nl">Important</div><p>3가지 문제는 개별이 아니라 하나의 사슬입니다. 수동 의존이 자동화 부재의 원인이며, 그 결과 디지털화 격차가 누적됩니다. <b>소싱 파이프라인 전체를 자동화·재설계</b>해야 풀리는 문제입니다.</p></div>
+    <div class="ps-foot"><span>FG Angels</span><span class="ps-num">04</span></div>
+  </div>
+  <div class="pres-slide">
+    <div class="ps-eyebrow">01 · 현장</div>
+    <div class="ps-title">아시아 공장 소싱 현장</div>
+    <div class="ps-figwrap"><div class="ps-fig big"><img loading="eager" decoding="async" src="images/fg-angels-factories.png" alt="아시아 공장 소싱 현장"></div><div class="ps-figcap">아시아 공장 소싱 현장 — 100% 수동 운영 중</div></div>
+    <div class="ps-foot"><span>FG Angels</span><span class="ps-num">05</span></div>
   </div>
   <div class="pres-slide">
     <div class="ps-eyebrow">02 · 목표</div>
     <div class="ps-title">목표와 성과</div>
-    <div class="ps-lede">단기 PoC로 <b>AI 에이전트 기반 소싱 파이프라인의 가능성을 검증</b>. 기획부터 동작하는 프로토타입까지 3개월 안에 End-to-End로 완성하는 것이 1차 목표.</div>
+    <div class="ps-lede">목표는 단기 PoC로 <b>AI 에이전트 기반 소싱 파이프라인의 가능성을 검증</b>하는 것. 기획부터 동작하는 프로토타입까지 3개월 안에 End-to-End로 완성하는 것이 1차 목표였습니다.</div>
     <table class="ps-table">
       <thead><tr><th>지표</th><th>목표</th><th>비고</th></tr></thead>
       <tbody>
-        <tr><td>PoC 완성도</td><td>동작 프로토타입 End-to-End</td><td>Lovable·Claude Code 기반 개발·배포</td></tr>
-        <tr><td>대외 검증</td><td>스프린톤 1위 · 상금 1,000만원</td><td>업무생산성 트랙 12팀 中</td></tr>
-        <tr><td>대중 노출</td><td>뉴스 기사 2건</td><td>YouTube 데모 영상 공개</td></tr>
+        <tr><td>PoC 완성도</td><td>동작하는 프로토타입 · End-to-End 동작</td><td>Lovable·Claude Code 기반 개발·배포 완료</td></tr>
+        <tr><td>대외 검증</td><td>스프린톤 통과 1위 · 상금 1,000만원</td><td>업무생산성 트랙 12팀 中</td></tr>
+        <tr><td>대중 노출</td><td>한경 등 뉴스 기사 2건</td><td>YouTube 데모 영상 공개</td></tr>
       </tbody>
     </table>
-    <div class="ps-foot"><span>FG Angels</span><span class="ps-num">04</span></div>
+    <div class="ps-note"><div class="nl">So What</div><p>가장 의미 있는 건 <b>비개발자 기획자가 동작하는 프로토타입을 직접 만들어 검증까지 받아냈다는 점</b>입니다. 스프린톤 수상·뉴스 노출은 이를 뒷받침하는 결과 지표이고, 기획자의 직접 구현이 이 프로젝트의 핵심입니다.</p></div>
+    <div class="ps-foot"><span>FG Angels</span><span class="ps-num">06</span></div>
   </div>
   <div class="pres-slide">
     <div class="ps-eyebrow">03 · AI 에이전트 파이프라인</div>
     <div class="ps-title">5단계 자동화 파이프라인</div>
+    <div class="ps-lede"><b>트렌드 분석 → 공장 소싱 → 스코어링 → 자기학습 → 자동 등록</b>까지 이어지는 5단계 자동화 파이프라인. <b>24h Agent로 무중단 동작</b>하도록 설계했습니다.</div>
     <div class="ps-flow">
       <div class="ps-step"><div class="n">01</div><div class="t">트렌드 분석</div><div class="d">북미 패션 트렌드 수집·분석</div></div>
       <div class="ps-arrow">→</div>
       <div class="ps-step"><div class="n">02</div><div class="t">공장 소싱</div><div class="d">1688·Alibaba 자동 탐색·매칭</div></div>
       <div class="ps-arrow">→</div>
-      <div class="ps-step"><div class="n">03</div><div class="t">공장 스코어링</div><div class="d">AI 기반 품질·신뢰도 평가</div></div>
+      <div class="ps-step"><div class="n">03</div><div class="t">공장 스코어링</div><div class="d">AI 기반 품질·신뢰도 자동 평가</div></div>
       <div class="ps-arrow">→</div>
-      <div class="ps-step"><div class="n">04</div><div class="t">자기학습</div><div class="d">피드백 기반 모델 개선</div></div>
+      <div class="ps-step"><div class="n">04</div><div class="t">자기학습</div><div class="d">피드백 기반 모델 자동 개선</div></div>
       <div class="ps-arrow">→</div>
-      <div class="ps-step"><div class="n">05</div><div class="t">자동 등록</div><div class="d">FashionGo ERP 자동 등록</div></div>
+      <div class="ps-step"><div class="n">05</div><div class="t">자동 등록</div><div class="d">FashionGo ERP 자동 상품 등록</div></div>
     </div>
-    <div class="ps-note note"><div class="nl">Note</div><p>단순 업무 효율화가 아닌 <b>글로벌 B2B 전 산업으로 확장 가능한 AI 인프라 구조</b>. 5단계는 다른 도메인 공급망에도 응용 가능한 추상화 수준을 유지.</p></div>
-    <div class="ps-foot"><span>FG Angels</span><span class="ps-num">05</span></div>
+    <div class="ps-note note"><div class="nl">Note</div><p>단순 업무 효율화가 아닌 <b>글로벌 B2B 전 산업으로 확장 가능한 AI 인프라 구조</b>. 5단계는 패션·소싱에 국한되지 않고, 다른 도메인의 공급망에도 그대로 응용 가능한 추상화 수준을 유지했습니다.</p></div>
+    <div class="ps-foot"><span>FG Angels</span><span class="ps-num">07</span></div>
+  </div>
+  <div class="pres-slide">
+    <div class="ps-eyebrow">03 · 결과물 &amp; 데모</div>
+    <div class="ps-title">Angel Program 어드민 대시보드</div>
+    <div class="ps-figwrap"><div class="ps-fig med"><img loading="eager" decoding="async" src="images/fg-angels-dashboard.png" alt="Angel Program 어드민 대시보드"></div><div class="ps-figcap">운영 현황 · Angel Agent 7단계 워크플로 진행률</div></div>
+    <div class="ps-links" style="margin-top:18px;"><div class="row"><div class="k">데모 영상</div><div class="t">FG Angels 자동 소싱 데모 (자동재생·음소거)</div><div class="u">youtu.be/rp_me77dMpc</div></div></div>
+    <div class="ps-foot"><span>FG Angels</span><span class="ps-num">08</span></div>
   </div>
   <div class="pres-slide">
     <div class="ps-eyebrow">04 · 워크플로우</div>
     <div class="ps-title">AI 네이티브 3인 협업</div>
+    <div class="ps-lede">비개발자 기획자·도메인 전문가·개발자 3인이 <b>Lovable·Claude Code·Git을 결합해 동시다발적으로 커밋·배포</b>한 협업 구조. <b>기획자가 Git 워크플로우에 직접 참여</b>한 것이 가장 큰 차별점입니다.</div>
     <div class="ps-roles">
-      <div class="ps-role"><div class="rt">기획자 (본인)</div><div class="rs">트렌드 분석 · 매칭 · UI</div><div class="rd">Lovable로 화면, Claude Code로 로직을 다듬어 직접 git commit·push. 트렌드 리포트·상품 자동 매칭 구현.</div></div>
-      <div class="ps-role"><div class="rt">개발자</div><div class="rs">AI 파이프라인 · API</div><div class="rd">Vertex AI·Gemini 연동 → Claude Code 리팩토링 → git commit·push.</div></div>
-      <div class="ps-role"><div class="rt">도메인 전문가</div><div class="rs">스코어링 · 프로세스</div><div class="rd">공장 스코어링 룰 설계와 에이전트 프로세스 정립. Claude Code로 코드화.</div></div>
+      <div class="ps-role"><div class="rt">기획자 (본인)</div><div class="rs">트렌드 분석 · 매칭 · UI</div><div class="rd">북미 패션 트렌드 분석·리포트, 소싱 가능·타겟·유사 상품 자동 매칭을 직접 구현. Lovable로 화면, Claude Code로 로직을 다듬어 git commit·push까지 직접 참여.</div></div>
+      <div class="ps-role"><div class="rt">개발자</div><div class="rs">AI 파이프라인 · API</div><div class="rd">Vertex AI·Gemini 연동 → Claude Code로 리팩토링 → git commit·push.</div></div>
+      <div class="ps-role"><div class="rt">도메인 전문가</div><div class="rs">스코어링 · 프로세스</div><div class="rd">공장 스코어링 룰 설계와 대시보드 에이전트 프로세스 정립. 도메인 지식 기준으로 룰을 짜고 Claude Code로 코드화 → git commit·push.</div></div>
     </div>
-    <div class="ps-note"><div class="nl">Highlight</div><p><b>비개발자 기획자도 Git 워크플로우에 직접 참여</b>해 코드를 커밋·배포. 기획자가 Service Launcher가 될 수 있다는 가설을 실제로 입증.</p></div>
-    <div class="ps-foot"><span>FG Angels</span><span class="ps-num">06</span></div>
+    <div class="ps-foot"><span>FG Angels</span><span class="ps-num">09</span></div>
+  </div>
+  <div class="pres-slide">
+    <div class="ps-eyebrow">04 · 협업 구조</div>
+    <div class="ps-title">AI 네이티브 협업 구조</div>
+    <div class="ps-note"><div class="nl">Highlight</div><p><b>비개발자 기획자도 Git 워크플로우에 직접 참여</b>해 코드를 커밋·배포. AI가 충돌 해결·코드 품질을 보조하며 3인 팀의 개발 속도를 크게 단축. <b>기획자가 Service Launcher가 될 수 있다는 가설을 실제 출시로 증명</b>한 사례입니다.</p></div>
+    <div class="ps-figwrap"><div class="ps-fig med"><img loading="eager" decoding="async" src="images/fg-angels-tool-stack.png" alt="협업 구조"></div><div class="ps-figcap">Fashiongo Angel Program · Claude Cowork · Lovable · Claude Code · Git</div></div>
+    <div class="ps-foot"><span>FG Angels</span><span class="ps-num">10</span></div>
+  </div>
+  <div class="pres-slide">
+    <div class="ps-eyebrow">05 · 갤러리</div>
+    <div class="ps-title">갤러리</div>
+    <div class="ps-figrow">
+      <figure><div class="ps-fig"><img loading="eager" decoding="async" src="images/fg-angels-presentation.png" alt="발표 슬라이드"></div><div class="ps-figcap">발표 슬라이드 · 미녀삼총사 팀</div></figure>
+      <figure><div class="ps-fig"><img loading="eager" decoding="async" src="images/fg-angels-team.png" alt="팀 인터뷰"></div><div class="ps-figcap">팀 인터뷰 · 손주영 · 윤혜련 · 임동빈</div></figure>
+      <figure><div class="ps-fig"><img loading="eager" decoding="async" src="images/fg-angels-extra.png" alt="화이트보드 스케치"></div><div class="ps-figcap">화이트보드 — 시스템 아키텍처 · 트렌드 플로우</div></figure>
+    </div>
+    <div class="ps-foot"><span>FG Angels</span><span class="ps-num">11</span></div>
   </div>
   <div class="pres-slide">
     <div class="ps-eyebrow">06 · 학습과 회고</div>
     <div class="ps-title">기획자 → Service Launcher</div>
-    <div class="ps-lede">가장 큰 자산은 결과물이 아니라, <b>"기획자가 직접 서비스를 런칭할 수 있다"는 가설을 스스로 검증</b>했다는 점입니다.</div>
+    <div class="ps-lede">가장 큰 자산은 결과물 자체가 아니라, <b>"기획자가 직접 서비스를 런칭할 수 있다"는 가설을 스스로 검증</b>했다는 점입니다.</div>
     <div class="ps-take">
-      <div class="item"><div class="it">3인 크로스펑셔널 협업의 가능성</div><div class="id">아이디어부터 동작하는 AI 에이전트까지 단기 구현. 각 역할의 언어를 이해·조율하는 기획자 역할을 체득.</div></div>
-      <div class="item"><div class="it">기획자 → Service Launcher 전환</div><div class="id">AI 툴(Lovable·Claude Code)을 직접 다뤄 기획서를 넘어 동작하는 프로토타입을 구현. 직접 런칭 가능함을 증명.</div></div>
+      <div class="item"><div class="it">3인 크로스펑셔널 협업의 가능성</div><div class="id">도메인 전문가·개발자와 함께 아이디어부터 동작하는 AI 에이전트까지 단기 구현. 각 역할의 언어를 이해·조율하는 기획자 역할을 체득.</div></div>
+      <div class="item"><div class="it">기획자 → Service Launcher 전환</div><div class="id">AI 툴(Lovable·Claude Code)을 직접 다뤄 기획서를 넘어 동작하는 프로토타입을 구현. 기획자도 서비스를 직접 런칭할 수 있음을 스스로 증명.</div></div>
     </div>
-    <div class="ps-foot"><span>FG Angels</span><span class="ps-num">07</span></div>
+    <div class="ps-foot"><span>FG Angels</span><span class="ps-num">12</span></div>
   </div>
   <div class="pres-slide">
     <div class="ps-eyebrow">07 · 자료</div>
@@ -2281,10 +2336,21 @@
     <div class="ps-links">
       <div class="row"><div class="k">실제 서비스</div><div class="t">FG Angels (Lovable)</div><div class="u">factory-finder-fashiongo.lovable.app</div></div>
       <div class="row"><div class="k">발표 자료</div><div class="t">Gamma 슬라이드</div><div class="u">gamma.app/docs/FG-Angels</div></div>
+      <div class="row"><div class="k">데모 영상</div><div class="t">FG Angels 자동 소싱 데모</div><div class="u">youtu.be/rp_me77dMpc</div></div>
       <div class="row"><div class="k">뉴스</div><div class="t">한국경제 (092)</div><div class="u">n.news.naver.com/092/0002418772</div></div>
       <div class="row"><div class="k">뉴스</div><div class="t">한국경제 (018)</div><div class="u">n.news.naver.com/018/0006245221</div></div>
     </div>
-    <div class="ps-foot"><span>FG Angels</span><span class="ps-num">08</span></div>
+    <div class="ps-foot"><span>FG Angels</span><span class="ps-num">13</span></div>
+  </div>
+  <div class="pres-slide">
+    <div class="ps-eyebrow">07 · 영상</div>
+    <div class="ps-title">스프린톤 영상</div>
+    <div class="ps-links">
+      <div class="row"><div class="k">라이브</div><div class="t">NHN AI 스프린톤 1일차</div><div class="u">youtu.be/yk9EnnziWVw</div></div>
+      <div class="row"><div class="k">라이브</div><div class="t">NHN AI 스프린톤 2일차</div><div class="u">youtu.be/w5h4cxDSTog</div></div>
+      <div class="row"><div class="k">인터뷰</div><div class="t">1등팀 인터뷰</div><div class="u">youtu.be/_2gPgEb4iJo</div></div>
+    </div>
+    <div class="ps-foot"><span>FG Angels</span><span class="ps-num">14</span></div>
   </div>
 </div>
 <script>
@@ -2312,6 +2378,9 @@
       var deck = document.getElementById('presDeck');
       try {
         await waitDeps();
+        var __imgs = Array.prototype.slice.call(deck.querySelectorAll('img'));
+        await Promise.all(__imgs.map(function (im) { if (im.complete && im.naturalWidth > 0) return Promise.resolve(); return new Promise(function (r) { im.addEventListener('load', r, { once: true }); im.addEventListener('error', r, { once: true }); setTimeout(r, 8000); }); }));
+        await new Promise(function (r) { setTimeout(r, 150); });
         var jsPDFCtor = (window.jspdf && window.jspdf.jsPDF) || window.jsPDF;
         var slides = Array.prototype.slice.call(deck.querySelectorAll('.pres-slide'));
         var pdf = null;
