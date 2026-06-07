@@ -2074,13 +2074,13 @@
       btn.disabled = true;
       if (label) label.textContent = '생성 중...';
       try {
-        await loadDeps();
+        await loadDeps(); var __imgs = Array.prototype.slice.call(document.images); __imgs.forEach(function(im){ try { im.loading = "eager"; } catch(e){} }); await Promise.all(__imgs.map(function(img){ if (img.complete && img.naturalWidth > 0) return Promise.resolve(); return new Promise(function(r){ var d = false; function fin(){ if (d) return; d = true; r(); } img.addEventListener("load", fin, { once: true }); img.addEventListener("error", fin, { once: true }); setTimeout(fin, 8000); }); })); await new Promise(function(r){ setTimeout(r, 250); });
         window.scrollTo(0, 0); var __end = document.querySelector(".prd-back-list-wrap") || document.querySelector(".prd-footer"); var __H = __end ? Math.round(__end.getBoundingClientRect().top + window.scrollY) : Math.max(document.body.scrollHeight, document.documentElement.scrollHeight); var canvas = await window.html2canvas(document.body, {
           scale: 1.1,
           useCORS: true,
           allowTaint: true,
           backgroundColor: '#ffffff',
-          windowWidth: 1100, windowHeight: __H, height: __H, scrollX: 0, scrollY: 0,
+          windowWidth: 1100, windowHeight: __H, height: __H, scrollX: 0, scrollY: 0, imageTimeout: 8000,
           logging: false,
           onclone: function (clonedDoc) {
             var removeSels = ['nav', '.landing-footer', '.prd-footer', '.prd-back-list-wrap', '.lightbox', '.go-to-top', '.pdf-download-btn', 'iframe', '.prd-side-nav', '.footer-settings-btn', '.pf-settings-overlay'];
