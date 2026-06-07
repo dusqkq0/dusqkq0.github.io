@@ -2138,6 +2138,7 @@
   .pres-slide{ width:1280px; height:720px; background:#fff; color:#191919; font-family:"Pretendard",system-ui,sans-serif; padding:72px 80px; box-sizing:border-box; position:relative; overflow:hidden; }
   .pres-slide .ps-eyebrow{ font-size:18px; font-weight:700; letter-spacing:.06em; color:#767676; text-transform:uppercase; margin-bottom:16px; }
   .pres-slide .ps-title{ font-size:50px; font-weight:700; letter-spacing:-.02em; line-height:1.15; color:#191919; margin-bottom:26px; }
+  .pres-slide .ps-subhead{ font-size:24px; font-weight:700; color:#545454; margin:-12px 0 20px; }
   .pres-slide .ps-lede{ font-size:23px; line-height:1.65; color:#545454; margin-bottom:14px; max-width:1060px; font-weight:500; }
   .pres-slide .ps-lede b{ color:#191919; font-weight:700; }
   .pres-slide .ps-foot{ position:absolute; left:80px; right:80px; bottom:36px; display:flex; justify-content:space-between; font-size:14px; color:#a1a1a1; border-top:1px solid #ededed; padding-top:14px; }
@@ -2278,20 +2279,45 @@
   <div class="pres-slide">
     <div class="ps-eyebrow">04</div>
     <div class="ps-title">워크플로우</div>
-    <div class="ps-lede">비개발자 기획자·도메인 전문가·개발자 3인이 <b>Lovable·Claude Code·Git을 결합해 동시다발적으로 커밋·배포</b>한 협업 구조. <b>기획자가 Git 워크플로우에 직접 참여</b>한 것이 가장 큰 차별점입니다.</div>
-    <div class="ps-roles">
-      <div class="ps-role"><div class="rt">기획자 (본인)</div><div class="rs">트렌드 분석 · 매칭 · UI</div><div class="rd">북미 패션 트렌드 분석·리포트, 소싱 가능·타겟·유사 상품 자동 매칭을 직접 구현. Lovable로 화면, Claude Code로 로직을 다듬어 git commit·push까지 직접 참여.</div></div>
-      <div class="ps-role"><div class="rt">개발자</div><div class="rs">AI 파이프라인 · API</div><div class="rd">Vertex AI·Gemini 연동 → Claude Code로 리팩토링 → git commit·push.</div></div>
-      <div class="ps-role"><div class="rt">도메인 전문가</div><div class="rs">스코어링 · 프로세스</div><div class="rd">공장 스코어링 룰 설계와 대시보드 에이전트 프로세스 정립. 도메인 지식 기준으로 룰을 짜고 Claude Code로 코드화 → git commit·push.</div></div>
-    </div>
+    <div class="ps-lede">비개발자 기획자·도메인 전문가·개발자 3인이 <b>Lovable·Claude Code·Git을 결합해 동시다발적으로 커밋·배포</b>한 AI 네이티브 협업 구조. <b>기획자가 Git 워크플로우에 직접 참여</b>한 것이 가장 큰 차별점입니다.</div>
+    <div class="ps-figwrap"><div class="ps-fig med"><img loading="eager" decoding="async" src="images/fg-angels-tool-stack.png" alt="협업 구조 다이어그램"></div><div class="ps-figcap">Fashiongo Angel Program · Claude Cowork · Lovable · Claude Code · Git 협업 구조</div></div>
     <div class="ps-foot"><span>FG Angels</span><span class="ps-num">08</span></div>
   </div>
   <div class="pres-slide">
     <div class="ps-eyebrow">04</div>
-    <div class="ps-title">협업 구조</div>
-    <div class="ps-note"><div class="nl">Highlight</div><p><b>비개발자 기획자도 Git 워크플로우에 직접 참여</b>해 코드를 커밋·배포. AI가 충돌 해결·코드 품질을 보조하며 3인 팀의 개발 속도를 크게 단축. <b>기획자가 Service Launcher가 될 수 있다는 가설을 실제 출시로 증명</b>한 사례입니다.</p></div>
-    <div class="ps-figwrap"><div class="ps-fig med"><img loading="eager" decoding="async" src="images/fg-angels-tool-stack.png" alt="협업 구조"></div><div class="ps-figcap">Fashiongo Angel Program · Claude Cowork · Lovable · Claude Code · Git</div></div>
+    <div class="ps-title">워크플로우</div>
+    <div class="ps-subhead">3-Tool Stack</div>
+    <div class="ps-roles">
+      <div class="ps-role"><div class="rt">Lovable</div><div class="rs">UI · 프로토타이핑</div><div class="rd">자연어 프롬프트로 React 화면을 즉시 생성·수정. 기획자가 직접 UI를 만들어 빠르게 검증.</div></div>
+      <div class="ps-role"><div class="rt">Claude Code</div><div class="rs">로직 · 리팩토링 · 디버깅</div><div class="rd">Lovable이 다루기 어려운 복잡 로직·API 연동·머지 충돌을 CLI 기반으로 처리. 코드 품질 보강.</div></div>
+      <div class="ps-role"><div class="rt">Git · GitHub</div><div class="rs">동시 커밋 · 배포</div><div class="rd">Lovable 프로젝트를 GitHub에 연결. 3명이 각자 브랜치에서 동시 작업, 머지 후 자동 배포까지.</div></div>
+    </div>
     <div class="ps-foot"><span>FG Angels</span><span class="ps-num">09</span></div>
+  </div>
+  <div class="pres-slide">
+    <div class="ps-eyebrow">04</div>
+    <div class="ps-title">워크플로우</div>
+    <div class="ps-subhead">3인 동시다발 커밋</div>
+    <div class="ps-roles">
+      <div class="ps-role"><div class="rt">기획자 (본인)</div><div class="rs">트렌드 분석 · 매칭 · UI</div><div class="rd">북미 패션 트렌드 분석·리포트, 소싱 가능·타겟·유사 상품 자동 매칭을 직접 구현. Lovable로 화면, Claude Code로 로직을 다듬어 git commit·push까지.</div></div>
+      <div class="ps-role"><div class="rt">개발자</div><div class="rs">AI 파이프라인 · API</div><div class="rd">Vertex AI·Gemini 연동 → Claude Code로 리팩토링 → git commit·push.</div></div>
+      <div class="ps-role"><div class="rt">도메인 전문가</div><div class="rs">스코어링 · 프로세스</div><div class="rd">공장 스코어링 룰 설계와 대시보드 에이전트 프로세스 정립. 도메인 지식 기준으로 룰을 짜고 Claude Code로 코드화 → git commit·push.</div></div>
+    </div>
+    <div class="ps-foot"><span>FG Angels</span><span class="ps-num">10</span></div>
+  </div>
+  <div class="pres-slide">
+    <div class="ps-eyebrow">04</div>
+    <div class="ps-title">워크플로우</div>
+    <div class="ps-subhead">머지 → 동기화 → 배포</div>
+    <div class="ps-flow">
+      <div class="ps-step"><div class="n">01</div><div class="t">GitHub 머지</div><div class="d">Claude Code가 충돌 해결·리뷰 보조</div></div>
+      <div class="ps-arrow">→</div>
+      <div class="ps-step"><div class="n">02</div><div class="t">Lovable 동기화</div><div class="d">main 브랜치 변경 자동 반영</div></div>
+      <div class="ps-arrow">→</div>
+      <div class="ps-step"><div class="n">03</div><div class="t">자동 배포</div><div class="d">factory-finder-fashiongo.lovable.app</div></div>
+    </div>
+    <div class="ps-note"><div class="nl">Highlight</div><p><b>비개발자 기획자도 Git 워크플로우에 직접 참여</b>해 코드를 커밋·배포. AI가 충돌 해결·코드 품질을 보조하며 3인 팀의 개발 속도를 크게 단축. <b>기획자가 Service Launcher가 될 수 있다는 가설을 실제 출시로 증명</b>한 사례입니다.</p></div>
+    <div class="ps-foot"><span>FG Angels</span><span class="ps-num">11</span></div>
   </div>
   <div class="pres-slide">
     <div class="ps-eyebrow">05</div>
@@ -2301,7 +2327,7 @@
       <figure><div class="ps-fig"><img loading="eager" decoding="async" src="images/fg-angels-team.png" alt="팀 인터뷰"></div><div class="ps-figcap">팀 인터뷰 · 손주영 · 윤혜련 · 임동빈</div></figure>
       <figure><div class="ps-fig"><img loading="eager" decoding="async" src="images/fg-angels-extra.png" alt="화이트보드 스케치"></div><div class="ps-figcap">화이트보드 — 시스템 아키텍처 · 트렌드 플로우</div></figure>
     </div>
-    <div class="ps-foot"><span>FG Angels</span><span class="ps-num">10</span></div>
+    <div class="ps-foot"><span>FG Angels</span><span class="ps-num">12</span></div>
   </div>
   <div class="pres-slide">
     <div class="ps-eyebrow">06</div>
@@ -2311,7 +2337,7 @@
       <div class="item"><div class="it">3인 크로스펑셔널 협업의 가능성</div><div class="id">도메인 전문가·개발자와 함께 아이디어부터 동작하는 AI 에이전트까지 단기 구현. 각 역할의 언어를 이해·조율하는 기획자 역할을 체득.</div></div>
       <div class="item"><div class="it">기획자 → Service Launcher 전환</div><div class="id">AI 툴(Lovable·Claude Code)을 직접 다뤄 기획서를 넘어 동작하는 프로토타입을 구현. 기획자도 서비스를 직접 런칭할 수 있음을 스스로 증명.</div></div>
     </div>
-    <div class="ps-foot"><span>FG Angels</span><span class="ps-num">11</span></div>
+    <div class="ps-foot"><span>FG Angels</span><span class="ps-num">13</span></div>
   </div>
   <div class="pres-slide">
     <div class="ps-eyebrow">07</div>
@@ -2323,7 +2349,7 @@
       <div class="row"><div class="k">뉴스</div><div class="t">한국경제 (092)</div><div class="u">n.news.naver.com/092/0002418772</div></div>
       <div class="row"><div class="k">뉴스</div><div class="t">한국경제 (018)</div><div class="u">n.news.naver.com/018/0006245221</div></div>
     </div>
-    <div class="ps-foot"><span>FG Angels</span><span class="ps-num">12</span></div>
+    <div class="ps-foot"><span>FG Angels</span><span class="ps-num">14</span></div>
   </div>
   <div class="pres-slide">
     <div class="ps-eyebrow">07</div>
@@ -2333,7 +2359,7 @@
       <div class="row"><div class="k">라이브</div><div class="t">NHN AI 스프린톤 2일차</div><div class="u">youtu.be/w5h4cxDSTog</div></div>
       <div class="row"><div class="k">인터뷰</div><div class="t">1등팀 인터뷰</div><div class="u">youtu.be/_2gPgEb4iJo</div></div>
     </div>
-    <div class="ps-foot"><span>FG Angels</span><span class="ps-num">13</span></div>
+    <div class="ps-foot"><span>FG Angels</span><span class="ps-num">15</span></div>
   </div>
 </div>
 <script>
