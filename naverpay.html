@@ -1,0 +1,2123 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>포트폴리오</title> <link rel="icon" type="image/svg+xml" href="favicon.svg" /> <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" /> <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer></script> <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script> <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script> <style> :root {
+      --dark: #1e1e1e;
+      --dark2: #2a2a2a;
+      --white: #ffffff;
+      --gray-light: #f5f5f5;
+      --gray-mid: #e0e0e0;
+      --gray-text: #555;
+      --accent: #333;
+      --accent2: #666;
+      --badge-new: #444;
+      --badge-fix: #444;
+      --badge-tip: #444;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scrollbar-gutter: stable; overflow-x: hidden; }
+    body { font-family: "Pretendard", system-ui, -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; background: #fff; -webkit-font-smoothing: antialiased; word-break: keep-all; overflow-wrap: break-word; }
+
+    /* ── NAV (Kakao-style: white, tall, centered) ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+      background: #fff;
+      display: flex; align-items: center; justify-content: center;
+      gap: 32px; padding: 0 32px; height: 68px;
+      border-bottom: 1px solid #ececec;
+      font-family: "Pretendard", system-ui, sans-serif;
+    }
+    nav a {
+      color: #191919; text-decoration: none;
+      font-size: 15px; font-weight: 500;
+      padding: 10px 20px; border-radius: 999px;
+      transition: color 200ms ease, background 200ms ease;
+    }
+    nav a:hover { color: #000; background: #f5f5f5; }
+    nav a.active {
+      background: #191919; color: #fff;
+      font-weight: 700;
+    }
+    nav a.active:hover { background: #191919; color: #fff; }
+    @media (max-width: 760px) {
+      nav { gap: 16px; padding: 0 16px; height: 56px; }
+      nav a { font-size: 14px; }
+    }
+
+    /* ── BADGE ── */
+    .badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 11px; font-weight: 700; padding: 3px 10px;
+      border-radius: 20px; margin-bottom: 10px; letter-spacing: 0.3px;
+    }
+    .badge-new  { background: #ececec; color: #444; }
+    .badge-fix  { background: #f0f0f0; color: #444; }
+    .badge-tip  { background: #f0f0f0; color: #444; }
+
+    .improvement-box {
+      border-left: 3px solid var(--accent);
+      background: rgba(0,0,0,0.04);
+      padding: 12px 16px; border-radius: 0 8px 8px 0;
+      margin-top: 20px; font-size: 13px; color: #ccc; line-height: 1.7;
+    }
+    .improvement-box strong { color: var(--accent); }
+
+    /* ── DARK SECTION ── */
+    .section-dark {
+      background: #fff; color: white;
+      padding: 100px 80px 80px;
+    }
+    .section-dark2 {
+      background: var(--dark2); color: white;
+      padding: 80px 80px;
+    }
+    /* ── LIGHT SECTION ── */
+    .section-light {
+      background: var(--white); color: #222;
+      padding: 80px 80px;
+    }
+    .section-gray {
+      background: var(--gray-light); color: #222;
+      padding: 80px 80px;
+    }
+
+    /* ── COVER ── */
+    #cover {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      background: #fff;
+    }
+    .cover-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 80px 60px; color: white;
+    }
+    .cover-left h1 { font-size: 36px; line-height: 1.4; font-weight: 300; margin-bottom: 32px; }
+    .cover-left h1 strong { font-weight: 700; }
+    .cover-name { font-size: 28px; font-weight: 700; margin-bottom: 28px; }
+    .contact-list { display: flex; flex-direction: column; gap: 10px; }
+    .contact-link {
+      font-size: 14px; color: #fff; text-decoration: none;
+      align-self: flex-start;
+    }
+    .contact-link:hover { text-decoration: underline; }
+
+    .cover-right {
+      background: white;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 80px 60px;
+    }
+    .toc-title { font-size: 13px; color: #999; margin-bottom: 20px; letter-spacing: 1px; }
+    .toc-item {
+      padding: 14px 12px; border-bottom: 1px solid #eee;
+      font-size: 15px; color: #333; display: flex; justify-content: space-between;
+      align-items: center;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: background 0.2s, padding-left 0.2s, color 0.2s;
+    }
+    .toc-item:hover {
+      background: #f5f5f5;
+      color: #333;
+      padding-left: 18px;
+    }
+    .toc-item .toc-tag {
+      font-size: 11px; background: #f0f0f0; color: #777;
+      padding: 3px 8px; border-radius: 10px;
+    }
+    .toc-item.toc-new .toc-tag { background: #ececec; color: #444; font-weight: 700; }
+
+    /* ── ABOUT ── */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+    .about-headline { font-size: 32px; font-weight: 300; line-height: 1.5; margin-bottom: 24px; }
+    .about-headline strong { font-weight: 700; color: #fff; }
+    .about-body { font-size: 15px; line-height: 1.9; color: #ccc; }
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .stat-card {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px; padding: 24px;
+    }
+    .stat-num { font-size: 36px; font-weight: 700; color: var(--accent2); }
+    .stat-label { font-size: 13px; color: #aaa; margin-top: 4px; line-height: 1.5; }
+
+    /* ── PROJECT HEADER ── */
+    .project-header {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+      min-height: 100vh; align-items: center;
+    }
+    .project-meta { display: flex; flex-direction: column; gap: 24px; }
+    .project-num { font-size: 12px; color: #aaa; letter-spacing: 2px; margin-bottom: 10px; }
+    .project-title { font-size: 40px; font-weight: 700; line-height: 1.2; margin: 0 0 12px; }
+    .project-subtitle { font-size: 15px; color: #aaa; margin: 0; }
+    .project-period {
+      display: inline-block; font-size: 12px;
+      background: #f0f0f0; color: #777;
+      padding: 4px 12px; border-radius: 14px;
+      margin-top: 18px; letter-spacing: 0.3px;
+    }
+    .meta-block { margin-top: 8px; }
+    .meta-label { font-size: 11px; color: #888; letter-spacing: 1px; margin-bottom: 6px; }
+    .meta-value { font-size: 14px; color: #ddd; line-height: 1.7; }
+    .project-img {
+      background: #2a2a2a; border-radius: 16px; overflow: hidden;
+      height: 500px; display: flex; align-items: center; justify-content: center;
+    }
+    .img-placeholder {
+      text-align: center; color: #555; font-size: 14px;
+    }
+    .img-placeholder .img-icon { font-size: 48px; margin-bottom: 12px; }
+
+    /* ── CONTENT BLOCKS ── */
+    .section-title { font-size: 22px; font-weight: 700; margin-bottom: 32px; }
+    .section-subtitle { font-size: 13px; color: #888; letter-spacing: 1px; margin-bottom: 8px; }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+
+    .info-card {
+      background: white; border: 1px solid #eee; border-radius: 12px; padding: 28px;
+    }
+    .info-card.dark {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px; padding: 28px;
+    }
+    .info-card h4 { font-size: 13px; color: #888; margin-bottom: 12px; letter-spacing: 0.5px; }
+    .info-card p, .info-card li { font-size: 14px; line-height: 1.8; color: #555; }
+    .info-card.dark p, .info-card.dark li { color: #ccc; }
+    .info-card ul { padding-left: 16px; }
+
+    /* ── DATA VIZ MOCK ── */
+    .chart-bar-wrap { margin: 24px 0; }
+    .chart-bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .chart-bar-label { font-size: 12px; color: #999; width: 100px; text-align: right; }
+    .chart-bar-track { flex: 1; background: #f0f0f0; border-radius: 4px; height: 28px; overflow: hidden; }
+    .chart-bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 10px; font-size: 12px; font-weight: 700; color: white; }
+
+    .kpi-row { display: flex; gap: 24px; flex-wrap: wrap; }
+    .kpi-card {
+      flex: 1; min-width: 140px;
+      background: white; border: 1px solid #eee; border-radius: 12px; padding: 20px;
+      text-align: center;
+    }
+    .kpi-card.dark {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+    }
+    .kpi-num { font-size: 32px; font-weight: 700; }
+    .kpi-label { font-size: 12px; color: #999; margin-top: 4px; }
+    .kpi-change { font-size: 12px; color: #444; margin-top: 4px; font-weight: 600; }
+
+    /* ── FLOW ── */
+    .flow-wrap { display: flex; gap: 0; align-items: stretch; flex-wrap: wrap; }
+    .flow-step {
+      flex: 1; min-width: 120px; padding: 20px 16px;
+      background: white; border: 1px solid #eee; text-align: center;
+      position: relative; font-size: 13px;
+    }
+    .flow-step:not(:last-child)::after {
+      content: '→'; position: absolute; right: -12px; top: 50%;
+      transform: translateY(-50%); font-size: 18px; color: #aaa; z-index: 1;
+    }
+    .flow-step .step-num {
+      width: 24px; height: 24px; background: var(--accent); color: white;
+      border-radius: 50%; font-size: 11px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 8px;
+    }
+    .flow-step h5 { font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+    .flow-step p { font-size: 11px; color: #777; }
+
+    /* ── RESULT ── */
+    .result-highlight {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px; padding: 32px; color: white; margin: 32px 0;
+    }
+    .result-highlight h3 { font-size: 18px; font-weight: 700; margin-bottom: 24px; color: white; }
+    .result-row { display: flex; gap: 32px; flex-wrap: wrap; }
+    .result-item { flex: 1; min-width: 160px; }
+    .result-item .r-num { font-size: 40px; font-weight: 700; color: white; }
+    .result-item .r-unit { font-size: 18px; color: #aaa; }
+    .result-item .r-label { font-size: 13px; color: #aaa; margin-top: 4px; }
+    .result-item .r-note { font-size: 12px; color: #888; margin-top: 4px; line-height: 1.5; }
+
+    /* ── DECISION STORY ── */
+    .story-block {
+      border-left: 3px solid #e0e0e0; padding: 16px 24px; margin: 16px 0;
+    }
+    .story-block.challenge { border-color: #444; background: #fafafa; }
+    .story-block.decision { border-color: var(--accent); background: #f5f5f5; }
+    .story-block.outcome { border-color: #444; background: #f5f5f5; }
+    .story-label { font-size: 11px; font-weight: 700; color: #999; letter-spacing: 1px; margin-bottom: 6px; }
+    .story-block.challenge .story-label { color: #444; }
+    .story-block.decision .story-label { color: var(--accent); }
+    .story-block.outcome .story-label { color: #444; }
+    .story-block p { font-size: 14px; line-height: 1.8; color: #444; }
+
+    /* ── RESEARCH ── */
+    .research-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .research-card {
+      background: white; border: 1px solid #eee; border-radius: 12px; padding: 24px;
+    }
+    .research-card .icon { font-size: 28px; margin-bottom: 12px; }
+    .research-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+    .research-card p { font-size: 13px; color: #666; line-height: 1.7; }
+    .quote-block {
+      background: #f8f8f8; border-left: 4px solid #ddd;
+      padding: 16px 20px; border-radius: 0 8px 8px 0;
+      font-size: 14px; color: #555; font-style: italic; line-height: 1.7;
+      margin: 12px 0;
+    }
+
+    /* ── TIMELINE ── */
+    .timeline { position: relative; padding-left: 32px; }
+    .timeline::before {
+      content: ''; position: absolute; left: 8px; top: 0; bottom: 0;
+      width: 2px; background: #e0e0e0;
+    }
+    .tl-item { position: relative; margin-bottom: 24px; }
+    .tl-dot {
+      position: absolute; left: -28px; top: 4px;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--accent); border: 2px solid white;
+      box-shadow: 0 0 0 2px var(--accent);
+    }
+    .tl-date { font-size: 11px; color: #999; margin-bottom: 4px; }
+    .tl-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .tl-body { font-size: 13px; color: #666; line-height: 1.7; }
+
+    /* ── DIVIDER ── */
+    hr.divider { border: none; border-top: 1px solid rgba(255,255,255,0.08); margin: 40px 0; }
+    hr.divider-light { border: none; border-top: 1px solid #eee; margin: 40px 0; }
+
+    /* ── TAGS ── */
+    .tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+    .tag {
+      font-size: 12px; padding: 4px 10px; border-radius: 20px;
+      background: rgba(255,255,255,0.08); color: #aaa;
+    }
+    .tag.light { background: #f0f0f0; color: #666; }
+
+    /* ── ANNOT ── */
+    .annot-section {
+      position: relative; background: #fafafa; border: 1px solid #555;
+      border-radius: 12px; padding: 20px 24px; margin: 24px 0;
+    }
+    .annot-section::before {
+      content: ' 개선 포인트'; display: block;
+      font-size: 11px; font-weight: 700; color: #444; margin-bottom: 8px;
+    }
+    .annot-section p { font-size: 13px; color: #555; line-height: 1.7; }
+
+    /* ── SCROLL HINT ── */
+    .scroll-hint { text-align: center; padding: 20px; color: #555; font-size: 13px; }
+
+    /* ── CAREER ── */
+    .career-block { margin-bottom: 56px; }
+    .career-title { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 12px; letter-spacing: 0.3px; }
+    .career-divider { border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 0 0 28px; }
+    .career-item { display: grid; grid-template-columns: 240px 1fr; gap: 32px; margin-bottom: 28px; align-items: start; }
+    .career-company { font-size: 15px; color: #ddd; line-height: 1.5; }
+    .career-company strong { font-weight: 700; color: #fff; }
+    .career-period { font-size: 13px; color: #999; margin-bottom: 6px; }
+    .career-desc { font-size: 14px; color: #bbb; line-height: 1.7; }
+    .career-detail ul { margin: 0; padding-left: 18px; }
+    .career-detail li { font-size: 14px; color: #bbb; line-height: 1.7; }
+    .tool-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+    .tool-chip {
+      display: inline-flex; align-items: center;
+      background: rgba(255,255,255,0.06); color: #ccc;
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 8px 14px; border-radius: 10px;
+      font-size: 13px; letter-spacing: 0.2px;
+    }
+
+    /* ── PAGE ROUTING (hash-based SPA) ── */
+
+    /* fade-in animation 제거: 첫 스크롤과 충돌해 jank를 유발하던 합성 레이어를 만들지 않음 */
+
+    /* ── LIGHTBOX (image zoom) ── */
+    .lightbox {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.92);
+      z-index: 1000;
+      display: none;
+      align-items: center; justify-content: center;
+      padding: 40px;
+      cursor: zoom-out;
+      animation: lightboxFadeIn 200ms ease both;
+    }
+    .lightbox.open { display: flex; }
+    @keyframes lightboxFadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    .lightbox-img {
+      max-width: 100%; max-height: 85vh;
+      object-fit: contain;
+      border-radius: 4px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      cursor: default;
+    }
+    .lightbox-close {
+      position: absolute; top: 24px; right: 24px;
+      width: 44px; height: 44px;
+      border: none;
+      background: rgba(255,255,255,0.10);
+      color: white;
+      border-radius: 50%;
+      font-size: 18px; line-height: 1;
+      cursor: pointer;
+      transition: background 240ms ease;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.22); }
+    .lightbox-caption {
+      position: absolute;
+      bottom: 24px; left: 50%; transform: translateX(-50%);
+      color: rgba(255,255,255,0.75);
+      font-size: 13px;
+      font-family: "Pretendard", system-ui, sans-serif;
+      letter-spacing: 0;
+      max-width: 80vw; text-align: center;
+    }
+    /* Indicate clickable gallery images */
+    .prd-page .prd-gallery .img-frame:not(.empty) { cursor: zoom-in; }
+    .prd-page .prd-gallery .img-frame:not(.empty) img { transition: transform 360ms ease; }
+    .prd-page .prd-gallery .img-frame:not(.empty):hover img { transform: scale(1.04); }
+
+
+    /* ════════════════════════════════════════ */
+    /* BACK TO LIST (project pages)              */
+    /* ════════════════════════════════════════ */
+    .prd-page .prd-back-list-wrap {
+      background: var(--prd-surface);
+      padding: 32px 56px;
+      text-align: center;
+    }
+    .prd-page .prd-back-list {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: "Pretendard", system-ui, sans-serif;
+      font-size: 14px; font-weight: 600;
+      color: var(--prd-ink-2);
+      padding: 12px 28px;
+      text-decoration: none;
+      border: 1px solid var(--prd-line-soft);
+      border-radius: 6px;
+      background: var(--prd-surface);
+      transition: all 200ms ease;
+    }
+    .prd-page .prd-back-list:hover {
+      background: var(--prd-ink); color: var(--prd-surface);
+      border-color: var(--prd-ink);
+    }
+
+    /* ════════════════════════════════════════ */
+    /* GO TO TOP (project pages only)            */
+    /* ════════════════════════════════════════ */
+    .go-to-top {
+      position: fixed; bottom: 32px; right: 32px;
+      width: 44px; height: 44px;
+      background: #191919; color: #fff;
+      border: none; border-radius: 50%;
+      cursor: pointer;
+      display: none; align-items: center; justify-content: center;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+      transition: background 200ms ease, transform 200ms ease, opacity 200ms ease;
+      z-index: 100;
+      opacity: 0;
+    }
+    .go-to-top.visible {
+      display: flex; opacity: 1;
+    }
+    .go-to-top:hover {
+      background: #000; transform: translateY(-2px);
+    }
+
+    /* ════════════════════════════════════════ */
+    /* FEATURED PROJECTS CAROUSEL (landing)      */
+    /* ════════════════════════════════════════ */
+    #featured {
+      background: #1a1a1a; color: #fff;
+      padding: 100px 0;
+      font-family: "Pretendard", system-ui, sans-serif;
+    }
+    .featured-head {
+      max-width: 1400px; margin: 0 auto 40px;
+      padding: 0 48px;
+      display: flex; justify-content: space-between; align-items: baseline;
+      gap: 24px; flex-wrap: wrap;
+    }
+    .featured-head h2 {
+      font-size: 40px; font-weight: 700;
+      letter-spacing: -0.02em; line-height: 1.2;
+    }
+    .featured-head .featured-link {
+      font-size: 14px; color: rgba(255,255,255,0.7);
+      text-decoration: none; transition: color 200ms;
+    }
+    .featured-head .featured-link:hover { color: #fff; }
+    .featured-carousel {
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -ms-overflow-style: none; scrollbar-width: none;
+    }
+    .featured-carousel::-webkit-scrollbar { display: none; }
+    .featured-track {
+      display: flex; gap: 20px;
+      padding-left: max(48px, calc((100vw - 1400px) / 2 + 48px));
+      padding-right: max(48px, calc((100vw - 1400px) / 2 + 48px));
+      padding-bottom: 8px;
+    }
+    .featured-card {
+      flex-shrink: 0; width: 340px;
+      scroll-snap-align: start;
+      text-decoration: none; color: inherit;
+      display: flex; flex-direction: column;
+      transition: opacity 200ms;
+    }
+    .featured-card:hover { opacity: 0.92; }
+    .featured-card-image {
+      position: relative;
+      aspect-ratio: 4/3;
+      background: #2a2a2a;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    .featured-card-image img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform 500ms ease;
+    }
+    .featured-card:hover .featured-card-image img { transform: scale(1.04); }
+    .featured-card-image.placeholder {
+      background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.4); font-size: 13px; font-weight: 600;
+      letter-spacing: 0.5px; text-transform: uppercase;
+    }
+    .featured-card-overlay { display: none; }
+    .featured-card-body .meta {
+      font-size: 12px; color: rgba(255,255,255,0.6);
+      margin: 0 0 8px;
+      display: flex; gap: 12px;
+    }
+    .featured-card-body .meta .company { color: #fff; font-weight: 700; }
+    .featured-card-body h3 {
+      font-size: 18px; font-weight: 700;
+      color: #fff; line-height: 1.4;
+      margin: 0 0 12px;
+    }
+    .featured-card-body .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .featured-tag {
+      font-size: 11px; font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      background: rgba(255,255,255,0.10);
+      padding: 4px 9px; border-radius: 4px;
+      letter-spacing: 0.3px; text-transform: uppercase;
+    }
+    .featured-nav {
+      max-width: 1400px; margin: 24px auto 0;
+      padding: 0 48px;
+      display: flex; justify-content: flex-end; gap: 8px;
+    }
+    .featured-nav button {
+      width: 44px; height: 44px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 50%;
+      background: transparent;
+      color: #fff; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 200ms, border-color 200ms;
+      font-size: 18px; line-height: 1;
+    }
+    .featured-nav button:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.4);
+    }
+    @media (max-width: 760px) {
+      #featured { padding: 64px 0; }
+      .featured-head { padding: 0 24px; }
+      .featured-head h2 { font-size: 28px; }
+      .featured-track { padding: 0 24px 8px; }
+      .featured-card { width: 260px; }
+      .featured-nav { padding: 0 24px; }
+    }
+
+    /* ════════════════════════════════════════ */
+    /* PORTFOLIO LIST PAGE                       */
+    /* ════════════════════════════════════════ */
+    #portfolio {
+      background: #fff; color: #222;
+      padding: 100px 48px 80px; min-height: 100vh;
+      font-family: "Pretendard", system-ui, sans-serif;
+    }
+    #portfolio .portfolio-inner { max-width: 1100px; margin: 0 auto; }
+    #portfolio .portfolio-title {
+      font-size: 40px; font-weight: 700;
+      letter-spacing: -0.02em; line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    #portfolio .portfolio-subtitle {
+      font-size: 15px; color: #888;
+      line-height: 1.7; margin-bottom: 32px;
+      max-width: 720px;
+    }
+    #portfolio .portfolio-search {
+      max-width: 480px; margin-bottom: 40px; position: relative;
+    }
+    #portfolio .portfolio-search input {
+      width: 100%; padding: 12px 16px 12px 40px;
+      font-family: "Pretendard", system-ui, sans-serif;
+      font-size: 14px; color: #191919;
+      border: 1px solid #e0e0e0; border-radius: 8px;
+      background: #fff; outline: none;
+      transition: border-color 200ms ease;
+    }
+    #portfolio .portfolio-search input:focus { border-color: #191919; }
+    #portfolio .portfolio-search input::placeholder { color: #aaa; }
+    #portfolio .portfolio-search-icon {
+      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      width: 16px; height: 16px; color: #888; pointer-events: none;
+    }
+    #portfolio .portfolio-empty {
+      padding: 48px 0; text-align: center; color: #888; font-size: 14px;
+      display: none;
+    }
+    #portfolio .portfolio-empty.visible { display: block; }
+    #portfolio .portfolio-list {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 40px 24px;
+    }
+    #portfolio .portfolio-item {
+      display: flex; flex-direction: column;
+      text-decoration: none; color: inherit;
+      transition: opacity 200ms ease;
+    }
+    #portfolio .portfolio-item:hover { opacity: 0.92; }
+    #portfolio .portfolio-thumb {
+      aspect-ratio: 4 / 3;
+      background: #f5f5f5;
+      overflow: hidden;
+      margin-bottom: 16px;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    #portfolio .portfolio-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform 500ms ease;
+    }
+    #portfolio .portfolio-item:hover .portfolio-thumb img { transform: scale(1.04); }
+    #portfolio .portfolio-thumb.placeholder {
+      background: linear-gradient(135deg, #ededed 0%, #e0e0e0 100%);
+      color: #aaa; font-size: 13px; font-weight: 600;
+      letter-spacing: 0.5px; text-transform: uppercase;
+    }
+    #portfolio .portfolio-meta {
+      font-size: 12px; color: #888;
+      letter-spacing: 0;
+      margin: 0 0 8px;
+      display: flex; gap: 12px; align-items: baseline; flex-wrap: wrap;
+    }
+    #portfolio .portfolio-meta .company {
+      font-weight: 700; color: #191919;
+    }
+    #portfolio .portfolio-meta .period { color: #888; }
+    #portfolio .portfolio-item h2 {
+      font-size: 18px; font-weight: 700;
+      color: #191919; line-height: 1.4;
+      margin: 0 0 12px;
+    }
+    #portfolio .portfolio-tags {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      margin-top: auto;
+    }
+    #portfolio .portfolio-tag {
+      font-size: 11px; font-weight: 700;
+      color: #555; background: #f0f0f0;
+      padding: 4px 10px; border-radius: 4px;
+      letter-spacing: 0.3px; text-transform: uppercase;
+    }
+    @media (max-width: 960px) {
+      #portfolio .portfolio-list { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      #portfolio { padding: 80px 24px 56px; }
+      #portfolio .portfolio-title { font-size: 32px; }
+      #portfolio .portfolio-list { grid-template-columns: 1fr; gap: 32px; }
+    }
+
+    /* ════════════════════════════════════════ */
+    /* LANDING FOOTER (cover · about · career)   */
+    /* ════════════════════════════════════════ */
+    .landing-footer {
+      background: #1e1e1e; color: rgba(255,255,255,0.75);
+      padding: 48px 48px;
+      margin: 80px -48px -80px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      font-family: "Pretendard", system-ui, sans-serif;
+    }
+    .landing-footer-inner { max-width: 1100px; margin: 0 auto; }
+    .landing-footer-row {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 24px; flex-wrap: wrap;
+    }
+    .landing-footer-left { display: flex; flex-direction: column; gap: 6px; }
+    .landing-footer-title { font-size: 14px; font-weight: 700; color: #fff; }
+    .landing-footer-sub { font-size: 12px; color: rgba(255,255,255,0.55); }
+    .landing-footer-contact {
+      display: flex; flex-direction: column; gap: 8px; align-items: flex-end;
+    }
+    .landing-footer-contact a {
+      font-size: 13px; color: rgba(255,255,255,0.85);
+      text-decoration: none; transition: color 240ms;
+    }
+    .landing-footer-contact a:hover { color: #fff; }
+    .landing-footer-copyright {
+      font-size: 12px; color: rgba(255,255,255,0.4);
+      margin-top: 24px; padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    @media (max-width: 760px) {
+      .landing-footer { padding: 32px 24px; }
+      .landing-footer-contact { align-items: flex-start; }
+    }
+
+    /* Table — link styling inside PRD tables */
+    .prd-page .prd-table-wrap tbody td a {
+      color: var(--prd-ink); text-decoration: underline;
+      text-decoration-color: var(--prd-line-soft);
+      text-underline-offset: 3px; transition: text-decoration-color 240ms;
+    }
+    .prd-page .prd-table-wrap tbody td a:hover {
+      text-decoration-color: var(--prd-ink);
+    }
+
+    /* ════════════════════════════════════════ */
+    /* CAREER (tabs + naver-style year timeline) */
+    /* ════════════════════════════════════════ */
+    .career-tabs {
+      display: flex; gap: 4px;
+      justify-content: center; align-items: stretch;
+      margin: 0 auto 48px; max-width: 1100px;
+      position: sticky; top: 44px; z-index: 50;
+      background: #fff; padding: 12px 0 0;
+    }
+    /* 단일 회색 라인을 전체 viewport 너비로 그림 (양옆 흰 배경 + 라인 통합) */
+    .career-tabs::before {
+      content: ""; position: absolute; top: 0; bottom: 1px;
+      left: -100vw; right: -100vw;
+      background: #fff; pointer-events: none; z-index: -1;
+    }
+    .career-tabs::after {
+      content: ""; position: absolute; bottom: 0;
+      left: -100vw; right: -100vw; height: 1px;
+      background: #e5e5e5; pointer-events: none;
+    }
+    .career-tab {
+      position: relative;
+      background: none; border: none;
+      padding: 12px 20px; line-height: 1.2;
+      font-family: inherit; font-size: 15px; font-weight: 600;
+      color: #888; cursor: pointer;
+      transition: color 200ms ease;
+    }
+    .career-tab:hover { color: #222; }
+    .career-tab.active { color: #191919; font-weight: 700; }
+    .career-panel { display: none; }
+    .career-panel.active {
+      display: block;
+      animation: careerPanelFade 240ms ease both;
+    }
+    @keyframes careerPanelFade {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .career-row {
+      display: grid; grid-template-columns: 140px 1fr;
+      gap: 40px; padding: 36px 0;
+      border-top: 1px solid #f0f0f0;
+    }
+    .career-row:first-child { border-top: none; padding-top: 8px; }
+    .career-year .year-num {
+      display: block;
+      font-size: 36px; font-weight: 800; color: #222;
+      letter-spacing: -0.02em; line-height: 1;
+    }
+    .career-year .year-range {
+      display: block; font-size: 13px; font-weight: 500;
+      color: #aaa; margin-top: 6px; letter-spacing: 0;
+    }
+    .career-head {
+      display: flex; align-items: center; gap: 10px;
+      flex-wrap: wrap; margin-bottom: 6px;
+    }
+    .career-title {
+      font-size: 22px; font-weight: 700; color: #222;
+      line-height: 1.3; margin: 0;
+    }
+    .career-tag {
+      font-size: 10px; font-weight: 700;
+      padding: 3px 10px; border-radius: 10px;
+      letter-spacing: 0.3px;
+    }
+    .career-tag.now    { background: #f5f5f5; color: #333; }
+    .career-tag.award  { background: #f0f0f0; color: #444; }
+    .career-tag.edu    { background: #ececec; color: #444; }
+    .career-tag.cert   { background: #ececec; color: #222; }
+    .career-tag.lecture{ background: #f0f0f0; color: #444; }
+    .career-role {
+      font-size: 13px; color: #888; margin: 0 0 10px;
+      line-height: 1.6;
+    }
+    .career-desc {
+      font-size: 14px; color: #555; line-height: 1.7;
+      margin: 0 0 14px;
+    }
+    .career-projects {
+      list-style: none; padding: 0; margin: 0;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .career-projects li {
+      font-size: 14px; color: #444; line-height: 1.6;
+      padding-left: 16px; position: relative;
+    }
+    .career-projects li::before {
+      content: "▸"; position: absolute; left: 0; top: 0;
+      color: #333;
+    }
+    .career-projects li .trophy {
+      color: #555; margin-right: 4px;
+    }
+    .career-projects li a, .career-title a {
+      color: inherit; text-decoration: underline;
+      text-decoration-color: #ccc; text-underline-offset: 3px;
+      transition: text-decoration-color 200ms ease, color 200ms ease;
+    }
+    .career-projects li a:hover, .career-title a:hover {
+      color: #191919; text-decoration-color: #191919;
+    }
+    .career-kpis {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px;
+    }
+    .career-kpi {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 12px; color: #555;
+      background: #fafafa; border: 1px solid #e5e5e5;
+      padding: 6px 12px; border-radius: 20px;
+    }
+    .career-kpi b { color: #333; font-weight: 700; }
+
+    /* ── KAKAO-STYLE MILESTONES ── */
+    .milestone-head {
+      max-width: 1100px; margin: 0 auto 72px;
+    }
+    .milestone-head h1 {
+      font-size: 56px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; color: #191919;
+    }
+    .milestone-head p {
+      font-size: 16px; color: #666; margin-top: 16px;
+    }
+    .milestone-wrap {
+      max-width: 1100px; margin: 0 auto;
+    }
+    .milestone-row {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 56px;
+      padding: 56px 0;
+      border-top: 1px solid #ededed;
+    }
+    .milestone-row:last-of-type { border-bottom: 1px solid #ededed; }
+    .milestone-year {
+      font-size: 64px; font-weight: 700; line-height: 1;
+      color: #191919; letter-spacing: -0.02em;
+      position: sticky; top: 88px;
+      align-self: start;
+    }
+    .milestone-items {
+      display: flex; flex-direction: column; gap: 36px;
+    }
+    .milestone-item .m-head {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 13px; color: #999; margin-bottom: 6px;
+      flex-wrap: wrap;
+    }
+    .milestone-item .m-month { font-weight: 600; color: #666; }
+    .milestone-tag {
+      display: inline-flex; align-items: center;
+      font-size: 11px; font-weight: 600;
+      padding: 3px 10px; border-radius: 10px;
+      letter-spacing: 0.2px;
+    }
+    .milestone-tag.work    { background: #e8f1ff; color: #1a4cb8; }
+    .milestone-tag.award   { background: #fff3cd; color: #856404; }
+    .milestone-tag.edu     { background: #d5f5e3; color: #1a7a45; }
+    .milestone-tag.cert    { background: #cfe7ff; color: #0d4a8a; }
+    .milestone-tag.lecture { background: #ede9fe; color: #6d28d9; }
+    .milestone-item h3 {
+      font-size: 22px; font-weight: 700; color: #191919;
+      letter-spacing: -0.01em; line-height: 1.4; margin: 0 0 8px;
+    }
+    .milestone-item .m-role {
+      font-size: 14px; color: #444; margin: 0 0 8px;
+    }
+    .milestone-item .m-desc {
+      font-size: 14px; color: #555; line-height: 1.7; margin: 0;
+    }
+    .milestone-item ul { margin: 10px 0 0; padding-left: 18px; }
+    .milestone-item li { font-size: 14px; color: #555; line-height: 1.8; }
+    .milestone-item li a { color: #1a4cb8; text-decoration: none; }
+    .milestone-item li a:hover { text-decoration: underline; }
+    .milestone-kpis {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px;
+    }
+    .milestone-kpi {
+      font-size: 12px; padding: 6px 12px;
+      background: #f5f7fa; color: #444;
+      border-radius: 14px; border: 1px solid #e3e7ed;
+    }
+    .milestone-kpi b { color: #191919; font-weight: 700; margin-right: 4px; }
+    .milestone-skills {
+      max-width: 1100px; margin: 80px auto 0;
+      padding-top: 56px; border-top: 1px solid #ededed;
+    }
+    .milestone-skills h2 {
+      font-size: 28px; font-weight: 700; color: #191919; margin-bottom: 32px;
+    }
+    .milestone-skills-grid {
+      display: grid; grid-template-columns: 200px 1fr; gap: 24px 56px;
+      align-items: baseline;
+    }
+    .milestone-skills-grid dt {
+      font-size: 14px; font-weight: 700; color: #191919;
+    }
+    .milestone-skills-grid dd {
+      font-size: 14px; color: #555; margin: 0; line-height: 1.7;
+    }
+    @media (max-width: 720px) {
+      .milestone-row { grid-template-columns: 1fr; gap: 16px; }
+      .milestone-year { position: static; font-size: 44px; }
+      .milestone-skills-grid { grid-template-columns: 1fr; gap: 4px 0; }
+      .milestone-skills-grid dd { margin-bottom: 16px; }
+    }
+
+    .career-skills-table {
+      max-width: 1100px; margin-top: 8px;
+      border-top: 1px solid #191919;
+      border-bottom: 1px solid #191919;
+      overflow-x: auto;
+    }
+    .career-skills-table table { width: 100%; border-collapse: collapse; }
+    .career-skills-table thead th {
+      text-align: left; padding: 12px 16px;
+      background: #efefef; color: #191919;
+      font-size: 12px; text-transform: uppercase;
+      font-weight: 600; letter-spacing: 0.04em; white-space: nowrap;
+    }
+    .career-skills-table tbody td {
+      padding: 16px; border-bottom: 1px solid #ededed;
+      color: #2e2e2e; font-size: 14px; line-height: 1.6;
+      vertical-align: top;
+    }
+    .career-skills-table tbody td.cat {
+      font-weight: 700; color: #191919;
+      width: 220px; white-space: nowrap;
+    }
+    .career-skills-table tbody td .muted {
+      color: #888; font-weight: 500; font-size: 12px; margin-left: 4px;
+    }
+    .career-skills-table tbody tr:last-child td { border-bottom: none; }
+
+    @media (max-width: 760px) {
+      .career-row { grid-template-columns: 1fr; gap: 16px; padding: 28px 0; }
+      .career-year .year-num { font-size: 28px; }
+      .career-skills-table tbody td.cat { width: auto; white-space: normal; }
+    }
+
+    /* ════════════════════════════════════════ */
+    /* PRD-STYLE PROJECT PAGE (scope: .prd-page) */
+    /* ════════════════════════════════════════ */
+    .prd-page {
+      --prd-ink: #191919;
+      --prd-ink-2: #2e2e2e;
+      --prd-ink-3: #545454;
+      --prd-ink-4: #767676;
+      --prd-ink-5: #a1a1a1;
+      --prd-surface: #ffffff;
+      --prd-surface-1: #f7f7f7;
+      --prd-surface-2: #efefef;
+      --prd-line: #191919;
+      --prd-line-soft: #e3e3e3;
+      --prd-line-softer: #ededed;
+      --prd-accent: #191919;
+      --prd-danger: #191919;
+      --prd-success: #191919;
+      font-family: "Pretendard", system-ui, -apple-system, sans-serif;
+      font-feature-settings: "ss01","cv11","tnum";
+      word-break: keep-all; overflow-wrap: break-word;
+      -webkit-font-smoothing: antialiased;
+      background: var(--prd-surface) !important;
+      color: var(--prd-ink-2);
+      line-height: 1.7;
+      padding: 0 !important;
+      min-height: 100vh;
+    }
+    .prd-page * { box-sizing: border-box; }
+
+    /* Cover (project header) */
+    .prd-page .prd-cover {
+      background:
+        radial-gradient(ellipse 70% 55% at 25% 0%, rgba(255,255,255,0.10), transparent 65%),
+        radial-gradient(ellipse 60% 50% at 90% 100%, rgba(255,255,255,0.05), transparent 60%),
+        var(--prd-ink);
+      color: var(--prd-surface);
+      padding: 164px 56px 96px;
+    }
+    .prd-page .prd-cover-inner {
+      max-width: 800px; margin: 0 auto;
+      display: flex; flex-direction: column; gap: 64px;
+    }
+    .prd-page .prd-cover-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 32px; }
+    .prd-page .prd-cover-eyebrow {
+      font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase;
+      font-weight: 600; color: rgba(255,255,255,0.7); margin-bottom: 24px;
+    }
+    .prd-page .prd-cover-title {
+      font-size: 56px; line-height: 1.2; letter-spacing: -0.04em;
+      font-weight: 700; color: var(--prd-surface); margin: 0;
+    }
+    .prd-page .prd-cover-subtitle {
+      display: block; font-size: 22px; font-weight: 500;
+      color: rgba(255,255,255,0.65); margin-top: 16px; letter-spacing: -0.01em;
+    }
+    .prd-page .prd-cover-summary {
+      margin-top: 28px; font-size: 17px; line-height: 1.7;
+      color: rgba(255,255,255,0.72); max-width: 640px;
+    }
+    .prd-page .prd-cover-badge {
+      flex-shrink: 0; display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+      font-weight: 600; color: rgba(255,255,255,0.85);
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 4px; padding: 7px 12px;
+    }
+    .prd-page .prd-cover-badge::before {
+      content: ""; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--prd-accent);
+    }
+    .prd-page .prd-cover-meta {
+      display: grid; grid-template-columns: repeat(3, auto);
+      gap: 48px; justify-content: start;
+    }
+    .prd-page .prd-cover-meta-item { display: flex; flex-direction: column; gap: 6px; }
+    .prd-page .prd-cover-meta-label {
+      font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+    .prd-page .prd-cover-meta-value {
+      font-size: 13px; color: rgba(255,255,255,0.92); font-weight: 500;
+    }
+
+    /* Side nav — JS pins `top` to align with .prd-main, with 120px viewport floor */
+    .prd-page .prd-side-nav {
+      position: fixed;
+      left: max(24px, calc(50% - 400px - 40px - 200px));
+      width: 200px; max-height: calc(100vh - 160px);
+      overflow-y: auto; z-index: 90;
+    }
+    .prd-page .prd-side-nav-list {
+      list-style: none; border-left: 2px solid var(--prd-line-soft);
+      padding: 0; margin: 0;
+    }
+    .prd-page .prd-side-nav-list li { margin: 0; }
+    .prd-page .prd-side-nav-list a {
+      display: grid; grid-template-columns: auto 1fr; gap: 8px; align-items: baseline;
+      padding: 7px 0 7px 12px; margin-left: -2px;
+      border-left: 2px solid transparent;
+      color: var(--prd-ink-4); text-decoration: none;
+      transition: color 240ms cubic-bezier(0.32,0.72,0,1), border-color 240ms;
+      cursor: pointer;
+    }
+    .prd-page .prd-side-nav-list a:hover { color: var(--prd-ink); }
+    .prd-page .prd-side-nav-list a.active { color: var(--prd-accent); border-left-color: var(--prd-accent); }
+    .prd-page .prd-side-nav-list .sn-num {
+      font-size: 12px; font-weight: 600; color: var(--prd-ink-5); letter-spacing: 0;
+    }
+    .prd-page .prd-side-nav-list .sn-title {
+      font-size: 13px; font-weight: 500; line-height: 1.25; color: var(--prd-ink-4);
+    }
+    .prd-page .prd-side-nav-list a.active .sn-num,
+    .prd-page .prd-side-nav-list a.active .sn-title { color: var(--prd-accent); }
+    .prd-page .prd-side-nav-list a.sn-h1 .sn-num {
+      font-size: 11px; font-weight: 700; color: var(--prd-ink-4); text-transform: uppercase;
+    }
+    .prd-page .prd-side-nav-list a.sn-h1 .sn-title {
+      font-size: 13px; font-weight: 700; color: var(--prd-ink-4);
+    }
+    .prd-page .prd-side-nav-list a:not(.sn-h1) { padding-left: 20px; }
+    @media (max-width: 1023px) { .prd-page .prd-side-nav { display: none; } }
+
+    /* Main */
+    .prd-page .prd-main { padding: 0 56px; background: var(--prd-surface); }
+    .prd-page .prd-section { padding: 72px 0; }
+    .prd-page .prd-section-inner { max-width: 800px; margin: 0 auto; }
+    .prd-page .prd-section-inner > * { margin-top: 56px; }
+    .prd-page .prd-section-inner > *:first-child { margin-top: 0; }
+    .prd-page .prd-section-tag { border-top: 3px solid var(--prd-line); margin-bottom: 28px; }
+    .prd-page .prd-section-head { margin-bottom: 0; }
+    .prd-page .prd-section-head > h2 { margin-bottom: 24px; }
+    .prd-page .prd-section-head h2 {
+      font-size: 40px; line-height: 1.25; font-weight: 700; color: var(--prd-ink);
+      letter-spacing: -0.01em;
+    }
+    .prd-page .prd-section-head h2 .num-prefix {
+      display: inline-block; margin-right: 16px; color: var(--prd-ink-4); font-weight: 700;
+    }
+    .prd-page .prd-lede {
+      font-size: 17px; line-height: 1.7; letter-spacing: -0.005em;
+      color: var(--prd-ink-3); font-weight: 500;
+    }
+    .prd-page .prd-lede + .prd-lede { margin-top: 16px; }
+    .prd-page .prd-lede b { color: var(--prd-ink); font-weight: 700; }
+    .prd-page .prd-section h3 {
+      font-size: 20px; line-height: 1.25; font-weight: 700; color: var(--prd-ink);
+    }
+
+    /* Block */
+    .prd-page .prd-block > * + * { margin-top: 24px; }
+    .prd-page .prd-block-head {
+      display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+    }
+    .prd-page .prd-block-head h3 { margin-top: 0; }
+    .prd-page .prd-block-head .meta { font-size: 12px; color: var(--prd-ink-4); text-transform: uppercase; }
+
+    /* KPI row */
+    .prd-page .prd-kpi-row {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1px; background: var(--prd-line-soft);
+      border: 1px solid var(--prd-line-soft);
+    }
+    .prd-page .prd-kpi { background: var(--prd-surface); padding: 24px 22px; }
+    .prd-page .prd-kpi-value {
+      font-size: 30px; font-weight: 700; color: var(--prd-ink);
+      line-height: 1.1; letter-spacing: -0.02em;
+    }
+    .prd-page .prd-kpi-value .unit {
+      font-size: 16px; font-weight: 600; color: var(--prd-ink-3); margin-left: 2px;
+    }
+    .prd-page .prd-kpi-label {
+      font-size: 13px; color: var(--prd-ink-4); line-height: 1.4; margin-top: 10px;
+    }
+
+    /* Table */
+    .prd-page .prd-table-wrap {
+      border-top: 1px solid var(--prd-ink); border-bottom: 1px solid var(--prd-ink);
+      overflow-x: auto;
+    }
+    .prd-page .prd-table-wrap table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .prd-page .prd-table-wrap thead th {
+      text-align: left; padding: 12px 16px;
+      background: var(--prd-surface-2); color: var(--prd-ink);
+      font-size: 12px; text-transform: uppercase;
+      font-weight: 600; white-space: nowrap;
+    }
+    .prd-page .prd-table-wrap thead th.num { text-align: right; }
+    .prd-page .prd-table-wrap tbody td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--prd-line-softer);
+      color: var(--prd-ink-2); vertical-align: top;
+      font-size: 13.5px; line-height: 1.55;
+    }
+    .prd-page .prd-table-wrap tbody td.num { text-align: right; }
+    .prd-page .prd-table-wrap tbody td.lbl-cell { font-weight: 700; color: var(--prd-ink); white-space: nowrap; }
+    .prd-page .prd-table-wrap tbody tr:last-child td { border-bottom: none; }
+
+    /* Insight list */
+    .prd-page .prd-insight-list {
+      border-top: 1px solid var(--prd-ink); border-bottom: 1px solid var(--prd-ink);
+    }
+    .prd-page .prd-insight-row {
+      display: grid; grid-template-columns: auto 1fr; gap: 24px;
+      padding: 22px 0; border-top: 1px solid var(--prd-line-soft); align-items: baseline;
+    }
+    .prd-page .prd-insight-row:first-child { border-top: none; }
+    .prd-page .prd-insight-num {
+      font-size: 24px; font-weight: 700; color: var(--prd-ink-5);
+      line-height: 1; min-width: 28px;
+    }
+    .prd-page .prd-insight-title {
+      font-size: 16px; font-weight: 700; color: var(--prd-ink);
+      line-height: 1.25; margin-bottom: 6px;
+    }
+    .prd-page .prd-insight-body p { font-size: 15px; color: var(--prd-ink-3); line-height: 1.7; }
+
+    /* Problem grid */
+    .prd-page .prd-problem-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--prd-line-soft);
+      border: 1px solid var(--prd-line-soft);
+    }
+    .prd-page .prd-problem-card { background: var(--prd-surface); padding: 26px 24px; }
+    .prd-page .prd-problem-card .pc-num {
+      font-size: 12px; font-weight: 700; color: var(--prd-accent);
+    }
+    .prd-page .prd-problem-card h3 {
+      font-size: 16px; font-weight: 700; color: var(--prd-ink);
+      line-height: 1.25; margin-top: 8px;
+    }
+    .prd-page .prd-problem-card p {
+      font-size: 13px; color: var(--prd-ink-3); line-height: 1.7; margin-top: 10px;
+    }
+
+    /* Tool stack */
+    .prd-page .prd-tool-stack {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--prd-line-soft);
+      border: 1px solid var(--prd-line-soft);
+    }
+    .prd-page .prd-tool-card { background: var(--prd-surface); padding: 26px 24px; }
+    .prd-page .prd-tool-card .tool-role {
+      font-size: 11px; text-transform: uppercase; color: var(--prd-accent);
+      font-weight: 600; margin-bottom: 12px; letter-spacing: 0.08em;
+    }
+    .prd-page .prd-tool-card .tool-name {
+      font-size: 18px; font-weight: 700; color: var(--prd-ink);
+      margin-bottom: 10px; line-height: 1.25;
+    }
+    .prd-page .prd-tool-card p {
+      font-size: 13px; color: var(--prd-ink-3); line-height: 1.7;
+    }
+
+    /* Flow */
+    .prd-page .prd-flow {
+      border-top: 1px solid var(--prd-ink); border-bottom: 1px solid var(--prd-ink);
+    }
+    .prd-page .prd-flow-step {
+      display: grid; grid-template-columns: auto 1fr; gap: 20px;
+      padding: 20px 0; border-top: 1px solid var(--prd-line-soft); align-items: baseline;
+    }
+    .prd-page .prd-flow-step:first-child { border-top: none; }
+    .prd-page .prd-flow-num {
+      font-size: 12px; font-weight: 700; color: var(--prd-ink-5); min-width: 24px;
+    }
+    .prd-page .prd-flow-name {
+      font-size: 15px; font-weight: 700; color: var(--prd-ink);
+    }
+    .prd-page .prd-flow-desc {
+      font-size: 13px; color: var(--prd-ink-4); margin-top: 4px; line-height: 1.4;
+    }
+
+    /* Callout — original PRD colors (yellow / blue / red tints) */
+    .prd-page .prd-callout { padding: 24px 28px; background: rgba(252,246,131,0.30); }
+    .prd-page .prd-callout.note { background: rgba(15,128,246,0.08); }
+    .prd-page .prd-callout.important { background: rgba(235,69,61,0.08); }
+    .prd-page .prd-callout .lbl {
+      font-size: 12px; text-transform: uppercase;
+      color: var(--prd-ink-4); margin-bottom: 10px; font-weight: 600; letter-spacing: 0.05em;
+    }
+    .prd-page .prd-callout p { font-size: 15px; color: var(--prd-ink); line-height: 1.7; }
+    .prd-page .prd-callout p b { font-weight: 700; }
+
+    /* Part divider */
+    .prd-page .prd-part-divider { padding: 0 56px; margin-top: 120px; }
+    .prd-page .prd-part-divider:first-of-type { margin-top: 72px; }
+    .prd-page .prd-part-divider .prd-section-inner {
+      max-width: 800px; margin: 0 auto;
+      background:
+        linear-gradient(115deg, rgba(255,255,255,0.10) 0%, transparent 35%, transparent 65%, rgba(255,255,255,0.05) 100%),
+        var(--prd-ink);
+      color: var(--prd-surface);
+      padding: 40px; border-radius: 16px; overflow: hidden;
+    }
+    .prd-page .prd-part-divider .prd-part-eyebrow {
+      font-size: 14px; text-transform: uppercase;
+      color: rgba(255,255,255,0.70); font-weight: 700; margin-bottom: 12px;
+    }
+    .prd-page .prd-part-divider h1 {
+      color: var(--prd-surface); font-size: 48px; line-height: 1.15;
+      font-weight: 700; letter-spacing: -0.02em;
+    }
+    .prd-page .prd-part-divider .prd-part-meta {
+      display: block; margin-top: 12px; font-size: 14px; text-transform: uppercase;
+      color: rgba(255,255,255,0.70); font-weight: 600;
+    }
+
+    /* Tags */
+    .prd-page .prd-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .prd-page .prd-tag {
+      font-size: 12px; padding: 6px 12px;
+      background: var(--prd-surface-2); color: var(--prd-ink-3);
+      border-radius: 4px; font-weight: 500;
+    }
+    .prd-page .prd-tag.highlight {
+      background: rgba(0,0,0,0.05); color: var(--prd-accent); font-weight: 600;
+    }
+
+    /* Gallery */
+    .prd-page .prd-gallery {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    }
+    .prd-page .prd-gallery figure { margin: 0; }
+    .prd-page .prd-gallery .img-frame {
+      background: var(--prd-surface-1);
+      border: 1px solid var(--prd-line-soft);
+      aspect-ratio: 16/10; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .prd-page .prd-gallery .img-frame.empty {
+      border: 1px dashed var(--prd-line-soft);
+      flex-direction: column; gap: 8px; color: var(--prd-ink-5);
+      text-align: center; padding: 16px;
+    }
+    .prd-page .prd-gallery img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .prd-page .prd-gallery figcaption {
+      font-size: 12px; color: var(--prd-ink-4); margin-top: 10px; line-height: 1.5;
+    }
+
+    /* Chart containers (Chart.js) */
+    .prd-page .prd-chart-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
+    }
+    .prd-page .prd-chart {
+      padding: 12px 0;
+    }
+    .prd-page .prd-chart .chart-caption {
+      font-size: 14px; font-weight: 700; color: var(--prd-ink);
+      margin-bottom: 16px; line-height: 1.4;
+      text-align: center;
+    }
+    .prd-page .prd-chart .chart-canvas-wrap {
+      position: relative; height: 240px;
+    }
+    .prd-page .prd-chart .chart-donut-center {
+      position: absolute; left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 34px; font-weight: 800; color: var(--prd-ink);
+      letter-spacing: -0.02em; pointer-events: none;
+    }
+    .prd-page .prd-chart .chart-donut-sub {
+      position: absolute; left: 50%; top: calc(50% + 24px);
+      transform: translate(-50%, 0);
+      font-size: 12px; color: var(--prd-ink-4); pointer-events: none;
+    }
+    .prd-page .prd-chart.full .chart-canvas-wrap { height: 280px; }
+    @media (max-width: 760px) {
+      .prd-page .prd-chart-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Footer */
+    .prd-page .prd-footer {
+      background: var(--prd-surface);
+      border-top: 1px solid var(--prd-line-soft);
+      padding: 32px 56px;
+      margin-top: 120px;
+    }
+    .prd-page .prd-footer-inner { max-width: 800px; margin: 0 auto; }
+    .prd-page .prd-footer-row {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 24px; flex-wrap: wrap;
+    }
+    .prd-page .prd-footer-left { display: flex; flex-direction: column; gap: 6px; }
+    .prd-page .prd-footer-title {
+      font-size: 14px; font-weight: 700; color: var(--prd-ink);
+    }
+    .prd-page .prd-footer-sub { font-size: 12px; color: var(--prd-ink-3); }
+    .prd-page .prd-footer-contact {
+      display: flex; flex-direction: column; gap: 8px; align-items: flex-end;
+    }
+    .prd-page .prd-footer-link {
+      font-size: 13px; color: var(--prd-ink-3); text-decoration: none;
+      display: inline-flex; align-items: center; gap: 6px;
+      transition: color 240ms;
+    }
+    .prd-page .prd-footer-link:hover { color: var(--prd-accent); }
+    .prd-page .prd-footer-copyright {
+      font-size: 12px; color: var(--prd-ink-5); margin-top: 24px;
+      padding-top: 16px; border-top: 1px solid var(--prd-surface-1);
+    }
+    @media (max-width: 760px) {
+      .prd-page .prd-footer { padding: 24px; }
+      .prd-page .prd-footer-contact { align-items: flex-start; }
+    }
+
+    /* Video grid (YouTube embeds) */
+    .prd-page .prd-video-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    }
+    .prd-page .prd-video { margin: 0; }
+    .prd-page .prd-video iframe {
+      width: 100%; aspect-ratio: 16/9;
+      border: 0; display: block;
+      background: var(--prd-surface-1);
+      border: 1px solid var(--prd-line-soft);
+      border-radius: 8px;
+    }
+    .prd-page .prd-video figcaption {
+      font-size: 12px; color: var(--prd-ink-4);
+      margin-top: 10px; text-align: center; line-height: 1.5;
+    }
+    @media (max-width: 760px) {
+      .prd-page .prd-video-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Link cards */
+    .prd-page .prd-links { display: flex; flex-wrap: wrap; gap: 10px; }
+    .prd-page .prd-link-card {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 18px; font-size: 13px;
+      color: var(--prd-ink-2); text-decoration: none;
+      background: var(--prd-surface-1); border: 1px solid var(--prd-line-soft);
+      border-radius: 6px; transition: background 240ms, border-color 240ms;
+    }
+    .prd-page .prd-link-card:hover { background: var(--prd-surface-2); border-color: var(--prd-ink-5); }
+    .prd-page .prd-link-card.primary {
+      background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.18);
+      color: var(--prd-accent); font-weight: 600;
+    }
+    .prd-page .prd-link-card.video {
+      background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.15);
+      color: var(--prd-danger);
+    }
+
+    @media (max-width: 760px) {
+      .prd-page .prd-kpi-row,
+      .prd-page .prd-problem-grid,
+      .prd-page .prd-tool-stack { grid-template-columns: 1fr; }
+      .prd-page .prd-gallery { grid-template-columns: repeat(2, 1fr); }
+      .prd-page .prd-cover { padding: 120px 24px 64px; }
+      .prd-page .prd-cover-title { font-size: 36px; }
+      .prd-page .prd-cover-subtitle { font-size: 18px; }
+      .prd-page .prd-cover-meta { grid-template-columns: 1fr; gap: 24px; }
+      .prd-page .prd-cover-head { flex-direction: column; }
+      .prd-page .prd-main { padding: 0 24px; }
+      .prd-page .prd-section { padding: 56px 0; }
+      .prd-page .prd-section-head h2 { font-size: 28px; }
+      .prd-page .prd-part-divider { padding: 0 24px; margin-top: 80px; }
+      .prd-page .prd-part-divider h1 { font-size: 32px; }
+    }
+    /* ── PDF download button (project page) ── */
+    .pdf-download-btn{
+      position: fixed; top: 88px; right: 24px; z-index: 90;
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #191919; color: #fff;
+      border: none; border-radius: 999px;
+      padding: 10px 18px;
+      font-family: "Pretendard", system-ui, sans-serif;
+      font-size: 13px; font-weight: 600; letter-spacing: 0.01em;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.20);
+      transition: background 180ms ease, transform 180ms ease, opacity 180ms ease;
+    }
+    .pdf-download-btn:hover{ background: #000; transform: translateY(-1px); }
+    .pdf-download-btn svg{ width: 14px; height: 14px; }
+    .pdf-download-btn.loading{ background: #555; cursor: progress; }
+    .pdf-download-btn.loading svg{ animation: pdfBtnSpin 900ms linear infinite; }
+    @keyframes pdfBtnSpin{ from{ transform: rotate(0); } to{ transform: rotate(360deg); } }
+    @media (max-width: 720px){
+      .pdf-download-btn{ top: 72px; right: 16px; padding: 8px 14px; font-size: 12px; }
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav> <a href="index.html">소개</a> <a href="career.html">경력사항</a> <a href="portfolio.html">포트폴리오</a>
+</nav>
+
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 1. COVER                               -->
+<!-- ═══════════════════════════════════════ -->
+
+
+<!-- ═══════════════════════════════════════ -->
+<!-- FG ANGELS (AI 프로젝트 — 신규)          -->
+<!-- ═══════════════════════════════════════ -->
+<section id="naverpay" class="prd-page"> <div class="prd-cover"><div class="prd-cover-inner"><div class="prd-cover-head"><div><h1 class="prd-cover-title">네이버페이 주문형 SDK v2 전환</h1><p class="prd-cover-summary">네이버페이가 오픈한 <b>구매 버튼 SDK v2</b>를 <b>고도몰·샵바이 두 솔루션</b>에 전환 적용하는 프로젝트. PC/MO 통합 반응형·구성요소 선택·커스텀형 등 v2 기능을 어드민 설정과 스킨/프론트에 반영하고, 기존 가맹점은 <b>강제 전환 없는 하위호환</b>으로 넘깁니다. 현재 PRD 기준으로 진행 중.</p></div></div><div class="prd-cover-meta"><div class="prd-cover-meta-item"><span class="prd-cover-meta-label">Period</span><span class="prd-cover-meta-value">2026.06 – 진행중</span></div><div class="prd-cover-meta-item"><span class="prd-cover-meta-label">Company</span><span class="prd-cover-meta-value">NHN Commerce</span></div><div class="prd-cover-meta-item"><span class="prd-cover-meta-label">Role</span><span class="prd-cover-meta-value">서비스기획</span></div></div></div></div> <aside class="prd-side-nav" aria-label="Section navigation"><ul class="prd-side-nav-list"><li><a href="#naverpay-part1" data-scroll="naverpay-part1" class="sn-h1"><span class="sn-num">PART I</span><span class="sn-title">배경과 목표</span></a></li><li><a href="#naverpay-overview" data-scroll="naverpay-overview"><span class="sn-num">00</span><span class="sn-title">개요</span></a></li><li><a href="#naverpay-problem" data-scroll="naverpay-problem"><span class="sn-num">01</span><span class="sn-title">문제 정의</span></a></li><li><a href="#naverpay-scope" data-scroll="naverpay-scope"><span class="sn-num">02</span><span class="sn-title">목표와 범위</span></a></li><li><a href="#naverpay-part2" data-scroll="naverpay-part2" class="sn-h1"><span class="sn-num">PART II</span><span class="sn-title">설계와 진행</span></a></li><li><a href="#naverpay-admin" data-scroll="naverpay-admin"><span class="sn-num">03</span><span class="sn-title">어드민 설계</span></a></li><li><a href="#naverpay-skin" data-scroll="naverpay-skin"><span class="sn-num">04</span><span class="sn-title">스킨·프론트</span></a></li><li><a href="#naverpay-flow" data-scroll="naverpay-flow"><span class="sn-num">05</span><span class="sn-title">버전·플로우</span></a></li><li><a href="#naverpay-status" data-scroll="naverpay-status"><span class="sn-num">06</span><span class="sn-title">진행 현황</span></a></li><li><a href="#naverpay-links" data-scroll="naverpay-links"><span class="sn-num">07</span><span class="sn-title">자료</span></a></li></ul></aside> <div class="prd-main"> <section class="prd-part-divider" id="naverpay-part1"><div class="prd-section-inner"><div class="prd-part-eyebrow">PART I</div><h1>배경과 목표</h1><span class="prd-part-meta">Why &amp; What — 왜 v2로 전환하고, 무엇을 풀어야 하는가</span></div></section> <section class="prd-section" id="naverpay-overview"><div class="prd-section-inner"><div class="prd-section-tag"></div><div class="prd-section-head"><h2><span class="num-prefix">00</span>개요</h2><p class="prd-lede">네이버페이가 <b>구매 버튼 SDK v2</b>를 오픈(2026.02.04)했습니다. 기존 v1은 PC/MO 분기·타입/색 고정 등 기술 부채로 확장성이 제약됐고, 네이버페이는 <b>2027~2028년 v1 fade-out</b>을 예고해 전환이 필수가 됐습니다.</p><p class="prd-lede">이 프로젝트는 <b>고도몰·샵바이 두 솔루션</b>에 v2를 전환 적용하는 작업입니다. 운영자가 어드민에서 v2 기능(유형·구성요소·색상)을 설정하고, 기존 운영 쇼핑몰은 <b>스킨 수정 부담 없는 하위호환</b>으로 전환되도록 설계하며, 현재 <b>PRD 기준으로 네이버페이·내부와 소통하며 진행 중</b>입니다.</p></div><div class="prd-kpi-row"><div class="prd-kpi"><div class="prd-kpi-value">2<span class="unit">개</span></div><div class="prd-kpi-label">대상 솔루션<br>고도몰 · 샵바이</div></div><div class="prd-kpi"><div class="prd-kpi-value">14<span class="unit">건</span></div><div class="prd-kpi-label">핵심 요구사항<br>어드민 9 · 스킨 5</div></div><div class="prd-kpi"><div class="prd-kpi-value">2<span class="unit">유형</span></div><div class="prd-kpi-label">버튼 유형<br>탬플릿형 · 커스텀형(신규)</div></div><div class="prd-kpi"><div class="prd-kpi-value">~28<span class="unit">년</span></div><div class="prd-kpi-label">v1 fade-out<br>이전 전환 완료 목표</div></div></div><div class="prd-callout"><div class="lbl">Key Takeaway</div><p>본질은 "새 SDK를 붙이는 것"이 아니라, <b>구조가 다른 두 솔루션(고도몰=치환코드, 샵바이=헤드리스)에 동일한 v2 설정·정책을 제공하면서, 기존 가맹점을 강제 전환 없이 무중단으로 넘기는 것</b>입니다.</p></div></div></section> <section class="prd-section" id="naverpay-problem"><div class="prd-section-inner"><div class="prd-section-tag"></div><div class="prd-section-head"><h2><span class="num-prefix">01</span>문제 정의</h2><p class="prd-lede">두 솔루션의 현행(AS-IS) 구조가 서로 달라, v2의 새 기능(구성요소·색상·커스텀형)을 <b>어디에·어떻게 제공할지</b>가 핵심 과제입니다. 단순 스크립트 교체가 아니라 어드민 설계 자체를 다시 잡아야 합니다.</p></div><div class="prd-block"><div class="prd-block-head"><h3>핵심 문제 3</h3></div><div class="prd-problem-grid"><div class="prd-problem-card"><div class="pc-num">P1</div><h3>고도몰 — PC/MO 분리·고정 조합</h3><p>PC용·모바일용 버튼 설정과 스크립트가 <b>분리</b>되어 운영·유지보수가 중복되고, 타입·색 조합이 <b>고정</b>되어 운영자의 디자인 선택권이 제한적.</p></div><div class="prd-problem-card"><div class="pc-num">P2</div><h3>샵바이 — 버튼 설정 접점 부재</h3><p>샵바이 어드민에는 <b>인증 정보만</b> 있고 버튼 노출 설정이 전무. 헤드리스 구조상 버튼은 프론트가 직접 구현해, v2 구성요소·색상 기능을 운영자에게 줄 <b>접점이 없음</b>.</p></div><div class="prd-problem-card"><div class="pc-num">P3</div><h3>v1 fade-out 리스크</h3><p>네이버페이 v1 종료(2027~2028) 전 미전환 시 <b>버튼 노출 중단 리스크</b>. v1/v2 병행 지원과 강제 전환 없는 점진 전환 정책이 필요.</p></div></div></div><div class="prd-callout note"><div class="lbl">플랫폼 핵심 차이</div><p>고도몰은 어드민에서 타입·색을 설정하고 <b>치환코드 {naverPay}</b>로 노출하는 반면, 샵바이는 어드민에 인증정보만 저장하고 버튼 노출을 <b>헤드리스 구조상 프론트가 직접 구현</b>합니다. → v2 버튼 설정을 샵바이에서 어디에 둘지가 핵심 설계 포인트.</p></div><div class="prd-callout important"><div class="lbl">Important</div><p>세 문제는 한 사슬입니다. 구조가 다른 두 솔루션에 <b>동일한 설정 항목·정책</b>을 제공하되, 기존 v1 가맹점은 <b>강제 전환 없이</b> 넘겨야 운영 리스크 없이 전환할 수 있습니다.</p></div></div></section> <section class="prd-section" id="naverpay-scope"><div class="prd-section-inner"><div class="prd-section-tag"></div><div class="prd-section-head"><h2><span class="num-prefix">02</span>목표와 범위</h2><p class="prd-lede">목표는 <b>고도몰·샵바이에서 네이버페이 구매 버튼을 SDK v2로 제공</b>하고, 운영자가 어드민에서 v2 기능을 설정할 수 있게 하며, <b>기존 스킨 수정 부담을 최소화한 하위호환 전환</b>을 제공하는 것입니다.</p></div><div class="prd-block"><div class="prd-block-head"><h3>범위 (Scope)</h3></div><div class="prd-table-wrap"><table><thead><tr><th>In Scope</th><th>Out of Scope</th></tr></thead><tbody><tr><td>어드민 '네이버페이 설정' 버튼 설정 영역 개편</td><td>주문등록 REST API 전환 (별도 과제, 26.3~4Q)</td></tr><tr><td>치환코드 {naverPay} 내부 SDK v2 전환·하위호환</td><td>네이버페이 결제형 설정 탭 (버튼 SDK 무관)</td></tr><tr><td>기존 가맹점 설정값(타입/색상) 마이그레이션</td><td>할인·주문정보 연동(재고/구매평/환불) 현행 유지</td></tr><tr><td>상세·장바구니 버튼 노출 정책 및 오류 팝업 v2 적용</td><td>—</td></tr></tbody></table></div></div><div class="prd-callout note"><div class="lbl">전환 정책</div><p>v1/v2 <b>병행 운영</b> — 기존 v1 가맹점은 강제 전환하지 않고, 가맹점이 명시적으로 v2를 선택하기 전까지 v1을 유지합니다. fade-out 시점까지 두 버전을 모두 지원.</p></div></div></section> <section class="prd-part-divider" id="naverpay-part2"><div class="prd-section-inner"><div class="prd-part-eyebrow">PART II</div><h1>설계와 진행</h1><span class="prd-part-meta">How — 어드민·스킨을 어떻게 다시 설계하고 있는가</span></div></section> <section class="prd-section" id="naverpay-admin"><div class="prd-section-inner"><div class="prd-section-tag"></div><div class="prd-section-head"><h2><span class="num-prefix">03</span>어드민 설계</h2><p class="prd-lede">어드민 '네이버페이 설정'의 버튼 설정 영역을 v2 기준으로 개편합니다. 항목·정책은 두 솔루션 동일하게 제공하되, 제공 방식은 구조 차이에 맞춰 설계합니다.</p></div><div class="prd-block"><div class="prd-block-head"><h3>핵심 요구사항 — 어드민 (ADM)</h3></div><div class="prd-table-wrap"><table><thead><tr><th>ID</th><th>기능</th><th>설명</th><th class="num">우선순위</th></tr></thead><tbody><tr><td class="lbl-cell">ADM-01</td><td>버튼 SDK 버전 설정</td><td>v1/v2 어드민 선택. 기존 v1 강제 전환 없음(병행)</td><td class="num">P0</td></tr><tr><td class="lbl-cell">ADM-02</td><td>버튼 유형 선택</td><td>탬플릿형(기본)/커스텀형(신규) 선택 UI 신설</td><td class="num">P0</td></tr><tr><td class="lbl-cell">ADM-03</td><td>구성요소·색상</td><td>구성요소 체크박스 + 색상(녹/백), PC/MO 통합 단일 설정</td><td class="num">P0</td></tr><tr><td class="lbl-cell">ADM-04</td><td>미리보기</td><td>도메인 화이트리스트로 라이브 불가 → 구성요소별 이미지 합성</td><td class="num">P1</td></tr><tr><td class="lbl-cell">ADM-05</td><td>커스텀형 가이드</td><td>디자인/네이밍 가이드 + 바인딩 마크업 스니펫 제공</td><td class="num">P1</td></tr><tr><td class="lbl-cell">ADM-06</td><td>예외상품 처리</td><td>버튼 미노출 / 비활성 노출 선택 옵션</td><td class="num">P1</td></tr><tr><td class="lbl-cell">ADM-07</td><td>설정 마이그레이션</td><td>A/MA 타입 등 기존값 → v2 자동 매핑(v2 선택 시점)</td><td class="num">P0</td></tr><tr><td class="lbl-cell">ADM-09</td><td>샵바이 설정 신설</td><td>버튼 설정 신설 + 스토어프런트 API로 프론트에 전달</td><td class="num">P0</td></tr></tbody></table></div></div><div class="prd-block"><div class="prd-block-head"><h3>주요 설계 포인트</h3></div><div class="prd-insight-list"><div class="prd-insight-row"><div class="prd-insight-num">1</div><div class="prd-insight-body"><div class="prd-insight-title">PC/MO 통합 — 반응형 단일 설정</div><p>v2는 PC/MO 통합 반응형. 기존 PC용/모바일용 분리 설정을 <b>단일 통합 설정</b>으로 개편하고, 구매 버튼(필수)·찜하기·톡톡·이벤트/혜택 메시지·혜택 코치마크를 체크박스로 선택.</p></div></div><div class="prd-insight-row"><div class="prd-insight-num">2</div><div class="prd-insight-body"><div class="prd-insight-title">미리보기 — 이미지 합성 방식</div><p>SDK는 화이트리스트 도메인에서만 렌더되어 어드민 라이브 미리보기가 불가. <b>구성요소별 이미지 자산을 HTML/CSS로 합성</b>한 참고용 미리보기로 대체(영역 규격 200~1280px·높이 150px 안내).</p></div></div><div class="prd-insight-row"><div class="prd-insight-num">3</div><div class="prd-insight-body"><div class="prd-insight-title">샵바이 — 설정 신설 + 스토어프런트 API</div><p>버튼 설정이 없던 샵바이에 유형·구성요소·색상 설정을 신설하고, 쇼핑몰(멀티몰 탭) 단위로 저장. 저장값을 <b>스토어프런트 API</b>로 제공해 기본 스킨·커스텀 프론트가 조회 후 SDK v2 호출에 사용.</p></div></div></div></div></div></section> <section class="prd-section" id="naverpay-skin"><div class="prd-section-inner"><div class="prd-section-tag"></div><div class="prd-section-head"><h2><span class="num-prefix">04</span>스킨·프론트 설계</h2><p class="prd-lede">기존 스킨을 <b>무수정으로 v2 버튼이 노출</b>되도록 치환코드 내부를 교체하고(고도몰), 샵바이 기본 스킨 컴포넌트를 v2로 교체합니다. 노출 정책·오류 팝업은 두 솔루션 동일 적용.</p></div><div class="prd-block"><div class="prd-block-head"><h3>버튼 노출 정책 (SKN-03)</h3></div><div class="prd-table-wrap"><table><thead><tr><th>케이스</th><th>v2 노출 정책</th></tr></thead><tbody><tr><td class="lbl-cell">상품 상세</td><td>구매하기 + 찜하기 + 톡톡(연동 시) 버튼 모음</td></tr><tr><td class="lbl-cell">장바구니</td><td>구매하기 버튼만</td></tr><tr><td class="lbl-cell">톡톡 미연동</td><td>구매하기 + 찜하기만</td></tr><tr><td class="lbl-cell">취급불가 상품</td><td>비활성 버튼 모음</td></tr><tr><td class="lbl-cell">품절·구매불가</td><td>미삽입(권장) 또는 비활성 — ADM-06 연동</td></tr></tbody></table></div></div><div class="prd-block"><div class="prd-block-head"><h3>핵심 요구사항 — 스킨/프론트 (SKN)</h3></div><div class="prd-table-wrap"><table><thead><tr><th>ID</th><th>기능</th><th>설명</th></tr></thead><tbody><tr><td class="lbl-cell">SKN-01</td><td>치환코드 v2 전환</td><td>{naverPay} 내부를 SDK v2 호출로 교체(하위호환) — 고도몰</td></tr><tr><td class="lbl-cell">SKN-02</td><td>반응형 영역</td><td>버튼 영역 너비 200~1280px·높이 150px 규격 적용</td></tr><tr><td class="lbl-cell">SKN-03</td><td>노출 정책</td><td>상세/장바구니·취급불가·품절·톡톡 상태별 분기</td></tr><tr><td class="lbl-cell">SKN-04</td><td>오류 팝업</td><td>구매 클릭 시 옵션·수량·배송 검증 후 v2 표준 팝업</td></tr><tr><td class="lbl-cell">SKN-05</td><td>샵바이 프론트 v2</td><td>기본 스킨 컴포넌트 v2 교체 + 커스텀 프론트 가이드 배포</td></tr></tbody></table></div></div><div class="prd-callout note"><div class="lbl">Note</div><p>고도몰은 <b>치환코드 무수정 하위호환</b>(탬플릿형 기준)으로, 샵바이는 <b>기본 스킨 업데이트 + 커스텀 프론트 적용 가이드</b>로 전환합니다. 커스텀형은 스킨 직접 수정이 필요함을 명확히 안내.</p></div></div></section> <section class="prd-section" id="naverpay-flow"><div class="prd-section-inner"><div class="prd-section-tag"></div><div class="prd-section-head"><h2><span class="num-prefix">05</span>버전 체계 · 통신 플로우</h2><p class="prd-lede">혼동하기 쉬운 <b>'주문연동버전(v2.1)'과 '구매 버튼 SDK 버전(v1/v2)'은 서로 다른 축</b>입니다. 버튼 SDK 전환은 주문연동버전 설정과 독립적으로 진행합니다.</p></div><div class="prd-block"><div class="prd-block-head"><h3>버전 체계 구분</h3></div><div class="prd-table-wrap"><table><thead><tr><th>구분</th><th>주문연동버전 (v1.0/v2.1)</th><th>구매 버튼 SDK (v1/v2)</th></tr></thead><tbody><tr><td class="lbl-cell">대상</td><td>주문관리·등록·클레임 REST API</td><td>구매 버튼 렌더·동작 SDK</td></tr><tr><td class="lbl-cell">영향</td><td>주문 처리 동작(수량클레임 등)</td><td>버튼 디자인·구성요소·노출·동작</td></tr><tr><td class="lbl-cell">표기</td><td>v1.0 / v2.1 (점 포함)</td><td>v1 / v2 (점 없음)</td></tr></tbody></table></div></div><div class="prd-block"><div class="prd-block-head"><h3>통신 플로우</h3></div><div class="prd-insight-list"><div class="prd-insight-row"><div class="prd-insight-num">A</div><div class="prd-insight-body"><div class="prd-insight-title">버튼 SDK v2 플로우 (본 프로젝트 범위)</div><p>운영자 설정 → 프론트 노출 → 구매 클릭. 버튼은 화이트리스트 도메인('쇼핑몰 URL')에서만 SDK가 렌더하므로, 어드민 미리보기는 이미지 합성으로 대체.</p></div></div><div class="prd-insight-row"><div class="prd-insight-num">B</div><div class="prd-insight-body"><div class="prd-insight-title">주문등록 V2.1 플로우 (다운스트림)</div><p>'구매하기' 클릭 이후 가맹점 서버 ↔ 네이버 서버 통신. 버튼 SDK의 책임은 버튼 렌더·클릭 바인딩까지이며, 이후 주문등록 처리는 별도 API 범위.</p></div></div></div></div><div class="prd-callout note"><div class="lbl">유일한 교차 의존성</div><p>신규로 <b>주문등록 REST API를 연동하는 가맹점은 버튼 SDK v2가 전제</b>(네이버 26.3~4Q). 기존 v2.1(주문관리) 가맹점은 버튼 SDK 전환과 무관하게 v1 유지 가능.</p></div></div></section> <section class="prd-section" id="naverpay-status"><div class="prd-section-inner"><div class="prd-section-tag"></div><div class="prd-section-head"><h2><span class="num-prefix">06</span>진행 현황 · 이슈</h2><p class="prd-lede">현재 <b>PRD v0.1(Draft)</b> 단계로, 네이버페이·내부와 정책을 정렬하며 어드민/스킨 설계를 진행 중입니다. 주요 결정 사항을 오픈 이슈로 관리하고 있습니다.</p></div><div class="prd-block"><div class="prd-block-head"><h3>일정 · 마일스톤</h3></div><div class="prd-table-wrap"><table><thead><tr><th>시점</th><th>마일스톤</th></tr></thead><tbody><tr><td class="lbl-cell">2026.1Q</td><td>네이버페이 SDK v2 오픈(완료) · 스펙 분석</td></tr><tr><td class="lbl-cell">2026.2Q</td><td>PRD 확정 → 어드민/스킨 설계·개발 <b>(현재 구간)</b></td></tr><tr><td class="lbl-cell">TBD</td><td>QA · 신규몰 v2 기본 적용 · 기존몰 전환 오픈</td></tr><tr><td class="lbl-cell">2027~2028</td><td>네이버페이 v1 fade-out — 이전까지 전체 전환 완료</td></tr></tbody></table></div></div><div class="prd-block"><div class="prd-block-head"><h3>주요 오픈 이슈</h3></div><div class="prd-insight-list"><div class="prd-insight-row"><div class="prd-insight-num">1</div><div class="prd-insight-body"><div class="prd-insight-title">샵바이 버튼 설정 주체</div><p>서비스어드민 제공(운영자 제어, 옵션 A) vs 프론트 위임(자유도 우선, 옵션 B). 현재 PRD는 옵션 A 기준.</p></div></div><div class="prd-insight-row"><div class="prd-insight-num">2</div><div class="prd-insight-body"><div class="prd-insight-title">기존 타입 → v2 매핑표</div><p>A/MA 등 기존 버튼 타입을 v2 구성요소·색상으로 매핑하는 규칙(PC/MO 충돌 시 우선 규칙 포함) 확정 필요.</p></div></div><div class="prd-insight-row"><div class="prd-insight-num">3</div><div class="prd-insight-body"><div class="prd-insight-title">커스텀형 개방 범위 · 인증키 체계</div><p>커스텀형을 전체 운영자 vs 스킨 편집 권한자에 한정할지, 버튼 인증키 체계가 v2에서 동일한지 네이버페이 확인 필요.</p></div></div></div></div><div class="prd-callout important"><div class="lbl">진행 중</div><p>본 프로젝트는 <b>완료 단계가 아니며</b>, PRD를 축으로 네이버페이·유관 부서와 정책을 정렬하고 두 솔루션의 설계를 구체화하는 단계입니다.</p></div></div></section> <section class="prd-section" id="naverpay-links"><div class="prd-section-inner"><div class="prd-section-tag"></div><div class="prd-section-head"><h2><span class="num-prefix">07</span>자료</h2><p class="prd-lede">네이버페이 제공 문서와 외부 연동 채널입니다.</p></div><div class="prd-block"><div class="prd-table-wrap"><table><thead><tr><th>구분</th><th>제목</th><th>비고</th></tr></thead><tbody><tr><td class="lbl-cell">기술문서</td><td>네이버페이 주문형 신규 구매 버튼 SDK v2 기술문서</td><td>2026.02.04</td></tr><tr><td class="lbl-cell">소개자료</td><td>SDK v2 서비스 변경 소개</td><td>2026.01.28</td></tr><tr><td class="lbl-cell">기획문서</td><td>고도몰/샵바이 SDK v2 전환 PRD</td><td>v0.1 · 윤혜련 · 2026.06.05</td></tr><tr><td class="lbl-cell">연동 채널</td><td>npay-mall-order-api</td><td><a href="https://github.com/npay-mall-order-api?tab=repositories" target="_blank" rel="noopener">github.com/npay-mall-order-api</a></td></tr><tr><td class="lbl-cell">디자인 가이드</td><td>네이버페이 브랜드 로고</td><td><a href="https://developers.pay.naver.com/design/brand/logo" target="_blank" rel="noopener">developers.pay.naver.com/design/brand/logo</a></td></tr></tbody></table></div></div></div></section> </div> <div class="prd-back-list-wrap"><a href="portfolio.html" class="prd-back-list">← 목록 보기</a></div> <footer class="prd-footer"><div class="prd-footer-inner"><div class="prd-footer-row"><div class="prd-footer-left"><div class="prd-footer-title">네이버페이 주문형 SDK v2 전환</div><div class="prd-footer-sub">윤혜련 · 서비스기획 · 2026.06 – 진행중</div></div><div class="prd-footer-contact"><a href="mailto:dusqkq0@naver.com" class="prd-footer-link"><span aria-hidden="true"></span> dusqkq0@naver.com</a><a href="https://www.linkedin.com/in/hyeryeon/" target="_blank" rel="noopener" class="prd-footer-link"><span aria-hidden="true"></span> linkedin.com/in/hyeryeon</a></div></div><div class="prd-footer-copyright">© 2026 윤혜련. All rights reserved.</div></div></footer>  
+
+<div class="lightbox" id="lightbox" role="dialog" aria-hidden="true" aria-label="이미지 확대 보기"> <button class="lightbox-close" type="button" aria-label="닫기"></button> <img class="lightbox-img" alt=""> <div class="lightbox-caption"></div>
+</div>
+
+<button type="button" class="pdf-download-btn" id="pdfDownloadBtn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v9M4 7l4 4 4-4M2.5 13.5h11"/></svg><span class="pdf-btn-label">PDF 다운로드</span></button> <button class="go-to-top" id="goToTop" type="button" aria-label="맨 위로 이동"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 13V3M8 3L3 8M8 3L13 8"></path></svg></button> <script> // 경력 기간 자동 카운트 (data-career-start="YYYY-MM" 가진 요소를 오늘 기준으로 계산)
+  (function () {
+    function formatDuration(startYear, startMonth) {
+      var today = new Date();
+      var months = (today.getFullYear() - startYear) * 12 + (today.getMonth() + 1 - startMonth);
+      if (months < 0) return '';
+      var years = Math.floor(months / 12);
+      var rem = months % 12;
+      if (years === 0) return '약 ' + months + '개월';
+      if (rem === 0) return '약 ' + years + '년';
+      return '약 ' + years + '년 ' + rem + '개월';
+    }
+    document.querySelectorAll('[data-career-start]').forEach(function (el) {
+      var parts = el.dataset.careerStart.split('-').map(Number);
+      var label = formatDuration(parts[0], parts[1]);
+      if (label) el.textContent = label;
+    });
+  })();
+
+
+
+  // PRD 사이드 nav: 클릭 시 해당 섹션으로 부드럽게 스크롤 + 스크롤 위치에 따라 active 갱신
+  (function () {
+    var sideNavs = document.querySelectorAll('.prd-page .prd-side-nav');
+    if (!sideNavs.length) return;
+
+    sideNavs.forEach(function (nav) {
+      var links = nav.querySelectorAll('a[data-scroll]');
+      links.forEach(function (a) {
+        a.addEventListener('click', function (e) {
+          e.preventDefault();
+          var el = document.getElementById(a.dataset.scroll);
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+    });
+
+    var rafActive = null;
+    function updateActive() {
+      rafActive = null;
+      sideNavs.forEach(function (nav) {
+        var page = nav.closest('.prd-page');
+        if (!page) return;
+        var links = Array.prototype.slice.call(nav.querySelectorAll('a[data-scroll]'));
+        var targets = links.map(function (a) {
+          return { link: a, el: document.getElementById(a.dataset.scroll) };
+        }).filter(function (t) { return t.el; });
+        if (!targets.length) return;
+        var y = window.scrollY + window.innerHeight * 0.3;
+        var active = targets[0];
+        targets.forEach(function (t) { if (t.el.offsetTop <= y) active = t; });
+        links.forEach(function (a) { a.classList.remove('active'); });
+        active.link.classList.add('active');
+      });
+    }
+    function scheduleActive() {
+      if (rafActive !== null) return;
+      rafActive = window.requestAnimationFrame(updateActive);
+    }
+    window.addEventListener('scroll', scheduleActive, { passive: true });
+    window.addEventListener('resize', scheduleActive);
+    window.addEventListener('hashchange', function () { setTimeout(updateActive, 50); });
+    updateActive();
+  })();
+
+  // 포트폴리오 검색: 키워드로 카드 필터링
+  (function () {
+    var input = document.getElementById('portfolioSearch');
+    var empty = document.getElementById('portfolioEmpty');
+    var items = document.querySelectorAll('#portfolio .portfolio-item');
+    if (!input || !items.length) return;
+    input.addEventListener('input', function () {
+      var q = input.value.trim().toLowerCase();
+      var visible = 0;
+      items.forEach(function (item) {
+        var text = item.textContent.toLowerCase();
+        var match = q === '' || text.indexOf(q) !== -1;
+        item.style.display = match ? '' : 'none';
+        if (match) visible++;
+      });
+      if (empty) empty.classList.toggle('visible', visible === 0 && q !== '');
+    });
+    // 포트폴리오 페이지로 이동 시 검색 초기화
+    window.addEventListener('hashchange', function () {
+      if (location.hash === '#portfolio' && input.value !== '') {
+        input.value = '';
+        items.forEach(function (item) { item.style.display = ''; });
+        if (empty) empty.classList.remove('visible');
+      }
+    });
+  })();
+
+  // Featured 캐러셀: 좌우 화살표로 가로 스크롤
+  (function () {
+    var carousel = document.getElementById('featuredCarousel');
+    var prev = document.getElementById('featuredPrev');
+    var next = document.getElementById('featuredNext');
+    if (!carousel || !prev || !next) return;
+    function step() { return Math.min(720, carousel.clientWidth * 0.8); }
+    prev.addEventListener('click', function () {
+      carousel.scrollBy({ left: -step(), behavior: 'smooth' });
+    });
+    next.addEventListener('click', function () {
+      carousel.scrollBy({ left: step(), behavior: 'smooth' });
+    });
+  })();
+
+  // VIP 데이터 인사이트 차트 (Chart.js, 무채색 팔레트)
+  (function () {
+    var inited = false;
+    function initVipCharts() {
+      if (inited) return;
+      if (typeof Chart === 'undefined') return; // Chart.js not loaded yet
+      var c1 = document.getElementById('vipChart1');
+      var c2 = document.getElementById('vipChart2');
+      var c3 = document.getElementById('vipChart3');
+      if (!c1 || !c2 || !c3) return;
+
+      var FONT = { family: 'Pretendard', size: 11 };
+      var AXIS_COLOR = '#888';
+      var GRID_COLOR = '#ececec';
+
+      function commonOptions(legend) {
+        return {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: legend !== false,
+              position: 'bottom',
+              align: 'center',
+              labels: {
+                color: '#545454', font: FONT,
+                boxWidth: 10, boxHeight: 10, padding: 14,
+                usePointStyle: false
+              }
+            },
+            tooltip: {
+              backgroundColor: '#191919', titleFont: FONT, bodyFont: FONT,
+              padding: 10, cornerRadius: 4, displayColors: true
+            }
+          },
+          scales: {
+            x: { grid: { display: false }, ticks: { color: AXIS_COLOR, font: FONT } },
+            y: { beginAtZero: true, grid: { color: GRID_COLOR }, ticks: { color: AXIS_COLOR, font: FONT } }
+          }
+        };
+      }
+
+      // [가설1] Total vs TP Order Amount (grouped bar)
+      new Chart(c1, {
+        type: 'bar',
+        data: {
+          labels: ['2022', '2023', '2024', '2025'],
+          datasets: [
+            { label: 'Total Order Amount', data: [10, 25, 55, 120], backgroundColor: '#d4d4d4', borderRadius: 4 },
+            { label: 'TP (VIP) Order Amount', data: [15, 40, 75, 97], backgroundColor: '#191919', borderRadius: 4 }
+          ]
+        },
+        options: commonOptions(true)
+      });
+
+      // [가설2] Premier 사용자 비율 (stacked bar, %)
+      var opts2 = commonOptions(true);
+      opts2.scales.x.stacked = true;
+      opts2.scales.y.stacked = true;
+      opts2.scales.y.max = 100;
+      opts2.scales.y.ticks.callback = function (v) { return v + '%'; };
+      new Chart(c2, {
+        type: 'bar',
+        data: {
+          labels: ['2022', '2023', '2024', '2025'],
+          datasets: [
+            { label: 'Non-Premier', data: [96, 88, 68, 38], backgroundColor: '#d4d4d4' },
+            { label: 'Premier',     data: [4, 12, 32, 62],  backgroundColor: '#191919' }
+          ]
+        },
+        options: opts2
+      });
+
+      // [TPday] 배지 클릭 추이 (line, 8/4–8/8)
+      var opts3 = commonOptions(true);
+      new Chart(c3, {
+        type: 'line',
+        data: {
+          labels: ['Aug 4 (Sun)', 'Aug 5 (Mon)', 'Aug 6 (Tue)', 'Aug 7 (Wed)', 'Aug 8 (Thu)'],
+          datasets: [
+            { label: 'Item Detail', data: [0, 569, 420, 350, 0], borderColor: '#191919', backgroundColor: '#191919', tension: 0.35, borderWidth: 2, pointRadius: 4, pointHoverRadius: 6 },
+            { label: 'Vendor Home', data: [0, 409, 300, 270, 0], borderColor: '#888',    backgroundColor: '#888',    tension: 0.35, borderWidth: 2, pointRadius: 4, pointHoverRadius: 6 },
+            { label: 'Live Detail', data: [0, 15, 8, 6, 0],      borderColor: '#ccc',    backgroundColor: '#ccc',    tension: 0.35, borderWidth: 2, pointRadius: 3, pointHoverRadius: 5 }
+          ]
+        },
+        options: opts3
+      });
+
+      inited = true;
+    }
+
+    function maybeInit() {
+      var hash = (location.hash || '').replace(/^#/, '');
+      if (hash !== 'vip') return;
+      // canvas가 layout 완료 후 init되도록 delay
+      setTimeout(initVipCharts, 80);
+    }
+
+    window.addEventListener('hashchange', maybeInit);
+    window.addEventListener('load', maybeInit);
+    // 초기 hash가 #vip인 경우
+    maybeInit();
+  })();
+
+  // 선물하기 — 2026.04 일별 주문 발생 추이
+  (function () {
+    var inited = false;
+    function initGiftCharts() {
+      if (inited) return;
+      if (typeof Chart === 'undefined') return;
+      var c1 = document.getElementById('giftChart1');
+      if (!c1) return;
+
+      var FONT = { family: 'Pretendard', size: 11 };
+      var labels = [];
+      for (var d = 1; d <= 30; d++) labels.push('4/' + d);
+      var data = [
+        0, 7, 11, 0, 0, 1, 3,
+        6, 18, 3, 0, 0, 0, 1,
+        0, 0, 0, 0, 0, 0, 1,
+        1, 5, 1, 0, 0, 0, 0, 0, 0
+      ];
+
+      new Chart(c1, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [
+            { label: '주문 건수', data: data, backgroundColor: '#191919', borderRadius: 3, barPercentage: 0.85 }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#191919', titleFont: FONT, bodyFont: FONT,
+              padding: 10, cornerRadius: 4,
+              callbacks: {
+                label: function (ctx) { return ctx.parsed.y + '건'; }
+              }
+            }
+          },
+          scales: {
+            x: { grid: { display: false }, ticks: { color: '#888', font: FONT, maxRotation: 0, autoSkip: true, maxTicksLimit: 10 } },
+            y: { beginAtZero: true, grid: { color: '#ececec' }, ticks: { color: '#888', font: FONT, stepSize: 5 } }
+          }
+        }
+      });
+      inited = true;
+    }
+    function maybeInit() {
+      setTimeout(initGiftCharts, 80);
+    }
+    window.addEventListener('hashchange', maybeInit);
+    window.addEventListener('load', maybeInit);
+    maybeInit();
+  })();
+
+  // 벤더 온보딩 — 60% / 20% / 89% 도넛 차트
+  (function () {
+    var inited = false;
+    function initOnboardingCharts() {
+      if (inited) return;
+      if (typeof Chart === 'undefined') return;
+      var c1 = document.getElementById('onboardingChart1');
+      var c2 = document.getElementById('onboardingChart2');
+      var c3 = document.getElementById('onboardingChart3');
+      if (!c1 || !c2 || !c3) return;
+      var FONT = { family: 'Pretendard', size: 11 };
+      function donutOptions() {
+        return {
+          responsive: true, maintainAspectRatio: false, cutout: '72%',
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#191919', titleFont: FONT, bodyFont: FONT,
+              padding: 10, cornerRadius: 4,
+              callbacks: { label: function (ctx) { return ctx.label + ' ' + ctx.parsed + '%'; } }
+            }
+          }
+        };
+      }
+      new Chart(c1, {
+        type: 'doughnut',
+        data: { labels: ['승인 실패', '승인 성공'], datasets: [{ data: [60, 40], backgroundColor: ['#191919', '#ececec'], borderWidth: 0 }] },
+        options: donutOptions()
+      });
+      new Chart(c2, {
+        type: 'doughnut',
+        data: { labels: ['가입 완료', '미완료'], datasets: [{ data: [20, 80], backgroundColor: ['#191919', '#ececec'], borderWidth: 0 }] },
+        options: donutOptions()
+      });
+      new Chart(c3, {
+        type: 'doughnut',
+        data: { labels: ['모바일', '기타 OS'], datasets: [{ data: [89, 11], backgroundColor: ['#191919', '#ececec'], borderWidth: 0 }] },
+        options: donutOptions()
+      });
+      inited = true;
+    }
+    function maybeInit() {
+      setTimeout(initOnboardingCharts, 80);
+    }
+    window.addEventListener('hashchange', maybeInit);
+    window.addEventListener('load', maybeInit);
+    maybeInit();
+  })();
+
+  // 이메일 마케팅 — 85% / 90% 도넛 + 마케팅 타입 / 도메인 파이
+  (function () {
+    var inited = false;
+    function initEmailCharts() {
+      if (inited) return;
+      if (typeof Chart === 'undefined') return;
+      var c1 = document.getElementById('emailChart1');
+      var c2 = document.getElementById('emailChart2');
+      var c3 = document.getElementById('emailChart3');
+      var c4 = document.getElementById('emailChart4');
+      if (!c1 || !c2 || !c3 || !c4) return;
+      var FONT = { family: 'Pretendard', size: 11 };
+      function donutOpts() {
+        return {
+          responsive: true, maintainAspectRatio: false, cutout: '72%',
+          plugins: {
+            legend: { display: false },
+            tooltip: { backgroundColor: '#191919', titleFont: FONT, bodyFont: FONT, padding: 10, cornerRadius: 4,
+              callbacks: { label: function (ctx) { return ctx.label + ' ' + ctx.parsed + '%'; } } }
+          }
+        };
+      }
+      function pieOpts() {
+        return {
+          responsive: true, maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'bottom', align: 'center',
+              labels: { color: '#545454', font: FONT, boxWidth: 10, boxHeight: 10, padding: 12 } },
+            tooltip: { backgroundColor: '#191919', titleFont: FONT, bodyFont: FONT, padding: 10, cornerRadius: 4,
+              callbacks: { label: function (ctx) { return ctx.label + ' ' + ctx.parsed + '%'; } } }
+          }
+        };
+      }
+      new Chart(c1, { type: 'doughnut',
+        data: { labels: ['운영', '미운영'], datasets: [{ data: [85, 15], backgroundColor: ['#191919', '#ececec'], borderWidth: 0 }] },
+        options: donutOpts() });
+      new Chart(c2, { type: 'doughnut',
+        data: { labels: ['타사 운영', '미운영'], datasets: [{ data: [90, 10], backgroundColor: ['#191919', '#ececec'], borderWidth: 0 }] },
+        options: donutOpts() });
+      new Chart(c3, { type: 'doughnut',
+        data: { labels: ['Products', 'Promotion', 'Referral'],
+                datasets: [{ data: [60, 30, 10], backgroundColor: ['#191919', '#888', '#d4d4d4'], borderWidth: 0 }] },
+        options: pieOpts() });
+      new Chart(c4, { type: 'doughnut',
+        data: { labels: ['gmail.com', 'yahoo.com', 'outlook.com'],
+                datasets: [{ data: [70.5, 21.1, 8.4], backgroundColor: ['#191919', '#888', '#d4d4d4'], borderWidth: 0 }] },
+        options: pieOpts() });
+      inited = true;
+    }
+    function maybeInit() {
+      setTimeout(initEmailCharts, 80);
+    }
+    window.addEventListener('hashchange', maybeInit);
+    window.addEventListener('load', maybeInit);
+    maybeInit();
+  })();
+
+  // 채팅 상담 — 80% 채팅 이용 / 80% 타사 채팅 도넛
+  (function () {
+    var inited = false;
+    function initChatCharts() {
+      if (inited) return;
+      if (typeof Chart === 'undefined') return;
+      var c1 = document.getElementById('chatChart1');
+      var c2 = document.getElementById('chatChart2');
+      if (!c1 || !c2) return;
+      var FONT = { family: 'Pretendard', size: 11 };
+      function donutOpts() {
+        return {
+          responsive: true, maintainAspectRatio: false, cutout: '72%',
+          plugins: {
+            legend: { display: false },
+            tooltip: { backgroundColor: '#191919', titleFont: FONT, bodyFont: FONT, padding: 10, cornerRadius: 4,
+              callbacks: { label: function (ctx) { return ctx.label + ' ' + ctx.parsed + '%'; } } }
+          }
+        };
+      }
+      new Chart(c1, { type: 'doughnut',
+        data: { labels: ['채팅 이용', '기타'], datasets: [{ data: [80, 20], backgroundColor: ['#191919', '#ececec'], borderWidth: 0 }] },
+        options: donutOpts() });
+      new Chart(c2, { type: 'doughnut',
+        data: { labels: ['채팅 사용', '기타'], datasets: [{ data: [80, 20], backgroundColor: ['#191919', '#ececec'], borderWidth: 0 }] },
+        options: donutOpts() });
+      inited = true;
+    }
+    function maybeInit() {
+      setTimeout(initChatCharts, 80);
+    }
+    window.addEventListener('hashchange', maybeInit);
+    window.addEventListener('load', maybeInit);
+    maybeInit();
+  })();
+
+  // 리뷰 리워드 — 장바구니 40% / 결제 12% 도넛 차트
+  (function () {
+    var inited = false;
+    function initReviewCharts() {
+      if (inited) return;
+      if (typeof Chart === 'undefined') return;
+      var c1 = document.getElementById('reviewChart1');
+      var c2 = document.getElementById('reviewChart2');
+      if (!c1 || !c2) return;
+
+      var FONT = { family: 'Pretendard', size: 11 };
+
+      function donutOptions() {
+        return {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: '72%',
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#191919', titleFont: FONT, bodyFont: FONT,
+              padding: 10, cornerRadius: 4,
+              callbacks: {
+                label: function (ctx) { return ctx.label + ' ' + ctx.parsed + '%'; }
+              }
+            }
+          }
+        };
+      }
+
+      new Chart(c1, {
+        type: 'doughnut',
+        data: {
+          labels: ['보관 고객', '미보관 고객'],
+          datasets: [{ data: [40, 60], backgroundColor: ['#191919', '#ececec'], borderWidth: 0 }]
+        },
+        options: donutOptions()
+      });
+      new Chart(c2, {
+        type: 'doughnut',
+        data: {
+          labels: ['결제 완료', '결제 미완료'],
+          datasets: [{ data: [12, 88], backgroundColor: ['#191919', '#ececec'], borderWidth: 0 }]
+        },
+        options: donutOptions()
+      });
+      inited = true;
+    }
+    function maybeInit() {
+      setTimeout(initReviewCharts, 80);
+    }
+    window.addEventListener('hashchange', maybeInit);
+    window.addEventListener('load', maybeInit);
+    maybeInit();
+  })();
+
+  // Go to top: 프로젝트 페이지에서만, 일정 스크롤 이후 노출
+  (function () {
+    var btn = document.getElementById('goToTop');
+    if (!btn) return;
+    var PROJECT_IDS = ['angels', 'gift', 'vip', 'review', 'onboarding', 'email', 'chat', 'yanolja', 'prepaid', 'payco', 'cashwalk', 'naverpay'];
+    function update() {
+      var hash = (location.hash || '').replace(/^#/, '');
+      var isProject = PROJECT_IDS.indexOf(hash) !== -1;
+      var scrolled = window.scrollY > 300;
+      btn.classList.toggle('visible', isProject && scrolled);
+    }
+    btn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('hashchange', update);
+    update();
+  })();
+
+  // 경력사항 탭: 클릭 시 해당 패널 노출
+  (function () {
+    var tabs = document.querySelectorAll('.career-tab[data-career-tab]');
+    var panels = document.querySelectorAll('.career-panel[data-career-panel]');
+    if (!tabs.length || !panels.length) return;
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        var key = tab.dataset.careerTab;
+        tabs.forEach(function (t) {
+          var active = t === tab;
+          t.classList.toggle('active', active);
+          t.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+        panels.forEach(function (p) {
+          var active = p.dataset.careerPanel === key;
+          p.classList.toggle('active', active);
+          if (active) p.removeAttribute('hidden');
+          else p.setAttribute('hidden', '');
+        });
+      });
+    });
+  })();
+
+  // 경력사항 탭 sticky 위치: 상단 글로벌 nav 실제 높이에 맞춰 동적 조정
+  (function () {
+    var topNav = document.querySelector('body > nav');
+    var careerTabs = document.querySelector('.career-tabs');
+    if (!topNav || !careerTabs) return;
+    function updateStickyTop() {
+      careerTabs.style.top = topNav.offsetHeight + 'px';
+    }
+    updateStickyTop();
+    window.addEventListener('load', updateStickyTop);
+    window.addEventListener('resize', updateStickyTop);
+    if (window.ResizeObserver) {
+      try { new ResizeObserver(updateStickyTop).observe(topNav); } catch (e) {}
+    }
+  })();
+
+  // 사이드 nav 위치: 본문(.prd-main) 상단에 정렬, 스크롤 시 viewport 120px에서 sticky 고정
+  // rAF로 throttle, SPA로 숨겨진 페이지는 skip — 스크롤 jank 방지
+  (function () {
+    var PIN_TOP = 120;
+    var rafId = null;
+
+    function pinSideNavs() {
+      rafId = null;
+      document.querySelectorAll('.prd-page').forEach(function (page) {
+        // SPA 라우팅으로 숨겨진 페이지는 측정/스타일 변경 비용을 회피
+        if (page.style.display === 'none') return;
+        var nav = page.querySelector('.prd-side-nav');
+        var main = page.querySelector('.prd-main');
+        if (!nav || !main) return;
+        var mainTop = main.getBoundingClientRect().top;
+        nav.style.top = Math.max(PIN_TOP, mainTop) + 'px';
+      });
+    }
+
+    function schedule() {
+      // 이미 다음 프레임에 예약돼 있으면 중복 예약 안 함
+      if (rafId !== null) return;
+      rafId = window.requestAnimationFrame(pinSideNavs);
+    }
+
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    window.addEventListener('hashchange', function () { setTimeout(pinSideNavs, 50); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(pinSideNavs);
+    pinSideNavs();
+  })();
+
+  // 라이트박스: 갤러리 이미지 클릭 시 확대 팝업
+  (function () {
+    var lightbox = document.getElementById('lightbox');
+    if (!lightbox) return;
+    var lbImg     = lightbox.querySelector('.lightbox-img');
+    var lbCaption = lightbox.querySelector('.lightbox-caption');
+    var closeBtn  = lightbox.querySelector('.lightbox-close');
+
+    function open(img, caption) {
+      lbImg.src = img.currentSrc || img.src;
+      lbImg.alt = img.alt || '';
+      lbCaption.textContent = caption || img.alt || '';
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function close() {
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      // 약간의 지연 뒤 src 비워 다음 열림에서 깜빡임 방지
+      setTimeout(function () { lbImg.removeAttribute('src'); }, 200);
+    }
+
+    // 갤러리 실제 이미지 클릭 시 열기 (placeholder는 .empty 클래스라 제외)
+    document.addEventListener('click', function (e) {
+      var img = e.target.closest('.prd-gallery .img-frame:not(.empty) img');
+      if (!img) return;
+      var fig = img.closest('figure');
+      var cap = fig ? fig.querySelector('figcaption') : null;
+      open(img, cap ? cap.textContent.trim() : '');
+    });
+
+    // 오버레이 / 닫기 버튼 클릭, ESC 키
+    lightbox.addEventListener('click', function (e) {
+      if (e.target === lightbox || e.target === closeBtn || closeBtn.contains(e.target)) close();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && lightbox.classList.contains('open')) close();
+    });
+  })();
+
+</script>
+<script>
+  // PDF 다운로드: 현재 프로젝트 페이지를 PDF로 저장 (직접 jsPDF+html2canvas)
+  (function () {
+    var btn = document.getElementById('pdfDownloadBtn');
+    if (!btn) return;
+    var label = btn.querySelector('.pdf-btn-label');
+    var FILENAME = 'portfolio-naverpay-' + new Date().toISOString().slice(0,10) + '.pdf';
+    function loadDeps() {
+      function ready() {
+        var jsPDFCtor = (window.jspdf && window.jspdf.jsPDF) || window.jsPDF;
+        return typeof window.html2canvas === 'function' && typeof jsPDFCtor === 'function';
+      }
+      if (ready()) return Promise.resolve();
+      return new Promise(function (resolve, reject) {
+        var tries = 0;
+        (function check() {
+          if (ready()) return resolve();
+          if (++tries > 150) return reject(new Error('PDF 라이브러리 로드 실패'));
+          setTimeout(check, 100);
+        })();
+      });
+    }
+    btn.addEventListener('click', async function () {
+      var orig = label ? label.textContent : '';
+      btn.classList.add('loading');
+      btn.disabled = true;
+      if (label) label.textContent = '생성 중...';
+      try {
+        await loadDeps(); var __imgs = Array.prototype.slice.call(document.images); __imgs.forEach(function(im){ try { im.loading = "eager"; } catch(e){} }); await Promise.all(__imgs.map(function(img){ if (img.complete && img.naturalWidth > 0) return Promise.resolve(); return new Promise(function(r){ var d = false; function fin(){ if (d) return; d = true; r(); } img.addEventListener("load", fin, { once: true }); img.addEventListener("error", fin, { once: true }); setTimeout(fin, 8000); }); })); await new Promise(function(r){ setTimeout(r, 250); });
+        window.scrollTo(0, 0); var __end = document.querySelector(".prd-back-list-wrap") || document.querySelector(".prd-footer"); var __H = __end ? Math.round(__end.getBoundingClientRect().top + window.scrollY) : Math.max(document.body.scrollHeight, document.documentElement.scrollHeight); var canvas = await window.html2canvas(document.body, {
+          scale: 1.1,
+          useCORS: true,
+          allowTaint: true,
+          backgroundColor: '#ffffff',
+          windowHeight: __H, height: __H, scrollX: 0, scrollY: 0, imageTimeout: 8000,
+          logging: false,
+          onclone: function (clonedDoc) {
+            if (window.presReplaceYouTubeInClone) window.presReplaceYouTubeInClone(clonedDoc); var removeSels = ['nav', '.landing-footer', '.prd-footer', '.prd-back-list-wrap', '.lightbox', '.go-to-top', '.pdf-download-btn', 'iframe', '.prd-side-nav', '.footer-settings-btn', '.pf-settings-overlay', '.pres-pdf-btn', '.pres-deck'];
+            clonedDoc.querySelectorAll(removeSels.join(',')).forEach(function (el) { el.remove(); });
+            clonedDoc.querySelectorAll('body, .prd-page').forEach(function (el) {
+              el.style.paddingTop = '0'; el.style.marginTop = '0';
+            });
+          }
+        });
+        if (!canvas || !canvas.width || !canvas.height) throw new Error('캔버스 캡처 실패');
+        var imgData = canvas.toDataURL('image/jpeg', 0.92);
+        if (!imgData || imgData === 'data:,' || imgData.length < 100) throw new Error('이미지 변환 실패 (페이지가 너무 크거나 비어있음)');
+        // 단일 페이지 PDF: 캔버스 비율에 맞춰 PDF 페이지 크기를 가변 지정 (가로 A4, 세로는 콘텐츠 길이만큼)
+        var pageWmm = 210; // A4 폭
+        var pageHmm = canvas.height * pageWmm / canvas.width;
+        // jsPDF/PDF 사양상 페이지 한 변은 약 14400pt(≈5080mm) 이하여야 안전
+        var MAX_MM = 5080;
+        var jsPDFCtor = (window.jspdf && window.jspdf.jsPDF) || window.jsPDF;
+        if (pageHmm <= MAX_MM) {
+          var pdf = new jsPDFCtor({ unit: 'mm', format: [pageWmm, pageHmm], orientation: 'portrait', compress: true });
+          pdf.addImage(imgData, 'JPEG', 0, 0, pageWmm, pageHmm, '', 'FAST');
+          pdf.save(FILENAME);
+        } else {
+          // 콘텐츠가 5미터를 넘는 극단적 케이스에서만 A4 분할로 폴백
+          var pdfFb = new jsPDFCtor({ unit: 'mm', format: 'a4', orientation: 'portrait', compress: true });
+          var a4H = pdfFb.internal.pageSize.getHeight();
+          var pages = Math.ceil(pageHmm / a4H);
+          for (var p = 0; p < pages; p++) {
+            if (p > 0) pdfFb.addPage();
+            pdfFb.addImage(imgData, 'JPEG', 0, -p * a4H, pageWmm, pageHmm, '', 'FAST');
+          }
+          pdfFb.save(FILENAME);
+        }
+      } catch (e) {
+        console.error('PDF error:', e);
+        var msg = (e && e.message) ? e.message : String(e);
+        alert('PDF 생성 중 오류가 발생했습니다.\n' + msg);
+      } finally {
+        if (label) label.textContent = orig;
+        btn.classList.remove('loading');
+        btn.disabled = false;
+      }
+    });
+  })();
+</script>
+
+
+<script src="pres-pdf.js" defer></script>
+</body>
+</html>
